@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class InfoProd(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True, auto_created=True)
     status = models.IntegerField(null=True)
     article = models.CharField(max_length=25, null=True)
     naming = models.TextField(null=True)
@@ -73,8 +73,8 @@ class Client(models.Model):
     #     # Your custom check method logic here
     #     pass
     #
-    # class Meta:
-    #     db_table = 'client'
+    class Meta:
+        db_table = 'client'
 
 
 class InfoDt(models.Model):
@@ -137,7 +137,7 @@ class ShipProd(models.Model):
 
 
 class Users(AbstractUser):
-    # id = models.IntegerField(primary_key=True)
+    # id = models.IntegerField(primary_key=True, auto_created=True)
     user_id = models.IntegerField(null=True)
     phone = models.CharField(max_length=13, null=True)
     status = models.IntegerField(null=True)

@@ -12,4 +12,5 @@ def auth(request):
     User = authenticate(username=request.POST.get("username"), password=request.POST.get("password"))
     if User is None:
         return render(request, "Auth_page_err.html")
+    login(request, User)
     return HttpResponseRedirect('/')
