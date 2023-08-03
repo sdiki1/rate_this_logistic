@@ -1,0 +1,83 @@
+body {
+    background-color: #15181E;
+}
+
+p {
+    color: red;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 250px;
+    margin-bottom: 120px;
+    text-align: center;
+    color: #95E6D6;
+    font-family: Montserrat, sans-serif;
+    font-size: 64px;
+}
+
+input.one {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 64px;
+    width: 571px;
+    border: 2px solid #95E6D6;
+    background-color: #182026;
+    border-radius: 20px;
+    padding-left: 30px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    color: #95E6D6;
+    outline: none;
+}
+
+.one::placeholder {
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    color: #95E6D6;
+}
+
+input:focus.one {
+    color: #95E6D6;
+    background-color: #182026;
+    outline: 2px solid #95E6D6;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+}
+
+button {
+    height: 64px;
+    width: 319px;
+    background-color:#95E6D6;
+    border: 2px solid #95E6D6;
+    border-radius: 20px;
+    color: black;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.value {
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    color: black;
+}
+

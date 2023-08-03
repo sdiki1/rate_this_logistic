@@ -1,0 +1,151 @@
+tml, body {
+    margin: 0;
+    padding: 0;
+}
+
+.split-container {
+    width: 100%;
+    display: flex;
+}
+
+.block-left {
+    background-color: rgba(24, 32, 38, 1);
+    height: 100vh;
+    width: 25%;
+}
+
+.block-right {
+    background-color: rgba(21, 24, 30, 1);
+    width: 75%;
+}
+
+.login {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+h1 {
+    display: inline;
+    padding: 30px;
+    padding-left: 50px;
+}
+
+.id {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.Main {
+    width: 54px;
+    height: 54px;
+    float: left;
+    margin-top: -17px;
+    margin-left: 30px;
+}
+
+.head {
+    margin-top: 60px;
+}
+
+.fill {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.text {
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.fill_grade {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    width: 800px;
+    font-weight: normal;
+    margin-left: 52px;
+    margin-top: 60px;
+}
+
+.fill_rait {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    width: 800px;
+    font-weight: normal;
+    margin-left: 52px;
+    margin-top: -20px;
+}
+
+button {
+    height: 64px;
+    width: 400px;
+    background-color:#95E6D6;
+    border: 2px solid #95E6D6;
+    border-radius: 20px;
+    color:  black;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 75px;
+    margin-top: 50px;
+    /*padding: auto;*/
+}
+
+button:hover {
+    height: 64px;
+    width: 400px;
+    background-color: #15181EFF;
+    border: 2px solid #95E6D6;
+    border-radius: 20px;
+    color: #95E6D6;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 75px;
+    margin-top: 50px;
+    /*padding: auto;*/
+}
+
+.line {
+    background-color: rgba(57, 65, 69, 1);
+    height: 2px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.commands {
+    margin-top: 20px;
+}
+
+.box-img {
+    width: 38px;
+    height: 38px;
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-right: -35px;
+}
+
+.box-text {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    vertical-align: 5px;
+}
