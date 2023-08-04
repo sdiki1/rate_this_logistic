@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Выдать товары</title>
+        <title>Склад</title>
         <link rel="stylesheet" href="../static/main_page.css" />
 
     </head>
@@ -54,11 +54,11 @@ function redirectToMain() {
 </script>
     {% block content %}
     <body>
+
         <div class="split-container">
             <div class="block-left">
                 <div class="head">
                     <h1 class="login">{{ login }}</h1>
-{#                    <h1 class="id">ID</h1>#}
                     <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
                 </div>
                 <div class="line"></div>
@@ -81,18 +81,12 @@ function redirectToMain() {
 
             <div class="block-right">
                 <div class="text">
-                    <h1 class="fill">Выдача товаров</h1>
-                    <h2 class="fill_grade">В данном разделе, вы можете отправить товары на выдачу на наших пвз. <br>Также вы можете посмотреть историю выдач и до выдать товары.</h2>
+                    <h1 class="fill">RATE-THIS PROMOTION</h1>
+                    <h2 class="fill_grade">Выдача уже была осуществлена сегодня! Найти её можете в разделе ИСТОРИЯ ВЫДАЧ</h2>
                 </div>
-                <form method="POST">{% csrf_token %}
-                <div class="button">
-                    <button name="History" type="submit">История выдач</button>
-                    <button name="setData" type="submit">Выдать товары</button>
-                </div>
-                </form>
             </div>
-
         </div>
+
     </body>
     {% endblock %}
 

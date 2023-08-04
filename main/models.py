@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class InfoProd(models.Model):
-    id = models.IntegerField(primary_key=True, auto_created=True)
+    id = models.AutoField(primary_key=True)
     status = models.IntegerField(null=True)
     article = models.CharField(max_length=25, null=True)
     naming = models.TextField(null=True)
@@ -69,21 +69,22 @@ class Client(models.Model):
     date_set_vidacha = models.DateField(null=True)
     stop = models.IntegerField(null=True)
     #
-    # def custom_check_method(self):
-    #     # Your custom check method logic here
-    #     pass
-    #
     class Meta:
+        managed = False
         db_table = 'client'
 
 
 class InfoDt(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     client_id = models.IntegerField(null=True)
     action = models.IntegerField(null=True)
+    clientid = models.CharField(max_length=25, null=True)
     date_action = models.DateTimeField(null=True)
+    article = models.CharField(max_length=25, null=True)
+    name = models.CharField(max_length=25, null=True)
+    naming = models.CharField(max_length=255, null=True)
+    date_active = models.DateTimeField(null=True)
     person = models.IntegerField(null=True)
-    cleintid = models.CharField(max_length=25, null=True)
     phone = models.CharField(max_length=25, null=True)
     barcode = models.CharField(max_length=25, null=True)
     pvz = models.IntegerField(null=True)
@@ -118,7 +119,7 @@ class DictActionsDt(models.Model):
 
 
 class ShipProd(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     client_id = models.IntegerField(null=True)
     action = models.IntegerField(null=True)
     pvz = models.IntegerField(null=True)
@@ -147,3 +148,15 @@ class Users(AbstractUser):
     class Meta:
         managed = True
         db_table = 'users'
+
+class DictPunkt(models.Model):
+    id = models.AutoField(primary_key=True)
+    punkt_vidachi = models.CharField(max_length=255, null=True)
+    mp = models.CharField(max_length=10, null=True)
+    status = models.IntegerField(null=True)
+    partner_status = models.IntegerField(null=True)
+    partner_name = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dict_punkt'

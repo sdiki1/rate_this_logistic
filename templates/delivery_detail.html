@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Вход</title>
+        <link rel="stylesheet" href="/static/delivery_detail1.css" />
+  <script>
+function redirectToCourier() {
+    // Get the current URL path
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/courier";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToDelivery() {
+    // Get the current URL path
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/delivery";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToWare() {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/warehouse";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToMain() {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+</script>
+    {% block content %}
+    <body>
+        <div class="split-container">
+            <div class="block-left">
+                <div class="head">
+                    <h1 class="login">{{ login }}</h1>
+                    <img class="Main" onclick="redirectToMain()"  src="/static/logo.png">
+                </div>
+                <div class="line"></div>
+
+                <div class="commands">
+                    <div onclick="redirectToDelivery()" class="box1">
+                        <img class="box-img" src="/static/offer.png">
+                        <h1 class="box-text">Выдать товары</h1>
+                    </div>
+                    <div onclick="redirectToCourier()" class="box2">
+                        <img class="box-img" src="/static/cargo.png">
+                        <h1 class="box-text">Курьер</h1>
+                    </div>
+                    <div onclick="redirectToWare()" class="box3">
+                        <img class="box-img" src="/static/house.png">
+                        <h1 class="box-text" >Склад</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-right">
+
+                <div class="text">
+                    <h1 class="fill">История выдач</h1>
+                    <div class="button">
+                        <button type="button">Назад</button>
+                        <h1 class="but">Главная</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">Выдать товары</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bit">История выдач</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bot">04.07.2023</h1>
+                    </div>
+                    <h2 class="fill_grade">Выдача завершена</h2>
+                </div>
+                <div class="prokrutka">
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Article</th>
+                            <th>barcode</th>
+                            <th>Clientid</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Punkt_vidachi</th>
+                            <th>Code</th>
+                            <th>code_qr</th>
+                            <th>Date_active</th>
+                            <th>Naming</th>
+                            <th>Task1</th>
+                            <th>date_vidacha</th>
+                            <th>who_give</th>
+                            <th>price</th>
+                          </tr>
+                          <tr>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                            <td><input></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for el in table %}
+                          <tr>
+                            <td>{{ el.id}}</td>
+                            <td>{{ el.article }}</td>
+                            <td>{{ el.barcode }}</td>
+                            <td>{{ el.clientid }}</td>
+                            <td>{{ el.name }}</td>
+                            <td>{{ el.phone }}</td>
+                            <td>{{ el.punkt_vidachi }}</td>
+                            <td>{{ el.code }}</td>
+                            <td ><img src="{{ el.code_qr }}" alt="QR Code" width="30" height="30"></td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>1</td>
+                          </tr>
+
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+
+            </div>
+        </div>
+    </body>
+    {% endblock %}
+</html>
