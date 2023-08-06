@@ -1,3 +1,4 @@
+import json
 import random
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -138,13 +139,15 @@ def delivery_detail(request, date):
             "punkt_vidachi": i.pvz,
             "code": i.code,
             "code_qr": i.code_qr,
-            "date_active": i.date_active,
+            "date_active": i.date_active.strftime('%Y.%m.%d'),
             "naming": i.naming, #naming
             "task1": i.task1,
             "who_give": i.who_gave
         }
         data['table'].append(table_object)
-    # print(data)
+
+    l = json.dumps(data)
+    print(l)
     return render(request, "delivery_detail.html", data)
     # return HttpResponse(f"page for date: {formatted_date}")
 
