@@ -7,7 +7,10 @@ from datetime import datetime, timedelta, date
 from main.models import Client, DictPunkt, InfoDt
 from django.contrib.auth import authenticate, login
 from django.utils import timezone
-
+from django.db.models import DateField
+from django.db.models.functions import Cast
+from django.db.models import Count, Q
+from django.db.models.functions import TruncDate
 def main(request):
     if request.user.is_authenticated:
         return render(request, "main.html", {'login': f'{request.user.username}'})
@@ -100,11 +103,9 @@ def delivery_detail(request, date):
         return HttpResponse("error")
     today = datetime.now()
     start_of_today = datetime(today.year, today.month, today.day)
-    for_deliver = InfoDt.objects.filter(
-        date_action__gte=start_of_today,
-        action=1
-    )
-
+    print(formatted_date)
+    for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
+    print(for_deliver)
     status_dict = {
         1: "Корзина собирается",
         2: "Оплачен",
@@ -146,3 +147,101 @@ def delivery_detail(request, date):
     # print(data)
     return render(request, "delivery_detail.html", data)
     # return HttpResponse(f"page for date: {formatted_date}")
+
+def delivery_history(request):
+    if request.method == "POST":
+        pass
+    infoDT = InfoDt.objects.all()
+
+    daily_counts = InfoDt.objects.annotate(
+        date=TruncDate('date_action')
+    ).values('date').annotate(
+        count_action1=Count('id', filter=Q(action=1)),
+        count_action2=Count('id', filter=Q(action=2))
+    ).order_by('date')
+
+    # Loop through the results
+
+
+    data = {
+        'login': f'{request.user.username}',
+        'rows': []
+    }
+
+    for entry in daily_counts:
+        date = entry['date'].strftime('%d.%m.%Y')
+        n1 = entry['count_action1']
+        n2 = entry['count_action2']
+        dat = {
+            "date": date,
+            "couriers": "В разработке",
+            "get": f"{n2} из {n1}",
+            "status": random.randint(0, 1),
+            "redirect_url": f"delivery/{entry['date'].strftime('%Y%m%d')}/"
+        }
+        data["rows"].append(dat)
+    print(data)
+
+    return render(request, "History.html", data)
+
+
+def couriers_history(request):
+    if request.method == "POST":
+        pass
+    infoDT = InfoDt.objects.all()
+
+    daily_counts = InfoDt.objects.annotate(
+        date=TruncDate('date_action')
+    ).values('date').annotate(
+        count_action1=Count('id', filter=Q(action=1)),
+        count_action2=Count('id', filter=Q(action=2))
+    ).order_by('date')
+
+    # Loop through the results
+
+
+    data = {
+        'login': f'{request.user.username}',
+        'rows': []
+    }
+
+    for entry in daily_counts:
+        date = entry['date'].strftime('%d.%m.%Y')
+        n1 = entry['count_action1']
+        n2 = entry['count_action2']
+        dat = {
+            "date": date,
+            "couriers": "В разработке",
+            "get": f"{n2} из {n1}",
+            "status": random.randint(0, 1),
+            "redirect_url": f"couriers/{entry['date'].strftime('%Y%m%d')}/"
+        }
+        data["rows"].append(dat)
+    print(data)
+
+    return render(request, "History.html", data)
+
+
+
+
+def trry(request):
+
+    distinct_dates = InfoDt.objects.annotate(date=Cast('date_action', output_field=DateField())).values_list('date', flat=True).distinct()
+    distinct_dates_list = list(distinct_dates)
+
+    daily_counts = InfoDt.objects.annotate(
+        date=TruncDate('date_action')
+    ).values('date').annotate(
+        count_action1=Count('id', filter=Q(action=1)),
+        count_action2=Count('id', filter=Q(action=2))
+    ).order_by('date')
+
+    # Loop through the results
+    for entry in daily_counts:
+        date = entry['date']
+        count_action1 = entry['count_action1']
+        count_action2 = entry['count_action2']
+        print(f"Date: {date}, Action 1 Count: {count_action1}, Action 2 Count: {count_action2}")
+
+    # print(distinct_dates_list)
+    return HttpResponse("ALL DONE")

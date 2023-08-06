@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Вход</title>
-        <link rel="stylesheet" href="../static/main_page.css" />
+        <link rel="stylesheet" href="../static/History.css" />
 
     </head>
 <script>
@@ -62,7 +62,6 @@ function redirectTO(path) {
     window.location.href = newUrl;
 }
 </script>
-    {% block content %}
     <body>
 
         <div class="split-container">
@@ -90,18 +89,41 @@ function redirectTO(path) {
             </div>
 
             <div class="block-right">
+
                 <div class="text">
-                    <h1 class="fill">Курьер</h1>
-                    <h2 class="fill_grade">В данном разделе, вы можете сформировать данные по курьеру, для получения товаров, отметить расхождения по не выданным товарам</h2>
-                    <h2 class="fill_rait">Так же вы можете посмотреть историю заборов </h2>
+                    <h1 class="fill">История выдач</h1>
+                    <div class="button">
+                        <button type="button" onclick="redirectTO('delivery/')">Назад</button>
+                    </div>
+                    <h2 class="fill_grade">В данном разделе вы можете посмотреть историю выдач товаров!</h2>
                 </div>
-                <div class="button">
-                    <button onclick="redirectTO('couriers/history')" type="button">История заборов</button>
-                    <button type="button">Отправить курьера</button>
+                <h1 class="date">Дата выезда</h1>
+                <h1 class="charge">Кол-во курьеров</h1>
+                <h1 class="give">Забрано</h1>
+                <h1 class="status">Статус</h1>
+                {% for el in rows %}
+                <div onclick="redirectTO('{{ el.redirect_url|escapejs }}')" class="block">
+                    <img class="arrow" src="../static/Vector 14.png">
+                    <div class="text-block">
+                        <h1 class="date-block">{{ el.date }}</h1>
+                        <h1 class="charge-block">{{el.couriers}}</h1>
+                        <h1 class="give-block">{{el.get}}</h1>
+                    </div>
+                    {% if el.status == 1 %}
+                        <div class="status-block">
+                            <h1 class="status-block-text">В процессе</h1>
+                        </div>
+                    {% else %}
+                        <div class="status-block-1">
+                            <h1 class="status-block-text-1">Завершена</h1>
+                        </div>
+                    {% endif %}
                 </div>
+                {% endfor %}
+
             </div>
         </div>
+
     </body>
-    {% endblock %}
 
 </html>
