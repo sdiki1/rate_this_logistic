@@ -86,7 +86,7 @@ function redirectToMain() {
                 </div>
                 <form method="POST">{% csrf_token %}
                 <div class="button">
-                    <button name="History" type="submit">НАЗАД</button>
+                    <button name="Back" type="button" onclick="redirectToDelivery()">Вернуться назад</button>
                     <button name="setData" type="submit">Сделать выдачу</button>
                 </div>
                 </form>
@@ -101,13 +101,6 @@ function redirectToMain() {
                             <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option2">Отправить на непартнёрские ПВЗ
                         </label>
                     </div>
-                    {#<button type="button" onclick= RETURN TO MAIN">"></button>#}
-                    
-                    <div class="custom-checkbox">
-                        <input type="checkbox">
-                    </div>
-                    <label class="checkbox-label">Текст рядом с чекбоксом</label>
-
                 </form>
             </div>
         </div>
