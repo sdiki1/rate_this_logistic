@@ -28,59 +28,65 @@ def delivery(request):
     if 'History' in request.POST:
         return HttpResponseRedirect("/delivery/history")
     elif 'setData' in request.POST:
-        now = timezone.now()
-        start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=999999)
-        # Query to retrieve rows where date_action is within the current day and action is 1
-        results = InfoDt.objects.filter(date_action__range=(start_of_day, end_of_day), action=1)
-        print(type(results))
-        if results:
-            return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
+        return HttpResponseRedirect('/set_delivery')
 
-        list_mp = ['WB', 'wb', 'WB', 'wB']
-        yesterday = datetime.now() - timedelta(days=3)
-        start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
-        end_of_yesterday = start_of_yesterday + timedelta(days=10)
 
-        user = request.user
-        clients = Client.objects.filter(
-            status=3,
-            punkt_vidachi__isnull=False,
-            date_get__isnull=True,
-            status_pizdec__isnull=True,
-            date_active__gte=start_of_yesterday,
-            date_active__lt=end_of_yesterday,
-        ).all()
-        # adress = DictPunkt.objects.all()
+def set_delivery(request):
+    if request.method != "POST":
+        return render(request,  "select_delivery.html", {'login': f'{request.user.username}'})
+    now = timezone.now()
+    start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=999999)
+    # Query to retrieve rows where date_action is within the current day and action is 1
+    results = InfoDt.objects.filter(date_action__range=(start_of_day, end_of_day), action=1)
+    print(type(results))
+    if results:
+        return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
 
-        for m in clients:
-            z = random.randint(0, 100)
-            try:
-                ppvz = int(m.punkt_vidachi)
-            except:
-                ppvz = 0
-            if z <= 29:
-                new_info = InfoDt(
-                    client_id=m.id,
-                    action=1,
-                    date_action=datetime.now(),
-                    person=user.id,
-                    clientid=m.clientid,
-                    phone=m.phone,
-                    barcode=m.barcode,
-                    pvz=ppvz,
-                    code=m.code,
-                    code_qr=m.code_qr,
-                    price=m.price,
-                    task1=m.task1,
-                    date_active=m.date_active,
-                    naming=m.naming,
-                    article=m.article
-                )
-                new_info.save()
-        # print(InfoDt.objects.all())
-        today = datetime.now().strftime('%Y%m%d')
-        return HttpResponseRedirect(f"/delivery/{today}/")
+    list_mp = ['WB', 'wb', 'WB', 'wB']
+    yesterday = datetime.now() - timedelta(days=20)
+    start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
+    end_of_yesterday = start_of_yesterday + timedelta(days=10)
+
+    user = request.user
+    clients = Client.objects.filter(
+        status=3,
+        punkt_vidachi__isnull=False,
+        date_get__isnull=True,
+        status_pizdec__isnull=True,
+        date_active__gte=start_of_yesterday,
+        date_active__lt=end_of_yesterday,
+    ).all()
+    # adress = DictPunkt.objects.all()
+
+    for m in clients:
+        z = random.randint(0, 100)
+        try:
+            ppvz = int(m.punkt_vidachi)
+        except:
+            ppvz = 0
+        if z <= 29:
+            new_info = InfoDt(
+                client_id=m.id,
+                action=1,
+                date_action=datetime.now(),
+                person=user.id,
+                clientid=m.clientid,
+                phone=m.phone,
+                barcode=m.barcode,
+                pvz=ppvz,
+                code=m.code,
+                code_qr=m.code_qr,
+                price=m.price,
+                task1=m.task1,
+                date_active=m.date_active,
+                naming=m.naming,
+                article=m.article
+            )
+            new_info.save()
+    # print(InfoDt.objects.all())
+    today = datetime.now().strftime('%Y%m%d')
+    return HttpResponseRedirect(f"/delivery/{today}/")
 
 def courier(request):
     if request.user.is_authenticated:
@@ -147,7 +153,7 @@ def delivery_detail(request, date):
         data['table'].append(table_object)
 
     l = json.dumps(data)
-    print(l)
+    # print(l)
     return render(request, "delivery_detail.html", data)
     # return HttpResponse(f"page for date: {formatted_date}")
 
