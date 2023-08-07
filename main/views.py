@@ -1,7 +1,7 @@
 import json
 import random
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import logging
 from django.db.models import Q
 from datetime import datetime, timedelta, date
@@ -34,19 +34,40 @@ def delivery(request):
 def set_delivery(request):
     if request.method != "POST":
         return render(request,  "select_delivery.html", {'login': f'{request.user.username}'})
+    data = request.POST
+
+    stat = -1
+    # stat - с каких пвз выдаем товары
+    # если stat = 1 - то выдаем с парнерских
+    # если stat = 2 - то выдаем с непартнерских
+    # если stat = 3 - то выдаем со всех пвз
+    # если стат = 0, то просим заново пользователя отправить данные и нажать на чекбоксы
+
+    if 'send to partner pvz' in data and 'send to NOpartner pvz' in data:
+        stat = 3
+    elif 'send to NOpartner pvz' in data:
+        stat = 2
+    elif 'send to partner pvz' in data:
+        stat = 1
+    else:
+        stat = 0
+    print(stat)
+    if not stat:
+         return render(request, "select_delivery_error.html", {'login': f'{request.user.username}'})
+
     now = timezone.now()
     start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
     end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=999999)
     # Query to retrieve rows where date_action is within the current day and action is 1
     results = InfoDt.objects.filter(date_action__range=(start_of_day, end_of_day), action=1)
     print(type(results))
-    if results:
-        return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
+    # if results:
+        # return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
     yesterday = datetime.now() - timedelta(days=20)
     start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
-    end_of_yesterday = start_of_yesterday + timedelta(days=10)
+    end_of_yesterday = start_of_yesterday + timedelta(days=100)
 
     user = request.user
     clients = Client.objects.filter(
@@ -58,13 +79,24 @@ def set_delivery(request):
         date_active__lt=end_of_yesterday,
     ).all()
     # adress = DictPunkt.objects.all()
-
+    partner_pvz = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
+    print(partner_pvz)
     for m in clients:
         z = random.randint(0, 100)
         try:
             ppvz = int(m.punkt_vidachi)
         except:
             ppvz = 0
+        if stat == 1:
+            if ppvz in partner_pvz:
+                pass
+            else:
+                continue
+        elif stat == 2:
+            if ppvz in partner_pvz:
+                continue
+        phone = m.phone
+
         if z <= 29:
             new_info = InfoDt(
                 client_id=m.id,
@@ -84,6 +116,8 @@ def set_delivery(request):
                 article=m.article
             )
             new_info.save()
+
+
     # print(InfoDt.objects.all())
     today = datetime.now().strftime('%Y%m%d')
     return HttpResponseRedirect(f"/delivery/{today}/")
