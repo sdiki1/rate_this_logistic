@@ -58,7 +58,7 @@ function redirectToMain() {
             <div class="block-left">
                 <div class="head">
                     <h1 class="login">{{ login }}</h1>
-{#                    <h1 class="id">ID</h1>#}
+                    {#<h1 class="id">ID</h1>#}
                     <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
                 </div>
                 <div class="line"></div>
@@ -85,21 +85,17 @@ function redirectToMain() {
                     <h2 class="fill_grade">Вы можете отправить товары на выдачу на наших пвз</h2>
                 </div>
                 <form method="POST">{% csrf_token %}
-                <div class="button">
-                    <button name="Back" type="button" onclick="redirectToDelivery()">Вернуться назад</button>
-                    <button name="setData" type="submit">Сделать выдачу</button>
-                </div>
-                </form>
-                <form  method="POST" id="checkbox-form">{% csrf_token %}
-                    <div>
-                        <label>
-                            <input class="custom-checkbox" type="checkbox" name="send to partner pvz" id="checkbox-1" value="option1">Отправить на партнёрские ПВЗ
-                        </label>
+                    <div class="button">
+                        <button name="Back" type="button" onclick="redirectToMain()">Вернуться назад</button>
+                        <button type="submit">Сделать выдачу</button>
+                    </div>
+                    <div class="check">
+                        <input class="custom-checkbox" type="checkbox" name="send to partner pvz" id="checkbox-1" value="option1">
+                        <label for="checkbox-1">Отправить на партнёрские ПВЗ</label>
                     </div>
                     <div>
-                        <label>
-                            <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option2">Отправить на непартнёрские ПВЗ
-                        </label>
+                        <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option2">
+                        <label for="checkbox-2">Отправить на непартнёрские ПВЗ</label>
                     </div>
                 </form>
             </div>
