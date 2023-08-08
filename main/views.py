@@ -331,22 +331,4 @@ def couriers_history(request):
 
 def trry(request):
 
-    distinct_dates = InfoDt.objects.annotate(date=Cast('date_action', output_field=DateField())).values_list('date', flat=True).distinct()
-    distinct_dates_list = list(distinct_dates)
-
-    daily_counts = InfoDt.objects.annotate(
-        date=TruncDate('date_action')
-    ).values('date').annotate(
-        count_action1=Count('id', filter=Q(action=1)),
-        count_action2=Count('id', filter=Q(action=2))
-    ).order_by('date')
-
-    # Loop through the results
-    for entry in daily_counts:
-        date = entry['date']
-        count_action1 = entry['count_action1']
-        count_action2 = entry['count_action2']
-        print(f"Date: {date}, Action 1 Count: {count_action1}, Action 2 Count: {count_action2}")
-
-    # print(distinct_dates_list)
-    return HttpResponse("ALL DONE")
+    return render(request, 'information.html', {'login': f'{request.user.username}'})
