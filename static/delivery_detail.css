@@ -192,34 +192,32 @@ button:hover {
 
 table {
     border-collapse: collapse;
-    width: 80%;
-    margin: 20px auto;
     background-color: white;
-    border: 1px solid black;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #98A4A6;
+    width: 100%;
+    color: rgba(24, 32, 38, 1);
 }
 
 th {
-    border: 2px solid rgba(24, 32, 38, 1);
     border-collapse: collapse;
     color: rgba(24, 32, 38, 1);
-    height: 40px;
+    height: 20px;
     padding: 10px;
-    width: 40%;
+    width: 20%;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
+    border: 1px solid #98A4A6;
 }
 
 td {
-    border: 2px solid rgba(24, 32, 38, 1);
     border-collapse: collapse;
     color: rgba(24, 32, 38, 1);
     height: 10px;
     padding: 10px;
     font-weight: normal;
     font-family: Montserrat, sans-serif;
-    border: 1px solid black;
+    border: 1px solid #98A4A6; 
     border-left: 0px;
     border-right: 0px;
 }
@@ -232,5 +230,5 @@ input {
 
 .scroll:nth-child(2n) {
     background-color: #F5FAFF;
-  }
+}
   
