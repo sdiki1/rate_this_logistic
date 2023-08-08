@@ -160,3 +160,39 @@ class DictPunkt(models.Model):
     class Meta:
         managed = False
         db_table = 'dict_punkt'
+
+
+class LastDt(models.Model):
+    id = models.AutoField(primary_key=True)
+    client_id = models.IntegerField(null=True)
+    action = models.IntegerField(null=True)
+    clientid = models.CharField(max_length=25, null=True)
+    date_last_action = models.DateTimeField(null=True)
+    article = models.CharField(max_length=25, null=True)
+    name = models.CharField(max_length=25, null=True)
+    naming = models.CharField(max_length=255, null=True)
+    date_active = models.DateTimeField(null=True)
+    person = models.IntegerField(null=True)
+    phone = models.CharField(max_length=25, null=True)
+    barcode = models.CharField(max_length=25, null=True)
+    pvz = models.IntegerField(null=True)
+    code = models.CharField(max_length=25, null=True)
+    code_qr = models.TextField(null=True)
+    who_gave = models.CharField(max_length=50, null=True)
+    date_gave = models.DateField(null=True)
+    price = models.IntegerField(null=True)
+    task1 = models.BigIntegerField(null=True)
+    who_get = models.CharField(max_length=50, null=True)
+    reason_trouble = models.TextField(null=True)
+    accept_admin = models.IntegerField(null=True)
+    admin_comment = models.TextField(null=True)
+    brand_model_auto = models.TextField(null=True)
+    who_accept = models.IntegerField(null=True)
+    date_accept = models.DateField(null=True)
+    who_shipped = models.IntegerField(null=True)
+    date_shipped = models.DateField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'last_dt'
+

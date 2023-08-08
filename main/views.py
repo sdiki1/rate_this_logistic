@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import logging
 from django.db.models import Q
 from datetime import datetime, timedelta, date
-from main.models import Client, DictPunkt, InfoDt
+from main.models import Client, DictPunkt, InfoDt, LastDt
 from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.db.models import DateField
@@ -51,7 +51,7 @@ def set_delivery(request):
         stat = 1
     else:
         stat = 0
-    print(stat)
+    # print(stat)
     if not stat:
          return render(request, "select_delivery_error.html", {'login': f'{request.user.username}'})
 
@@ -60,14 +60,87 @@ def set_delivery(request):
     end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=999999)
     # Query to retrieve rows where date_action is within the current day and action is 1
     results = InfoDt.objects.filter(date_action__range=(start_of_day, end_of_day), action=1)
-    print(type(results))
+    # print(type(results))
     if results:
         return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
+    Client_pvz = [] # у нас всё хранится типа: [[client_id, pvz]]
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
-    yesterday = datetime.now() - timedelta(days=20)
+    yesterday = timezone.now() - timedelta(days=2)
     start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
     end_of_yesterday = start_of_yesterday + timedelta(days=100)
+
+    def buy_cl_pvz(client, pvz):
+        if [client, pvz] in Client_pvz:
+            # print('Clientid and PVZ is in list, because i dont work with it)')
+            return
+        PVZ_clients = Client.objects.filter(
+        punkt_vidachi=pvz,
+        clientid=client,
+        status=3,
+        punkt_vidachi__isnull=False,
+        date_get__isnull=True,
+        status_pizdec__isnull=True,
+        date_active__gte=start_of_yesterday,
+        date_active__lt=end_of_yesterday
+        ).all()
+        counter = 0
+        for m in PVZ_clients:
+            last = LastDt.objects.filter(client_id=m.id).exclude(action=2).first()
+            if last != None:
+                # print(f'Last of clientid:{m.id} exists, SKIP')
+                continue
+            counter += 1
+            new_info = InfoDt(
+                client_id=m.id,
+                action=1,
+                date_action=timezone.now(),
+                person=user.id,
+                clientid=m.clientid,
+                phone=m.phone,
+                barcode=m.barcode,
+                pvz=pvz,
+                code=m.code,
+                code_qr=m.code_qr,
+                price=m.price,
+                task1=m.task1,
+                date_active=m.date_active,
+                naming=m.naming,
+                article=m.article
+            )
+            new_info.save()
+            Last = LastDt.objects.filter(client_id=m.id).first()
+            # print(Last)
+            if Last == None:
+                last_info = LastDt(
+                    client_id=m.id,
+                    action=1,
+                    date_last_action=timezone.now(),
+                    person=user.id,
+                    clientid=m.clientid,
+                    phone=m.phone,
+                    barcode=m.barcode,
+                    pvz=pvz,
+                    code=m.code,
+                    code_qr=m.code_qr,
+                    price=m.price,
+                    task1=m.task1,
+                    date_active=m.date_active,
+                    naming=m.naming,
+                    article=m.article
+                )
+                last_info.save()
+            else:
+                Last.date_last_action = timezone.now()
+                Last.action = 1
+                Last.save()
+
+
+
+        Client_pvz.append([client, pvz])
+        print(f'succesfully made adding to delivery all data with pvz:{pvz}, clientid:{client}, amount={counter}')
+        return
+
 
     user = request.user
     clients = Client.objects.filter(
@@ -80,7 +153,13 @@ def set_delivery(request):
     ).all()
     # adress = DictPunkt.objects.all()
     partner_pvz = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
-    print(partner_pvz)
+    # print(partner_pvz)
+    ll = LastDt.objects.filter(action=2).all()
+    for Last in ll:
+        buy_cl_pvz(Last.clientid, Last.pvz)
+
+
+
     for m in clients:
         z = random.randint(0, 100)
         try:
@@ -91,35 +170,17 @@ def set_delivery(request):
             if ppvz in partner_pvz:
                 pass
             else:
+                # print(f'SKIP, because pvz {ppvz} is not in partner pvz {partner_pvz}')
                 continue
         elif stat == 2:
             if ppvz in partner_pvz:
                 continue
-        phone = m.phone
-
-        if z <= 29:
-            new_info = InfoDt(
-                client_id=m.id,
-                action=1,
-                date_action=datetime.now(),
-                person=user.id,
-                clientid=m.clientid,
-                phone=m.phone,
-                barcode=m.barcode,
-                pvz=ppvz,
-                code=m.code,
-                code_qr=m.code_qr,
-                price=m.price,
-                task1=m.task1,
-                date_active=m.date_active,
-                naming=m.naming,
-                article=m.article
-            )
-            new_info.save()
-
+        clientid = m.clientid
+        if z <= 20:
+            buy_cl_pvz(clientid, ppvz)
 
     # print(InfoDt.objects.all())
-    today = datetime.now().strftime('%Y%m%d')
+    today = timezone.now().strftime('%Y%m%d')
     return HttpResponseRedirect(f"/delivery/{today}/")
 
 def courier(request):
@@ -142,7 +203,7 @@ def delivery_detail(request, date):
     except:
         print('ERROR')
         return HttpResponse("error")
-    today = datetime.now()
+    today = timezone.now()
     start_of_today = datetime(today.year, today.month, today.day)
     print(formatted_date)
     for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
@@ -168,6 +229,7 @@ def delivery_detail(request, date):
     }
     for i in for_deliver:
         # client = Client.objects.filter(id=i.client_id).first()
+
         table_object = {
             "id": i.client_id,
             # "status": status_dict[int(client.status)],
