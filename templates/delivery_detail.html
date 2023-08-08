@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Вход</title>
-        <link rel="stylesheet" href="/static/delivery_detail1.css" />
+        <link rel="stylesheet" href="/static/delivery_detail.css" />
   <script>
 function redirectToCourier() {
     // Get the current URL path
@@ -128,12 +128,11 @@ function redirectToMain() {
                             <td><input></td>
                             <td><input></td>
                             <td><input></td>
-                            <td><input></td>
                           </tr>
                         </thead>
                         <tbody>
                         {% for el in table %}
-                          <tr>
+                          <tr class="scroll">
                             <td>{{ el.id}}</td>
                             <td>{{ el.article }}</td>
                             <td>{{ el.barcode }}</td>
