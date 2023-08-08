@@ -61,8 +61,8 @@ def set_delivery(request):
     # Query to retrieve rows where date_action is within the current day and action is 1
     results = InfoDt.objects.filter(date_action__range=(start_of_day, end_of_day), action=1)
     print(type(results))
-    # if results:
-        # return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
+    if results:
+        return render(request, "Set_data_was.html", {'login': f'{request.user.username}'})
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
     yesterday = datetime.now() - timedelta(days=20)

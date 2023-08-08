@@ -199,16 +199,16 @@ table {
 }
 
 th {
+    height: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #98A4A6;
     border-collapse: collapse;
     color: rgba(24, 32, 38, 1);
-    height: 20px;
-    padding: 10px;
-    width: 20%;
-    font-size: 20px;
-    font-weight: normal;
+    font-weight: bold;
     font-family: Montserrat, sans-serif;
-    border: 1px solid #98A4A6;
 }
+
 
 td {
     border-collapse: collapse;
