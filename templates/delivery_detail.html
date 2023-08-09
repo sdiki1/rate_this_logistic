@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Вход</title>
-        <link rel="stylesheet" href="/static/delivery_detail.css" />
+        <link rel="stylesheet" href="/static/delivery_detail1.css" />
   <script>
 function redirectToCourier() {
     // Get the current URL path
@@ -90,12 +90,23 @@ function redirectToMain() {
                         <h1 class="bet">/</h1>
                         <h1 class="bot">04.07.2023</h1>
                     </div>
-                    <h2 class="fill_grade">Выдача завершена</h2>
+                    {% if is_active %}
+                    <form method="POST">{% csrf_token %}
                     <div class="but-delivery">
+<<<<<<< HEAD
                     <button class="button-delivery" type="button">Довыдать товары</button>
                     <button class="button-delivery" type="button">Скачать EXCEL</button>
                     <button class="button-delivery-two" type="button">Завершить выдачу</button>
+=======
+                        <button class="button-delivery" name="dovidacha" type="submit">Довыдать товары</button>
+                        <button class="button-delivery" name="excel" type="submit">Скачать EXCEL</button>
+                        <button class="button-delivery-two" name="end_delivery" type="submit">Завершить выдачу</button>
+>>>>>>> master
                     </div>
+                    </form>
+                    {% else %}
+                    <h2 class="fill_grade">Выдача завершена</h2>
+                    {% endif %}
                 </div>
                 <div class="prokrutka">
                     <table>
@@ -113,12 +124,10 @@ function redirectToMain() {
                             <th>Date_active</th>
                             <th>Naming</th>
                             <th>Task1</th>
-                            <th>date_vidacha</th>
                             <th>who_give</th>
                             <th>price</th>
                           </tr>
                           <tr>
-                            <th><input></th>
                             <th><input></th>
                             <th><input></th>
                             <th><input></th>
@@ -147,12 +156,11 @@ function redirectToMain() {
                             <td>{{ el.punkt_vidachi }}</td>
                             <td>{{ el.code }}</td>
                             <td ><img src="{{ el.code_qr }}" alt="QR Code" width="30" height="30"></td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
+                            <td>{{ el.date_active }}</td>
+                            <td>{{ el.naming }}</td>
+                            <td>{{ el.task1 }}</td>
+                            <td>{{ el.who_give }}</td>
+                            <td>{{ el.price }}</td>
                           </tr>
 
                         {% endfor %}

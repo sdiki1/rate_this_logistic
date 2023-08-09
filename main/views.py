@@ -1,15 +1,9 @@
-import json
-import random
+import random, openpyxl, json
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-import logging
-from django.db.models import Q
-from datetime import datetime, timedelta, date
-from main.models import Client, DictPunkt, InfoDt, LastDt
-from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from datetime import datetime, timedelta
+from main.models import Client, DictPunkt, InfoDt, LastDt, Courier
 from django.utils import timezone
-from django.db.models import DateField
-from django.db.models.functions import Cast
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
 def main(request):
@@ -86,7 +80,7 @@ def set_delivery(request):
         ).all()
         counter = 0
         for m in PVZ_clients:
-            last = LastDt.objects.filter(client_id=m.id).exclude(action=2).first()
+            last = LastDt.objects.filter(client_id=m.id).exclude(action=3).first()
             if last != None:
                 # print(f'Last of clientid:{m.id} exists, SKIP')
                 continue
@@ -154,7 +148,7 @@ def set_delivery(request):
     # adress = DictPunkt.objects.all()
     partner_pvz = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
     # print(partner_pvz)
-    ll = LastDt.objects.filter(action=2).all()
+    ll = LastDt.objects.filter(action=3).all()
     for Last in ll:
         buy_cl_pvz(Last.clientid, Last.pvz)
 
@@ -198,60 +192,114 @@ def warehouse(request):
 
 
 def delivery_detail(request, date):
-    try:
-        formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
-    except:
-        print('ERROR')
-        return HttpResponse("error")
-    today = timezone.now()
-    start_of_today = datetime(today.year, today.month, today.day)
-    print(formatted_date)
-    for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
-    print(for_deliver)
-    status_dict = {
-        1: "Корзина собирается",
-        2: "Оплачен",
-        3: "Получить",
-        4: "Получен",
-        5: "Опубликовать",
-        6: "Модерация",
-        7: "Опубликован",
-        8: "Удалён",
-        9: "Отмена",
-        10: "Возврат",
-        11: "Проверить",
-        12: "Выдан курьеру",
-        21: "Не нашел в выдаче"
-    }
-    data = {
-        'login': f'{request.user.username}',
-        'table': []
-    }
-    for i in for_deliver:
-        # client = Client.objects.filter(id=i.client_id).first()
-
-        table_object = {
-            "id": i.client_id,
-            # "status": status_dict[int(client.status)],
-            "article": i.article,
-            "barcode": i.barcode,
-            "clientid": i.clientid,
-            "name": i.name,
-            "phone": i.phone,
-            "punkt_vidachi": i.pvz,
-            "code": i.code,
-            "code_qr": i.code_qr,
-            "date_active": i.date_active.strftime('%Y.%m.%d'),
-            "naming": i.naming, #naming
-            "task1": i.task1,
-            "who_give": i.who_gave
+    if request.method != "POST":
+        try:
+            formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
+        except:
+            print('ERROR')
+            return HttpResponse("error")
+        today = timezone.now()
+        start_of_today = datetime(today.year, today.month, today.day)
+        print(formatted_date)
+        for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
+        print(for_deliver)
+        status_dict = {
+            1: "Корзина собирается",
+            2: "Оплачен",
+            3: "Получить",
+            4: "Получен",
+            5: "Опубликовать",
+            6: "Модерация",
+            7: "Опубликован",
+            8: "Удалён",
+            9: "Отмена",
+            10: "Возврат",
+            11: "Проверить",
+            12: "Выдан курьеру",
+            21: "Не нашел в выдаче"
         }
-        data['table'].append(table_object)
+        # if random.randint(0, 1):
+        #     lol = True
+        # else:
+        #     lol = False
 
-    l = json.dumps(data)
-    # print(l)
-    return render(request, "delivery_detail.html", data)
-    # return HttpResponse(f"page for date: {formatted_date}")
+        last_obj = LastDt.objects.filter(action=1).first()
+        print(formatted_date, datetime.today().date())
+        print(last_obj)
+        if last_obj is not None and formatted_date == datetime.today().date():
+            is_active = True
+        else:
+            is_active = False
+
+        data = {
+            'login': f'{request.user.username}',
+            'table': [],
+            'is_active': is_active
+        }
+        for i in for_deliver:
+            # client = Client.objects.filter(id=i.client_id).first()
+            if i.pvz != 0:
+                pvz_row = DictPunkt.objects.filter(id=i.pvz).first()
+                pvz = pvz_row.punkt_vidachi
+            else:
+                pvz=0
+            table_object = {
+                "id": i.client_id,
+                # "status": status_dict[int(client.status)],
+                "article": i.article,
+                "barcode": i.barcode,
+                "clientid": i.clientid,
+                "name": i.name,
+                "phone": i.phone,
+                "punkt_vidachi": pvz,
+                "code": i.code,
+                "code_qr": i.code_qr,
+                "date_active": i.date_active.strftime('%Y.%m.%d'),
+                "naming": i.naming, #naming
+                "task1": i.task1,
+                "who_give": i.who_gave,
+                "price": i.price
+            }
+            data['table'].append(table_object)
+
+
+
+        # l = json.dumps(data)
+        # print(l)
+        return render(request, "delivery_detail.html", data)
+    else:
+        if "excel" in request.POST:
+            print('RETURN EXCEL FILE')
+        if "dovidacha" in request.POST:
+            print("return DOVIDACHA PAGE")
+        if "end_delivery" in request.POST:
+            user = request.user
+            last_obj = LastDt.objects.filter(action=1).all()
+            for i in last_obj:
+                i.date_active = timezone.now()
+                i.action = 2
+                i.save()
+                new_info = InfoDt(
+                    client_id=i.client_id,
+                    action=1,
+                    date_action=timezone.now(),
+                    person=user.id,
+                    clientid=i.clientid,
+                    phone=i.phone,
+                    barcode=i.barcode,
+                    pvz=i.pvz,
+                    code=i.code,
+                    code_qr=i.code_qr,
+                    price=i.price,
+                    task1=i.task1,
+                    date_active=i.date_active,
+                    naming=i.naming,
+                    article=i.article
+                )
+                new_info.save()
+
+        return HttpResponseRedirect(f"{request.path}")
+
 
 def delivery_history(request):
     if request.method == "POST":
@@ -262,7 +310,7 @@ def delivery_history(request):
         date=TruncDate('date_action')
     ).values('date').annotate(
         count_action1=Count('id', filter=Q(action=1)),
-        count_action2=Count('id', filter=Q(action=2))
+        count_action2=Count('id', filter=Q(action=3))
     ).order_by('date')
 
     # Loop through the results
@@ -299,7 +347,7 @@ def couriers_history(request):
         date=TruncDate('date_action')
     ).values('date').annotate(
         count_action1=Count('id', filter=Q(action=1)),
-        count_action2=Count('id', filter=Q(action=2))
+        count_action2=Count('id', filter=Q(action=3))
     ).order_by('date')
 
     # Loop through the results
@@ -332,3 +380,36 @@ def couriers_history(request):
 def trry(request):
 
     return render(request, 'information.html', {'login': f'{request.user.username}'})
+
+
+def send_couriers(request):
+    if request.method == 'POST':
+        print(request.POST)
+        data = request.POST
+
+
+
+
+
+
+        return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+
+    couriers = Courier.objects.filter(is_partner_now=1).all()
+
+    data = {
+        'login': f'{request.user.username}',
+        'couriers': []
+    }
+    for i in couriers:
+        courier = {
+            "id": i.id,
+            "name": i.name,
+            "surname": i.surname,
+            "auto": i.auto_model,
+            "auto_number": i.auto_number,
+            "phone": i.phone
+        }
+        data['couriers'].append(courier)
+
+    return render(request, 'send_courier1.html', data)
+

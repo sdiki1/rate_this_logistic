@@ -12,5 +12,6 @@ urlpatterns = [
     path('delivery/history', main.views.delivery_history),
     path('couriers/history', main.views.couriers_history),
     path('try/', main.views.trry),
-    path('set_delivery/', main.views.set_delivery)
+    path('set_delivery/', main.views.set_delivery),
+    path('courier/send', main.views.send_couriers)
 ]
