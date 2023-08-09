@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+{% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RATE-THIS</title>
+        <link rel="stylesheet" href="../static/main_page.css" />
+
+    </head>
+{% endblock %}
+<script>
+function redirectToCourier() {
+    // Get the current URL path
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/courier";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToDelivery() {
+    // Get the current URL path
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/delivery";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToWare() {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/warehouse";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToMain() {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+document.addEventListener("DOMContentLoaded", function() {
+    const blocksContainer = document.getElementById("blocks-container");
+    const addBlockButton = document.getElementById("addBlockButton");
+    const form = document.getElementById("myForm");
+
+    blocksContainer.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            const currentInput = event.target;
+            const nextInput = currentInput.nextElementSibling;
+
+            if (nextInput) {
+                nextInput.focus();
+            } else {
+                const currentBlock = currentInput.closest(".block");
+                const nextBlock = currentBlock.nextElementSibling;
+
+                if (nextBlock) {
+                    const firstInputInNextBlock = nextBlock.querySelector("input");
+                    if (firstInputInNextBlock) {
+                        firstInputInNextBlock.focus();
+                    }
+                } else {
+                    // Создать новую строку (блок) и добавить в конец контейнера
+                    const newBlock = document.createElement("div");
+                    newBlock.classList.add("block");
+                    newBlock.innerHTML = `
+                        <input class="one" name="name" type="text">
+                        <input class="one" name="auto" type="text">
+                        <input class="one" name="number" type="text">
+                        <input class="one" name="phone" type="text">
+                        <input class="one" name="where" type="text">
+                    `;
+                    blocksContainer.appendChild(newBlock);
+
+                    // Переместить фокус на первый input новой строки
+                    const firstInputInNewBlock = newBlock.querySelector("input");
+                    if (firstInputInNewBlock) {
+                        firstInputInNewBlock.focus();
+                    }
+                }
+            }
+        }
+    });
+
+    // Функция для добавления нового блока
+    addBlockButton.addEventListener("click", function() {
+        const newBlock = document.createElement("div");
+        newBlock.classList.add("block");
+        newBlock.innerHTML = `
+            <input class="one" name="name" type="text">
+            <input class="one" name="auto" type="text">
+            <input class="one" name="number" type="text">
+            <input class="one" name="phone" type="text">
+            <input class="one" name="where" type="text">
+        `;
+        blocksContainer.appendChild(newBlock);
+    });
+
+    form.addEventListener("button", function(event) {
+        event.preventDefault();
+
+        const blocks = blocksContainer.querySelectorAll(".block");
+        const dataArray = [];
+
+        blocks.forEach(block => {
+            const inputs = block.querySelectorAll("input");
+            const data = {
+                name: inputs[0].value,
+                auto: inputs[1].value,
+                number: inputs[2].value,
+                phone: inputs[3].value,
+                where: inputs[4].value,
+            };
+            dataArray.push(data);
+        });
+
+        // Отправка данных в виде JSON массива
+        fetch("/courier/send/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}", // Добавьте CSRF токен
+            },
+            body: JSON.stringify(dataArray),  // Отправляем массив объектов
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Обработка ответа
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});
+</script>
+    {% block content %}
+    <body>
+    <form method="POST">{% csrf_token %}
+        <div class="split-container">
+            <div class="block-left">
+                <div class="head">
+                    <h1 class="login">{{ login }}</h1>
+{#                    <h1 class="id">ID</h1>#}
+                    <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
+                </div>
+                <div class="line"></div>
+
+                <div class="commands">
+                    <div onclick="redirectToDelivery()" class="box1">
+                        <img class="box-img" src="../static/offer.png">
+                        <h1 class="box-text">Выдать товары</h1>
+                    </div>
+                    <div onclick="redirectToCourier()" class="box2">
+                        <img class="box-img" src="../static/cargo.png">
+                        <h1 class="box-text">Курьер</h1>
+                    </div>
+                    <div onclick="redirectToWare()" class="box3">
+                        <img class="box-img" src="../static/house.png">
+                        <h1 class="box-text" >Склад</h1>
+                    </div>
+                </div>
+
+            </div>
+
+                <div class="block-right">
+                    <div class="text">
+                        <h1 class="fill">RATE-THIS PROMOTION</h1>
+                        <h2 class="fill_grade">Добавьте новых курьеров</h2>
+                        <h2 class="fill_grade">Для новых курьеров заполните все данные!</h2>
+                        <div id="blocks-container">
+                            <!-- Поле с одним блоком (по умолчанию) -->
+                            <div class="block">
+                                <input class="one" name="name" type="text" >
+                                <input class="one" name="auto" type="text" >
+                                <input class="one" name="number" type="text">
+                                <input class="one" name="phone" type="text">
+                                <input class="one" name="where" type="text">
+                            </div>
+                        </div>
+                        <button type="button" id="addBlockButton">Добавить блок</button>
+                        <h2 class="fill_grade">Выебрите существующих курьеров в штате:</h2>
+                        {% for el in couriers %}
+                            <h2 class="fill_grade"></h2>
+                            <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
+                            <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
+                        {% endfor %}
+                        <h2 class="fill_grade"></h2>
+                        <button type="submit">Продолжить!</button>
+                    </div>
+                </div>
+
+        </div>
+        </form>
+    </body>
+    {%  endblock %}
+</html>
