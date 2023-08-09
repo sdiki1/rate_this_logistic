@@ -10,7 +10,6 @@ html, body {
 
 .block-left {
     background-color: rgba(24, 32, 38, 1);
-    height: 100vh;
     width: 25%;
 }
 

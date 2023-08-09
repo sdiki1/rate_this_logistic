@@ -93,9 +93,15 @@ function redirectToMain() {
                     {% if is_active %}
                     <form method="POST">{% csrf_token %}
                     <div class="but-delivery">
+<<<<<<< HEAD
+                    <button class="button-delivery" type="button">Довыдать товары</button>
+                    <button class="button-delivery" type="button">Скачать EXCEL</button>
+                    <button class="button-delivery-two" type="button">Завершить выдачу</button>
+=======
                         <button class="button-delivery" name="dovidacha" type="submit">Довыдать товары</button>
                         <button class="button-delivery" name="excel" type="submit">Скачать EXCEL</button>
                         <button class="button-delivery-two" name="end_delivery" type="submit">Завершить выдачу</button>
+>>>>>>> master
                     </div>
                     </form>
                     {% else %}
