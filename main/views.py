@@ -386,8 +386,29 @@ def send_couriers(request):
     if request.method == 'POST':
         print(request.POST)
         data = request.POST
+        for m in range(len(data.getlist('name'))):
 
+            if data.getlist('name')[m] == '' or data.getlist("auto")[m] == '' or data.getlist("phone")[m] == '' or data.getlist("number")[m] == '' or data.getlist("where")[m] == '':
+                couriers = Courier.objects.filter(is_partner_now=1).all()
 
+                data = {
+                    'login': f'{request.user.username}',
+                    'couriers': []
+                }
+                for i in couriers:
+                    courier = {
+                        "id": i.id,
+                        "name": i.name,
+                        "surname": i.surname,
+                        "auto": i.auto_model,
+                        "auto_number": i.auto_number,
+                        "phone": i.phone
+                    }
+                    data['couriers'].append(courier)
+
+                return render(request, 'send_courier_err.html', data)
+
+        # for m in range(len(data.getlist('name'))):
 
 
 
@@ -411,5 +432,5 @@ def send_couriers(request):
         }
         data['couriers'].append(courier)
 
-    return render(request, 'send_courier1.html', data)
+    return render(request, 'send_courier.html', data)
 
