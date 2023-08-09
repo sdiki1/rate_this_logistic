@@ -384,6 +384,7 @@ def trry(request):
 
 def send_couriers(request):
     if request.method == 'POST':
+        print(request.POST)
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
     couriers = Courier.objects.filter(is_partner_now=1).all()
@@ -394,6 +395,7 @@ def send_couriers(request):
     }
     for i in couriers:
         courier = {
+            "id": i.id,
             "name": i.name,
             "surname": i.surname,
             "auto": i.auto_model,
@@ -402,5 +404,5 @@ def send_couriers(request):
         }
         data['couriers'].append(courier)
 
-    return render(request, 'send_courier.html', data)
+    return render(request, 'send_courier1.html', data)
 
