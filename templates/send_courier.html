@@ -55,6 +55,7 @@ function redirectToMain() {
 </script>
     {% block content %}
     <body>
+    <form method="POST">{% csrf_token %}
         <div class="split-container">
             <div class="block-left">
                 <div class="head">
@@ -78,17 +79,27 @@ function redirectToMain() {
                         <h1 class="box-text" >Склад</h1>
                     </div>
                 </div>
+
             </div>
 
-            <div class="block-right">
-                <div class="text">
-                    <h1 class="fill">RATE-THIS PROMOTION</h1>
-                    {% for el in couriers %}
-                    <h2 class="fill_grade">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</h2>
-                    {% endfor %}
+                <div class="block-right">
+                    <div class="text">
+                        <h1 class="fill">RATE-THIS PROMOTION</h1>
+                        <h2 class="fill_grade">Добавьте новых курьеров</h2>
+
+                        <h2 class="fill_grade">Выебрите существующих курьеров в штате:</h2>
+                        {% for el in couriers %}
+                            <h2 class="fill_grade"></h2>
+                            <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
+                            <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
+                        {% endfor %}
+                        <h2 class="fill_grade"></h2>
+                        <button type="submit">Продолжить!</button>
+                    </div>
                 </div>
-            </div>
+
         </div>
+        <form
     </body>
     {%  endblock %}
 </html>
