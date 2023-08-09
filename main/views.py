@@ -385,6 +385,13 @@ def trry(request):
 def send_couriers(request):
     if request.method == 'POST':
         print(request.POST)
+        data = request.POST
+
+
+
+
+
+
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
     couriers = Courier.objects.filter(is_partner_now=1).all()
