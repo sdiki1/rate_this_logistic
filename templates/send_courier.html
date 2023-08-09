@@ -2,14 +2,15 @@
 <html>
 
     <head>
-
+{% block head %}
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Вход</title>
+        <title>RATE-THIS</title>
         <link rel="stylesheet" href="../static/main_page.css" />
 
     </head>
+{% endblock %}
 <script>
 function redirectToCourier() {
     // Get the current URL path
@@ -51,24 +52,14 @@ function redirectToMain() {
     // Navigate to the new URL
     window.location.href = newUrl;
 }
-function redirectTO(path) {
-
-    var currentPath = 'http://127.0.0.1:8000'
-
-    // Append "/contest" to the current path
-    var newUrl = currentPath + '/' + path;
-
-    // Navigate to the new URL
-    window.location.href = newUrl;
-}
 </script>
     {% block content %}
     <body>
-
         <div class="split-container">
             <div class="block-left">
                 <div class="head">
                     <h1 class="login">{{ login }}</h1>
+{#                    <h1 class="id">ID</h1>#}
                     <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
                 </div>
                 <div class="line"></div>
@@ -91,17 +82,13 @@ function redirectTO(path) {
 
             <div class="block-right">
                 <div class="text">
-                    <h1 class="fill">Курьер</h1>
-                    <h2 class="fill_grade">В данном разделе, вы можете сформировать данные по курьеру, для получения товаров, отметить расхождения по не выданным товарам</h2>
-                    <h2 class="fill_rait">Так же вы можете посмотреть историю заборов </h2>
-                </div>
-                <div class="button">
-                    <button onclick="redirectTO('couriers/history')" type="button">История заборов</button>
-                    <button onclick="redirectTO('courier/send')" type="button">Отправить курьера</button>
+                    <h1 class="fill">RATE-THIS PROMOTION</h1>
+                    {% for el in couriers %}
+                    <h2 class="fill_grade">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</h2>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </body>
-    {% endblock %}
-
+    {%  endblock %}
 </html>

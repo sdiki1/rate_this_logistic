@@ -196,3 +196,15 @@ class LastDt(models.Model):
         managed = True
         db_table = 'last_dt'
 
+
+class Courier(models.Model):
+    name = models.CharField(max_length=255)
+    surname = models.CharField(max_length=255)
+    auto_number = models.CharField(max_length=25)
+    auto_model = models.CharField(max_length=255)
+    phone = models.CharField(max_length=50, null=True)
+    is_partner_now = models.IntegerField(default=1, null=True, help_text="Если курьер до сих пор сотрудничает с нами, то его статус = 1, если нет, то 0")
+    class Meta:
+        managed = True
+        db_table = 'couriers'
+
