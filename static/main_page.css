@@ -294,7 +294,7 @@ input:checked + label:before {
 }
 
 .addBlockButton {
-    margin-left: 75%;
+    margin-left: 1050px;
     margin-top: 1%;
     height: 40px;
     width: 40px;
@@ -307,7 +307,7 @@ input:checked + label:before {
 }
 
 .addBlockButton:hover {
-    margin-left: 75%;
+    margin-left: 1050px;
     margin-top: 1%;
     height: 40px;
     width: 40px;
@@ -521,7 +521,6 @@ input:checked + label:before {
     width: 735px;
     font-weight: normal;
     margin-left: 0;
-    margin-top: 60px;
 }
 
 .check-text-two {
@@ -532,7 +531,6 @@ input:checked + label:before {
     width: 735px;
     font-weight: normal;
     margin-left: -4%;
-    margin-top: 60px;
 }
 
 
@@ -565,4 +563,18 @@ input:checked + label:before {
 input:checked + .label:before {
     background-color: rgba(24, 32, 38, 1);
     padding: -4px;
+}
+
+
+.fill_graid {
+    color: #FF0000;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    width: 800px;
+    font-weight: normal;
+    margin-left: 0px;
+}
+
+.fa {
+    margin-top: 1%;
 }
