@@ -574,6 +574,39 @@ input:checked + .label:before {
     margin-top: 1%;
 }
 
+<<<<<<< HEAD
+.text-block {
+    margin-top: 15px;
+}
+
+.date-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: -23px;
+}
+
+.charge-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.give-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: 0px;
+}
+
+=======
 .blockone {
     background-color: white;
     height: 50px;
@@ -661,3 +694,4 @@ input:checked + .label:before {
     font-weight: normal;
     margin-left: 12%;
 }
+>>>>>>> refs/remotes/origin/master
