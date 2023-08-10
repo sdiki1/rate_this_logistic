@@ -2,7 +2,7 @@ import random, openpyxl, json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
-from main.models import Client, DictPunkt, InfoDt, LastDt, Courier
+from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts
 from django.utils import timezone
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
@@ -410,7 +410,33 @@ def send_couriers(request):
 
         # for m in range(len(data.getlist('name'))):
 
+        for m in range(len(data.getlist('name'))):
+            name_courier = data.getlist('name')[m]
+            auto_courier = data.getlist('auto')[m]
+            auto_number = data.getlist('number')[m]
+            phone_courier = data.getlist('phone')[m]
+            where_courier = data.getlist('where')[m]
+            new_shift = Couriers_shifts(
+                name=name_courier,
+                auto_number=auto_number,
+                auto_model=auto_courier,
+                phone=phone_courier,
+                where_courier=where_courier
+            )
+            new_shift.save()
 
+        couriers = Courier.objects.filter(is_partner_now=1).all()
+        for i in couriers:
+            if f'{i.id}-idCourier' in data:
+                new_shift = Couriers_shifts(
+                    name=i.name,
+                    auto_number=i.auto_number,
+                    auto_model=i.auto_model,
+                    phone=i.phone,
+                    where_courier="ШТАТ",
+                    partner_id=i.id
+                )
+                new_shift.save()
 
 
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
@@ -423,7 +449,7 @@ def send_couriers(request):
     }
     for i in couriers:
         courier = {
-            "id": i.id,
+            "id": f'{i.id}-idCourier',
             "name": i.name,
             "surname": i.surname,
             "auto": i.auto_model,

@@ -198,6 +198,7 @@ class LastDt(models.Model):
 
 
 class Courier(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     auto_number = models.CharField(max_length=25)
@@ -207,4 +208,17 @@ class Courier(models.Model):
     class Meta:
         managed = True
         db_table = 'couriers'
+
+
+class Couriers_shifts(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    auto_number = models.CharField(max_length=25)
+    auto_model = models.CharField(max_length=255)
+    phone = models.CharField(max_length=50, null=True)
+    partner_id = models.IntegerField(null=True, help_text="Айди в таблице couriers, если этот курьер - наш партнер")
+    where_courier = models.CharField(max_length=255, null=True)
+    class Meta:
+        managed = True
+        db_table = 'couriers_shifts'
 
