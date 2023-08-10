@@ -180,8 +180,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 <div class="block-right">
                     <div class="text">
-                        <h1 class="fill">RATE-THIS PROMOTION</h1>
-                        <h2 class="fill_grade">Добавьте новых курьеров</h2>
+                        <h1 class="fill">Курьер</h1>
+                        <div class="butt-one">
+                            <button type="button" class="ruf">Назад</button>
+                            <h1 class="but">Курьер</h1>
+                            <h1 class="bet">/</h1>
+                            <h1 class="bat">Отправить курьера</h1>
+                        </div>
+                        <h2 class="fill_grid">Куда поедут эти курьеры?</h2>
+                        {% for el in couriers %}
+                            <h2 class="fill_grade"></h2>
+                            <div class="check-box">
+                                <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
+                                <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
+                            </div>
+                        {% endfor %}
+                        <h2 class="fill_grid">Кто эти курьеры?</h2>
                         <div id="blocks-container">
                             <!-- Поле с одним блоком (по умолчанию) -->
                             <div class="block">
@@ -192,18 +206,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <input class="one" name="where" type="text">
                             </div>
                         </div>
-                        <button type="button" id="addBlockButton">Добавить блок</button>
-                        <h2 class="fill_grade">Выебрите существующих курьеров в штате:</h2>
-                        {% for el in couriers %}
-                            <h2 class="fill_grade"></h2>
-                            <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
-                            <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
-                        {% endfor %}
+                        <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
                     </div>
                 </div>
-
         </div>
         </form>
     </body>
