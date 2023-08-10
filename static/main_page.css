@@ -243,15 +243,12 @@ input:checked + label:before {
     border: 2px solid #95E6D6;
     border-radius: 20px;
     color:  black;
-    line-height: 30.48px;
-    font-weight: 700;
     font-family: Montserrat, sans-serif;
-    text-align: center;
     padding: 2px 4px;
     font-size: 25px;
     text-decoration: none;
     cursor: pointer;
-    margin-left: 55px;
+    margin-left: 4%;
     margin-top: 5%;
 }
 
@@ -269,8 +266,8 @@ input:checked + label:before {
     padding: 2px 4px;
     text-decoration: none;
     cursor: pointer;
-    margin-left: 75px;
-    margin-top: 50px;
+    margin-left: 4%;
+    margin-top: 5%;
 }
 
 .fill_grid {
@@ -284,9 +281,145 @@ input:checked + label:before {
 }
 
 .addBlockButton {
-    height: 40px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     background-color: #6B6B6B;
     border: 1px solid #6B6B6B;
     border-radius: 5;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.addBlockButton:hover {
+    height: 64px;
+    width: 120px;
+    background-color: #15181EFF;
+    border: 2px solid #95E6D6;
+    border-radius: 20px;
+    color: #95E6D6;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    padding: 2px 4px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 4%;
+    margin-top: 5%;
+}
+
+.block {
+    background-color: white;
+    height: 50px;
+    width: 1050px;
+    margin-top: 15px;
+    margin-left: 53px;
+    color: rgba(244, 244, 248, 1);
+    border: 2px solid rgba(244, 244, 248, 1);
+    border-radius: 10px;
+}
+
+.one {
+    margin-left: 1%;
+    width: 250px;
+    height: 25px;
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.two {
+    margin-left: 2%;
+    width: 170px;
+    height: 25px;
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.three {
+    margin-left: 3%;
+    width: 130px;
+    height: 25px;
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.four {
+    margin-left: 4%;
+    width: 150px;
+    height: 25px;
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.five {
+    margin-left: 5%;
+    width: 135px;
+    height: 25px;
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.text-one {
+    padding-left: 5%;
+    color: #FDFDFF;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 0;
+    margin-top: 60px;
+}
+
+.text-two {
+    padding-left: 15%;
+    color: #FDFDFF;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 0;
+    margin-top: 60px;
+}
+
+.text-three {
+    padding-left: 9.8%;
+    color: #FDFDFF;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 0;
+    margin-top: 60px;
+}
+
+.text-four {
+    padding-left: 4%;
+    color: #FDFDFF;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 0;
+    margin-top: 60px;
+}
+
+.text-five {
+    padding-left: 7.5%;
+    color: #FDFDFF;
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 0;
+    margin-top: 60px;
 }

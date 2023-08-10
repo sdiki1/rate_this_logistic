@@ -187,6 +187,31 @@ document.addEventListener("DOMContentLoaded", function() {
                             <h1 class="bet">/</h1>
                             <h1 class="bat">Отправить курьера</h1>
                         </div>
+                        <h2 class="fill_grid">Кто эти курьеры?</h2>
+
+                        <h1 class="text-one">ФИО</h1>
+                        <h1 class="text-two">Авто</h1>
+                        <h1 class="text-three">Госс номер</h1>
+                        <h1 class="text-four">Телефон</h1>
+                        <h1 class="text-five">Откуда</h1>
+
+                        <div id="blocks-container" class="block">
+                            <!-- Поле с одним блоком (по умолчанию) -->
+                            <input class="one" name="name" type="text" >
+                            <input class="two" name="auto" type="text" >
+                            <input class="three" name="number" type="text">
+                            <input class="four" name="phone" type="text">
+                            <input class="five" name="where" type="text">
+                        </div>
+                        <div id="blocks-container" class="block">
+                            <!-- Поле с одним блоком (по умолчанию) -->
+                            <input class="one" name="name" type="text" >
+                            <input class="two" name="auto" type="text" >
+                            <input class="three" name="number" type="text">
+                            <input class="four" name="phone" type="text">
+                            <input class="five" name="where" type="text">
+                        </div>
+                        <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Куда поедут эти курьеры?</h2>
                         {% for el in couriers %}
                             <h2 class="fill_grade"></h2>
@@ -195,18 +220,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
                             </div>
                         {% endfor %}
-                        <h2 class="fill_grid">Кто эти курьеры?</h2>
-                        <div id="blocks-container">
-                            <!-- Поле с одним блоком (по умолчанию) -->
-                            <div class="block">
-                                <input class="one" name="name" type="text" >
-                                <input class="one" name="auto" type="text" >
-                                <input class="one" name="number" type="text">
-                                <input class="one" name="phone" type="text">
-                                <input class="one" name="where" type="text">
-                            </div>
-                        </div>
-                        <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
                     </div>
