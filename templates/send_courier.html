@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h1 class="text-three">Госс номер</h1>
                         <h1 class="text-four">Телефон</h1>
                         <h1 class="text-five">Откуда</h1>
-
                         <div id="blocks-container">
                             <div class="block">
                                 <input class="one" name="name" type="text" >
@@ -229,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         {% for el in couriers %}
                         <div id="blocks-container" class="block-new">
                             <div class="check-box-new">
-                                <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
+                                <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option">
                                 <label class="label" for="checkbox-{{ el.id }}"></label>
                             </div>
                             <div class="check-text">

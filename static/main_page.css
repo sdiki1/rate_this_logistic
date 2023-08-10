@@ -537,9 +537,6 @@ input:checked + label:before {
 
 
 
-.custom-checkbox {
-    display: none;
-}
 
 .check-box-new {
     margin-left: -100px;
