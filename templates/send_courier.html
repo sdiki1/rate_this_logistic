@@ -80,11 +80,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     const newBlock = document.createElement("div");
                     newBlock.classList.add("block");
                     newBlock.innerHTML = `
-                        <input class="one" name="name" type="text">
-                        <input class="two" name="auto" type="text">
-                        <input class="three" name="number" type="text">
-                        <input class="four" name="phone" type="text">
-                        <input class="five" name="where" type="text">
+                            <input class="one" name="name" type="text" >
+                            <input class="two" name="auto" type="text" >
+                            <input class="three" name="number" type="text">
+                            <input class="four" name="phone" type="text">
+                            <input class="five" name="where" type="text">
                     `;
                     blocksContainer.appendChild(newBlock);
 
@@ -103,11 +103,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const newBlock = document.createElement("div");
         newBlock.classList.add("block");
         newBlock.innerHTML = `
-            <input class="one" name="name" type="text">
-            <input class="two" name="auto" type="text">
-            <input class="three" name="number" type="text">
-            <input class="four" name="phone" type="text">
-            <input class="five" name="where" type="text">
+                <input class="one" name="name" type="text" >
+                <input class="two" name="auto" type="text" >
+                <input class="three" name="number" type="text">
+                <input class="four" name="phone" type="text">
+                <input class="five" name="where" type="text">
         `;
         blocksContainer.appendChild(newBlock);
     });
@@ -203,22 +203,23 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h1 class="text-four">Телефон</h1>
                         <h1 class="text-five">Откуда</h1>
 
-                        <div id="blocks-container" class="block">
-                            <!-- Поле с одним блоком (по умолчанию) -->
-                            <input class="one" name="name" type="text" >
-                            <input class="two" name="auto" type="text" >
-                            <input class="three" name="number" type="text">
-                            <input class="four" name="phone" type="text">
-                            <input class="five" name="where" type="text">
+                        <div id="blocks-container">
+                            <div class="block">
+                                <input class="one" name="name" type="text" >
+                                <input class="two" name="auto" type="text" >
+                                <input class="three" name="number" type="text">
+                                <input class="four" name="phone" type="text">
+                                <input class="five" name="where" type="text">
+                            </div>
+                            <div class="block">
+                                <input class="one" name="name" type="text" >
+                                <input class="two" name="auto" type="text" >
+                                <input class="three" name="number" type="text">
+                                <input class="four" name="phone" type="text">
+                                <input class="five" name="where" type="text">
+                            </div>
                         </div>
-                        <div id="blocks-container" class="block">
-                            <!-- Поле с одним блоком (по умолчанию) -->
-                            <input class="one" name="name" type="text" >
-                            <input class="two" name="auto" type="text" >
-                            <input class="three" name="number" type="text">
-                            <input class="four" name="phone" type="text">
-                            <input class="five" name="where" type="text">
-                        </div>
+
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Штатные курьеры:</h2>
                         <h1 class="text-one-new">ФИО</h1>
