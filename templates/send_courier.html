@@ -81,10 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     newBlock.classList.add("block");
                     newBlock.innerHTML = `
                         <input class="one" name="name" type="text">
-                        <input class="one" name="auto" type="text">
-                        <input class="one" name="number" type="text">
-                        <input class="one" name="phone" type="text">
-                        <input class="one" name="where" type="text">
+                        <input class="two" name="auto" type="text">
+                        <input class="three" name="number" type="text">
+                        <input class="four" name="phone" type="text">
+                        <input class="five" name="where" type="text">
                     `;
                     blocksContainer.appendChild(newBlock);
 
@@ -104,10 +104,10 @@ document.addEventListener("DOMContentLoaded", function() {
         newBlock.classList.add("block");
         newBlock.innerHTML = `
             <input class="one" name="name" type="text">
-            <input class="one" name="auto" type="text">
-            <input class="one" name="number" type="text">
-            <input class="one" name="phone" type="text">
-            <input class="one" name="where" type="text">
+            <input class="two" name="auto" type="text">
+            <input class="three" name="number" type="text">
+            <input class="four" name="phone" type="text">
+            <input class="five" name="where" type="text">
         `;
         blocksContainer.appendChild(newBlock);
     });
@@ -187,8 +187,16 @@ document.addEventListener("DOMContentLoaded", function() {
                             <h1 class="bet">/</h1>
                             <h1 class="bat">Отправить курьера</h1>
                         </div>
+                        <h1 class="fill_grad">Куда поедут эти курьеры?</h1>
+                        <div class="check-box">
+                            <input class="custom-checkbox" type="checkbox" name="send to partner pvz" id="checkbox-1" value="option1">
+                            <label for="checkbox-1">Отправить только на партнёрские</label>
+                        </div>
+                        <div class="check-box">
+                            <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option2">
+                            <label for="checkbox-2">Отправить на не непартнёрские</label>
+                        </div>
                         <h2 class="fill_grid">Кто эти курьеры?</h2>
-
                         <h1 class="text-one">ФИО</h1>
                         <h1 class="text-two">Авто</h1>
                         <h1 class="text-three">Госс номер</h1>
@@ -212,13 +220,23 @@ document.addEventListener("DOMContentLoaded", function() {
                             <input class="five" name="where" type="text">
                         </div>
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
-                        <h2 class="fill_grid">Куда поедут эти курьеры?</h2>
+                        <h2 class="fill_grid">Штатные курьеры:</h2>
+                        <h1 class="text-one-new">ФИО</h1>
+                        <h1 class="text-two-new">Авто</h1>
+                        <h1 class="text-three-new">Госс номер</h1>
+                        <h1 class="text-four-new">Телефон</h1>
+                        <h1 class="text-five-new">Откуда</h1>
                         {% for el in couriers %}
-                            <h2 class="fill_grade"></h2>
-                            <div class="check-box">
+                        <div id="blocks-container" class="block-new">
+                            <div class="check-box-new">
                                 <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option2">
-                                <label for="checkbox-{{ el.id }}">{{ el.name }}      {{ el.surname }}       {{ el.auto_number }}</label>
+                                <label class="label" for="checkbox-{{ el.id }}"></label>
                             </div>
+                            <div class="check-text">
+                                <h1 class="check-text-one">{{ el.name }} {{ el.surname }}</h1>
+                                <h1 class="check-text-two">{{ el.auto_number }}</h1>
+                            </div>
+                        </div>
                         {% endfor %}
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
