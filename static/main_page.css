@@ -509,7 +509,7 @@ input:checked + label:before {
 }
 
 .check-text {
-    margin-top: -5.5%;
+    margin-top: -65px;
     margin-left: 8%;
 }
 
