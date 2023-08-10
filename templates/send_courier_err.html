@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RATE-THIS</title>
-        <link rel="stylesheet" href="../static/main_page.css" />
+        <link rel="stylesheet" href="/static/send_courier.css" />
 
     </head>
 {% endblock %}
@@ -189,15 +189,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <h1 class="fill_grad">Куда поедут эти курьеры?</h1>
                         <div class="check-box">
-                            <input class="custom-checkbox" type="checkbox" name="send to partner pvz" id="checkbox-1" value="option-one">
-                            <label for="checkbox-1">Отправить только на партнёрские</label>
+                            <input class="custom-checkbox" type="checkbox" name="send to partner pvz" id="checkbox-1" value="option1">
+                            <label class="lab" for="checkbox-1">Отправить только на партнёрские</label>
                         </div>
                         <div class="check-box">
-                            <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option-two">
-                            <label for="checkbox-2">Отправить на не непартнёрские</label>
+                            <input class="custom-checkbox" type="checkbox" name="send to NOpartner pvz" id="checkbox-2" value="option2">
+                            <label class="lab" for="checkbox-2">Отправить на не непартнёрские</label>
                         </div>
                         <h2 class="fill_grid">Кто эти курьеры?</h2>
-                        <h1 class="fill_graid">Заполните все данные про курьеров</h1>
+                        <h1 class="fill_graid">Заполните все данные про курьеров<br><br></h1>
                         <h1 class="text-one">ФИО</h1>
                         <h1 class="text-two">Авто</h1>
                         <h1 class="text-three">Госс номер</h1>
@@ -221,23 +221,28 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Штатные курьеры:</h2>
-                        <h1 class="text-one-new">ФИО</h1>
-                        <h1 class="text-two-new">Авто</h1>
-                        <h1 class="text-three-new">Госс номер</h1>
-                        <h1 class="text-four-new">Телефон</h1>
-                        <h1 class="text-five-new">Откуда</h1>
+                        <h1 class="text-one">ФИО</h1>
+                        <h1 class="text-two">Авто</h1>
+                        <h1 class="text-three">Госс номер</h1>
+                        <h1 class="text-four">Телефон</h1>
+                        <h1 class="text-five">Откуда</h1>
                         {% for el in couriers %}
-                        <div id="blocks-container" class="block-new">
-                            <div class="check-box-new">
-                                <input class="custom-checkbox" type="checkbox" name="{{ el.id }}" id="checkbox-{{ el.id }}" value="option-three">
-                                <label class="label" for="checkbox-{{ el.id }}"></label>
-                            </div>
-                            <div class="check-text">
-                                <h1 class="check-text-one">{{ el.name }} {{ el.surname }}</h1>
-                                <h1 class="check-text-two">{{ el.auto_number }}</h1>
+                        <div  class="block">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span class="checkmark"></span>
+                            <label class="lol"></label>
+                            <div class="text-block">
+                                <h1 class="date-block">{{ el.name }}</h1>
+                                <h1 class="charge-block">{{ el.surname }}</h1>
+                                <h1 class="give-block">{{ el.auto_тmodel }}</h1>
                             </div>
                         </div>
                         {% endfor %}
+
+
+
+
+
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
                     </div>
