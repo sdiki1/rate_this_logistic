@@ -408,7 +408,12 @@ def send_couriers(request):
 
                 return render(request, 'send_courier_err.html', data)
 
-        # for m in range(len(data.getlist('name'))):
+        partner_pvz = 0
+
+        if "send to NOpartner pvz" in data and "send to partner pvz" not in data:
+            partner_pvz = 2
+        if "send to NOpartner pvz" not in data and "send to partner pvz" in data:
+            partner_pvz = 1
 
         for m in range(len(data.getlist('name'))):
             name_courier = data.getlist('name')[m]
@@ -421,7 +426,8 @@ def send_couriers(request):
                 auto_number=auto_number,
                 auto_model=auto_courier,
                 phone=phone_courier,
-                where_courier=where_courier
+                where_courier=where_courier,
+                is_partner_pvz=partner_pvz
             )
             new_shift.save()
 
@@ -434,12 +440,12 @@ def send_couriers(request):
                     auto_model=i.auto_model,
                     phone=i.phone,
                     where_courier="ШТАТ",
-                    partner_id=i.id
+                    partner_id=i.id,
+                    is_partner_pvz=partner_pvz
                 )
                 new_shift.save()
 
-
-        return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+        return HttpResponseRedirect('/courier/send/pvz')
 
     couriers = Courier.objects.filter(is_partner_now=1).all()
 
@@ -459,4 +465,22 @@ def send_couriers(request):
         data['couriers'].append(courier)
 
     return render(request, 'send_courier.html', data)
+
+
+
+
+def set_pvz(request):
+    if request.method == "POST":
+        return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+
+    data = {
+        'login': f'{request.user.username}',
+        'addresses': [],
+        'couriers': [],
+    }
+    for i in range(10):
+        data['addresses'].append(f'adress{i}')
+    for i in range(4):
+        data['couriers'].append(f'courier {i}')
+    return render(request, 'set_pvz.html', data)
 
