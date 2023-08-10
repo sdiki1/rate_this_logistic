@@ -397,7 +397,7 @@ def send_couriers(request):
                 }
                 for i in couriers:
                     courier = {
-                        "id": i.id,
+                        "id": f'{i.id}-idCourier',
                         "name": i.name,
                         "surname": i.surname,
                         "auto": i.auto_model,
@@ -463,7 +463,7 @@ def send_couriers(request):
             "phone": i.phone
         }
         data['couriers'].append(courier)
-
+    print(data)
     return render(request, 'send_courier.html', data)
 
 
@@ -478,8 +478,13 @@ def set_pvz(request):
         'addresses': [],
         'couriers': [],
     }
+
+    adresses = []
+
+    data['addresses'].append(f'frewjfgojrwejfgirwjeifjiorwejfiowrrfweojfoijerwiofjoiwefjoweiofwfiojweio')
     for i in range(10):
         data['addresses'].append(f'adress{i}')
+    data['addresses'].append(f'frewjfgojrwejfgirwjeifjiorwejfiowrrfweojfoijerwiofjoiwefjoweiofwfiojweio')
     for i in range(4):
         data['couriers'].append(f'courier {i}')
     return render(request, 'set_pvz.html', data)
