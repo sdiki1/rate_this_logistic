@@ -17,6 +17,8 @@ html, body {
 .block-right {
     background-color: rgba(21, 24, 30, 1);
     width: 75%;
+    min-height: 100vh;
+    overflow: auto;
 }
 
 .login {
