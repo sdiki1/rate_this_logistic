@@ -575,3 +575,35 @@ input:checked + .label:before {
 .fa {
     margin-top: 1%;
 }
+
+.text-block {
+    margin-top: 15px;
+}
+
+.date-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: -23px;
+}
+
+.charge-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.give-block {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 100px;
+    font-weight: normal;
+    margin-left: 0px;
+}
+
