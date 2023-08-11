@@ -608,7 +608,7 @@ input:checked + .label:before {
 .blockone {
     background-color: white;
     height: 50px;
-    width: 700px;
+    width: 1150px;
     margin-top: 1%;
     margin-left: 4%;
     border: 2px solid rgba(244, 244, 248, 1);
@@ -626,6 +626,7 @@ input:checked + .label:before {
 
 .opt {
     margin-top: 1.5%;
+    margin-left: -4%;
 }
 
 .text-curier {
@@ -652,9 +653,9 @@ input:checked + .label:before {
     font-size: 20px;
     text-decoration: none;
     cursor: pointer;
-    float: inline-end;
+    float: right;
     margin-top: -14%;
-    margin-right: 29%;
+    margin-right: 12.5%;
 }
 
 .rud:hover {
@@ -671,6 +672,8 @@ input:checked + .label:before {
     padding: 2px 4px;
     text-decoration: none;
     cursor: pointer;
+    margin-top: -14%;
+    margin-right: 29%;
 }
 
 .adres {
@@ -690,7 +693,7 @@ input:checked + .label:before {
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 15%;
+    margin-left: 40%;
 }
 
 .pvz {
@@ -703,11 +706,11 @@ input:checked + .label:before {
     overflow: scroll;
     width: 300px;
     white-space: nowrap;
-    margin-top: 2%;
 }
 
 .pvz-check {
-    margin-top: -3%;
+    margin-top: -1.7%;
+    margin-left: 18%;
 }
 
 .check-text-adres {

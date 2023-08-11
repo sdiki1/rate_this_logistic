@@ -213,19 +213,18 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Штатные курьеры:</h2>
-                        <h1 class="text-one">ФИО</h1>
-                        <h1 class="text-two">Авто</h1>
-                        <h1 class="text-three">Госс номер</h1>
-                        <h1 class="text-four">Телефон</h1>
-                        <h1 class="text-five">Откуда</h1>
+                        <h1 class="text-one-new">ФИО</h1>
+                        <h1 class="text-two-new">Авто</h1>
+                        <h1 class="text-three-new">Госс номер</h1>
+                        <h1 class="text-four-new">Телефон</h1>
+                        <h1 class="text-five-new">Откуда</h1>
                         {% for el in couriers %}
-                        <div  class="block">
+                        <div class="block-new">
                             <input type="checkbox" class="custom-checkbox" id="checkbox-{{ el.id }}">
                             <label class="lol" for="checkbox-{{ el.id }}">
                             <div class="text-block">
-                                <h1 class="date-block">{{ el.name }}</h1>
-                                <h1 class="charge-block">{{ el.surname }}</h1>
-                                <h1 class="give-block">{{ el.auto_тmodel }}</h1>
+                                <h1 class="date-block">{{ el.name }} {{ el.surname }}</h1>
+                                <h1 class="give-block">{{ el.auto_тmodel }} gjgggj</h1>
                             </div>
                             </label>
                         </div>
