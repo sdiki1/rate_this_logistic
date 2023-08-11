@@ -2,7 +2,7 @@ import random, openpyxl, json, string
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
-from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts
+from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users
 from django.utils import timezone
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
@@ -386,7 +386,8 @@ def send_couriers(request):
         print(request.POST)
         data = request.POST
         for m in range(len(data.getlist('name'))):
-
+            if len(data.getlist('name')) < 2:
+                break
             if data.getlist('name')[m] == '' or data.getlist("auto")[m] == '' or data.getlist("phone")[m] == '' or data.getlist("number")[m] == '' or data.getlist("where")[m] == '':
                 couriers = Courier.objects.filter(is_partner_now=1).all()
 
@@ -472,36 +473,55 @@ def send_couriers(request):
 
 def set_pvz(request):
     if request.method == "POST":
-        print(request.POST)
+        data = request.POST
+        print(data)
+        couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
+        adresses = []
+        last = LastDt.objects.filter(action__in=[4, 5, 8])
+        partner = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
+        print(partner)
+        m = couriers[0].is_partner_pvz
 
+        for i in last:
+            if m == 1:
+                if i.pvz not in partner:
+                    continue
+            if m == 2:
+                if i.pvz in partner:
+                    continue
+            if i.pvz in adresses:
+                pass
+            adresses.append(i.pvz)
+        courier_pvz = []
 
-
-
-        courier_pvz = [
-            {
-                "pvz": 1,
-                "courier": 1
-            },
-            {
-                "pvz": 6,
-                "courier": 1
+        for i in adresses:
+            if data[f'{i}'] == '':
+                continue
+            block = {
+                "pvz": str(i),
+                "courier": data[f'{i}']
             }
-        ]
-
+            courier_pvz.append(block)
 
         for i in courier_pvz:
             pvz = i["pvz"]
             id = i["courier"]
             if id == '' or id == None or id == 0:
                 continue
-            products = LastDt.objects.filter(action__in=[4, 5, 8]).filter(pvz=pvz)
+            if m == 1:
+                products = LastDt.objects.filter(action__in=[4, 5, 8]).filter(pvz=pvz)
+            elif m == 2:
+                products = LastDt.objects.filter(action__in=[1]).filter(pvz=pvz)
+            else:
+                products = LastDt.objects.filter(action__in=[1, 4, 5, 8]).filter(pvz=pvz)
             for m in products:
+                m.action = 6
                 m.who_gave = id
                 m.date_last_action = timezone.now()
                 m.save()
                 new_info = InfoDt(
                     client_id=m.client_id,
-                    action=1,
+                    action=6,
                     date_action=timezone.now(),
                     person=m.id,
                     clientid=m.clientid,
@@ -518,11 +538,8 @@ def set_pvz(request):
                 )
                 m.save()
                 new_info.save()
-
-
-
-
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+
 
     data = {
         'login': f'{request.user.username}',
@@ -537,10 +554,11 @@ def set_pvz(request):
     partner = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
     print(partner)
     m = couriers[0].is_partner_pvz
-    for i in couriers:
-        data['couriers'].append({"name": i.name, "id": i.id})
+    print(m)
+    print(last)
 
     for i in last:
+
         if m == 1:
             if i.pvz not in partner:
                 continue
@@ -548,12 +566,16 @@ def set_pvz(request):
             if i.pvz in partner:
                 continue
         if i.pvz in adresses:
-            pass
+            continue
         adresses.append(i.pvz)
+    print(adresses)
+    for i in couriers:
+        data['couriers'].append({"name": i.name, "id": i.id})
 
     for i in adresses:
         adress_full = DictPunkt.objects.filter(id=i).values_list('punkt_vidachi', flat=True).first()
         data['addresses'].append({"id": i, "adress": adress_full})
+    print(data)
     return render(request, 'set_pvz.html', data)
 
 
@@ -562,7 +584,7 @@ def set_data(request):
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
     def generate_random_string(length):
-        characters = string.ascii_letters + string.digits + string.punctuation
+        characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters) for _ in range(length))
         return random_string
 
@@ -572,7 +594,6 @@ def set_data(request):
     }
 
     couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
-
     for i in couriers:
         pas = generate_random_string(6)
         tmp = {
@@ -586,6 +607,17 @@ def set_data(request):
             "password": pas,
             "copy_daata": f"ИМЯ: {i.name},\nАВТО: {i.auto_number},\nНОМЕР АВТО: {i.auto_number}, ТЕЛЕФОН: {i.phone}, ЛОГИН: courier_{i.id}, ПАРОЛЬ: {pas}\n\n"
         }
+        i.login = f"courier_{i.id}"
+        i.password = pas
+        i.save()
+        user = Users.objects.create_user(
+            username=f"courier_{i.id}",
+            password=pas,
+            id_shift=f"i.id",
+            phone=f"{i.phone}",
+            status=2
+        )
+        user.save()
         data['couriers'].append(tmp)
 
     return render(request, "set_data.html", data)

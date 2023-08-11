@@ -106,7 +106,7 @@ function redirectToMain() {
                                     <select name="{{ el.id }}" class="custom-option">
                                         <option></option>
                                         {% for courier in couriers %}
-                                        <option name="{{ courier.id }}">{{courier.name}}</option>
+                                        <option value="{{ courier.id }}">{{courier.name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', authorization.views.auth),
     path('', include("main.urls")),
+    path('carrier/', include("carrier.urls"))
 ]

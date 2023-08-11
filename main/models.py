@@ -144,7 +144,7 @@ class Users(AbstractUser):
     status = models.IntegerField(null=True)
     name = models.CharField(max_length=255, null=True)
     surname = models.CharField(max_length=255, null=True)
-
+    id_shift = models.CharField(max_length=10, null=True)
     class Meta:
         managed = True
         db_table = 'users'
@@ -221,6 +221,9 @@ class Couriers_shifts(models.Model):
     partner_id = models.IntegerField(null=True, help_text="Айди в таблице couriers, если этот курьер - наш партнер")
     where_courier = models.CharField(max_length=255, null=True)
     is_partner_pvz = models.IntegerField(null=False, help_text="Если 1, то только на партнерские пвз, если 2, то на непартнерские, если 0, то все")
+    login = models.CharField(max_length=255, null=True)
+    password = models.CharField(max_length=255, null=True)
+    changed_password = models.CharField(max_length=255, null=True)
     class Meta:
         managed = True
         db_table = 'couriers_shifts'
