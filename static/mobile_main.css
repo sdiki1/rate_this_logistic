@@ -1,0 +1,73 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+}
+
+.block-top {
+    background-color: rgba(24, 32, 38, 1);
+    min-width: 100%;
+}
+
+.block-bottom {
+    background-color: rgba(21, 24, 30, 1);
+    height: 75%;
+    width: 100%;
+    overflow: auto;
+}
+
+.curier {
+    text-align: center;
+    margin-bottom: -3%;
+}
+
+.lines {
+    width: 22px;
+    height: 15px;
+    margin-top:1%;
+    margin-left: 5%;
+    margin-right: -10%;
+    float: left;
+}
+
+.fill {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.search {
+    background: url(../static/ellipse.png) no-repeat center left
+}
+
+input.one {
+    display: block;
+    margin-top: 5%;
+    margin-left: 4%;
+    margin-bottom: 5%;
+    width: 340px;
+    height: 30px;
+    background-color: #D9D9D91A;
+    border: 1px solid #D9D9D91A;
+    border-radius: 10px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: white;
+    outline: none;
+    padding-left: 5%;
+}
+
+.one::placeholder {
+    line-height: 30.48px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: white;
+}
+

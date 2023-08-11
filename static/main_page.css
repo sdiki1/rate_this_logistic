@@ -641,7 +641,7 @@ input:checked + .label:before {
     margin-bottom: 10%;
 }
 
-.rud {
+button.rud {
     height: 49px;
     width: 265px;
     background-color:#95E6D6;
@@ -658,22 +658,21 @@ input:checked + .label:before {
     margin-right: 12.5%;
 }
 
-.rud:hover {
+button.rud:hover {
     height: 49px;
     width: 265px;
     background-color: #15181EFF;
     border: 2px solid #95E6D6;
     border-radius: 10px;
     color: #95E6D6;
-    line-height: 30.48px;
-    font-weight: 700;
     font-family: Montserrat, sans-serif;
     font-size: 20px;
     padding: 2px 4px;
     text-decoration: none;
     cursor: pointer;
+    float: right;
     margin-top: -14%;
-    margin-right: 29%;
+    margin-right: 12.5%;
 }
 
 .adres {
