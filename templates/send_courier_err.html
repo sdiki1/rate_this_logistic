@@ -211,13 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <input class="four" name="phone" type="text">
                                 <input class="five" name="where" type="text">
                             </div>
-                            <div class="block">
-                                <input class="one" name="name" type="text" >
-                                <input class="two" name="auto" type="text" >
-                                <input class="three" name="number" type="text">
-                                <input class="four" name="phone" type="text">
-                                <input class="five" name="where" type="text">
-                            </div>
                         </div>
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Штатные курьеры:</h2>
@@ -228,21 +221,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h1 class="text-five">Откуда</h1>
                         {% for el in couriers %}
                         <div  class="block">
-                                <input type="checkbox" class="custom-checkbox">
-                                <span class="checkmark"></span>
-                            <label class="lol"></label>
+                            <input type="checkbox" class="custom-checkbox" id="checkbox-{{ el.id }}">
+                            <label class="lol" for="checkbox-{{ el.id }}">
                             <div class="text-block">
                                 <h1 class="date-block">{{ el.name }}</h1>
                                 <h1 class="charge-block">{{ el.surname }}</h1>
                                 <h1 class="give-block">{{ el.auto_тmodel }}</h1>
                             </div>
+                            </label>
                         </div>
                         {% endfor %}
-
-
-
-
-
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
                     </div>
