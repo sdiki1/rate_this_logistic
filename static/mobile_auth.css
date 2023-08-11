@@ -1,0 +1,98 @@
+body {
+    background-color: #95E6D6;
+}
+
+p {
+    color: red;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.rate-one {
+    margin-top: 15%;
+    margin-bottom: 120px;
+    text-align: center;
+    color: #000000;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+}
+
+.rate-two {
+    width: 300px;
+    margin-top: 15%;
+    margin-left: 11%;
+    text-align: center;
+    color: #000000;
+    font-family: Montserrat, sans-serif;
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.rate-three {
+    width: 321px;
+    margin-top: -2%;
+    margin-left: 8%;
+    margin-bottom: 15%;
+    line-height: 18.29px;
+    text-align: center;
+    color: #000000;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+input.one {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 42px;
+    width: 300px;
+    border: 1px solid #000000;
+    background-color: #82C9BB;
+    border-radius: 5px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: #827F7F;
+    outline: none;
+    padding-left: 5%;
+}
+
+.one::placeholder {
+    line-height: 30.48px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: #827F7F;
+}
+
+input:focus.one {
+    color: #827F7F;
+    background-color: #82C9BB;
+    outline: 2px solid #000000;
+    line-height: 30.48px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+}
+
+button {
+    margin-top: 90%;
+    height: 42px;
+    width: 328px;
+    background-color:#82C9BB;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
