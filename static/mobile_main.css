@@ -6,17 +6,19 @@ html, body {
 .container {
     height: 100%;
     display: flex;
+    flex-direction: column;
 }
 
 .block-top {
     background-color: rgba(24, 32, 38, 1);
     min-width: 100%;
+    height: 25%;
 }
 
 .block-bottom {
     background-color: rgba(21, 24, 30, 1);
-    height: 75%;
-    width: 100%;
+    min-width: 100%;
+    height: 100vh;
     overflow: auto;
 }
 
@@ -29,7 +31,7 @@ html, body {
     width: 22px;
     height: 15px;
     margin-top:1%;
-    margin-left: 5%;
+    margin-left: 3%;
     margin-right: -10%;
     float: left;
 }
@@ -42,15 +44,17 @@ html, body {
 }
 
 .search {
-    background: url(../static/ellipse.png) no-repeat center left
+    background: url(../static/lupa.png) no-repeat center left;
+    background-size: 18px 17.5px;
+    background-position: 4%;
 }
 
 input.one {
     display: block;
     margin-top: 5%;
-    margin-left: 4%;
-    margin-bottom: 5%;
-    width: 340px;
+    margin-left: 2%;
+    margin-bottom: 3%;
+    width: 342px;
     height: 30px;
     background-color: #D9D9D91A;
     border: 1px solid #D9D9D91A;
@@ -60,7 +64,7 @@ input.one {
     font-size: 15px;
     color: white;
     outline: none;
-    padding-left: 5%;
+    padding-left: 8%;
 }
 
 .one::placeholder {
@@ -71,3 +75,45 @@ input.one {
     color: white;
 }
 
+.fill-bottom {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 2%;
+    margin-top: 9%;
+}
+
+.box {
+    margin-bottom: 5%;
+}
+
+.ellipse {
+    margin-left: 2%;
+    margin-right: 2%;
+    float: left;
+}
+
+.inf1 {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 2%;
+}
+
+.inf2 {
+    color: #838384;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: -2%;
+}
+
+.vector {
+    height: 13px;
+    width: 7px;
+    float: right;
+    margin-right: 5%;
+    margin-top: -10%;
+}
