@@ -82,9 +82,20 @@ function redirectToMain() {
 
             <div class="block-right">
                 <div class="text">
-                    <h1 class="fill">RATE-THIS PROMOTION</h1>
+                    <h1 class="fill">Курьер</h1>
+                    <div class="butt-one">
+                        <button type="button" class="ruf">Назад</button>
+                        <h1 class="but">Курьер</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">Отправить курьера</h1>
+                    </div>
+                    <h1 class="fill_grad">Данные для входа курьерам</h1>
+                    <h2 class="text-curier">Разошлите данные для входа курьерам</h2>
+                    <button type="submit" class="rud">Сформировать</button>
                     {% for i in couriers %}
-                    <h2 class="fill_grade">{{ i }}</h2>
+                    <div id="blocks-container" class="blockone">
+                        <h2 class="fill_gr">{{ i.id }} {{ i.name }} {{ i.auto }} {{ i.number }} {{ i.where }} {{ i.login }} {{ i.pasword }}</h2> 
+                    </div>
                     {% endfor %}
 
                 </div>

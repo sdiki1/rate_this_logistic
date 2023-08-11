@@ -728,3 +728,14 @@ button.rud:hover {
     display: none;
 }
 
+.fill_gr {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 1150px;
+    font-weight: normal;
+    margin-left: 52px;
+    margin-top: 60px;
+    text-align: inline;
+}
+
