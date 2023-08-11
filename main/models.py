@@ -212,6 +212,8 @@ class Courier(models.Model):
 
 class Couriers_shifts(models.Model):
     id = models.AutoField(primary_key=True)
+    start_shift = models.DateTimeField(null=True)
+    end_shift = models.DateTimeField(null=True)
     name = models.CharField(max_length=255)
     auto_number = models.CharField(max_length=25)
     auto_model = models.CharField(max_length=255)

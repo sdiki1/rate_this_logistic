@@ -304,7 +304,6 @@ def delivery_detail(request, date):
 def delivery_history(request):
     if request.method == "POST":
         pass
-    infoDT = InfoDt.objects.all()
 
     daily_counts = InfoDt.objects.annotate(
         date=TruncDate('date_action')
@@ -312,7 +311,7 @@ def delivery_history(request):
         count_action1=Count('id', filter=Q(action=1)),
         count_action2=Count('id', filter=Q(action=3))
     ).order_by('date')
-
+    # print(daily_counts)
     # Loop through the results
 
 
@@ -423,6 +422,7 @@ def send_couriers(request):
             where_courier = data.getlist('where')[m]
             new_shift = Couriers_shifts(
                 name=name_courier,
+                start_shift=timezone.now(),
                 auto_number=auto_number,
                 auto_model=auto_courier,
                 phone=phone_courier,
@@ -436,6 +436,7 @@ def send_couriers(request):
             if f'{i.id}-idCourier' in data:
                 new_shift = Couriers_shifts(
                     name=i.name,
+                    start_shift=timezone.now(),
                     auto_number=i.auto_number,
                     auto_model=i.auto_model,
                     phone=i.phone,
@@ -471,6 +472,32 @@ def send_couriers(request):
 
 def set_pvz(request):
     if request.method == "POST":
+        print(request.POST)
+
+
+
+
+        courier_pvz = [
+            {
+                "pvz": 1,
+                "courier": 1
+            },
+            {
+                "pvz": 6,
+                "courier": 1
+            }
+        ]
+
+
+        for i in courier_pvz:
+            pvz = i["pvz"]
+            id = i["courier"]
+            products = LastDt.objects.filter(action__in=[4, 5, 8]).filter(pvz=pvz)
+            for m in products:
+                m.who_gave = id
+                m.save()
+
+
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
     data = {
@@ -479,13 +506,29 @@ def set_pvz(request):
         'couriers': [],
     }
 
+    couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
+
     adresses = []
+    last = LastDt.objects.filter(action__in=[4, 5, 8])
+    partner = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
+    print(partner)
+    m = couriers[0].is_partner_pvz
+    for i in couriers:
+        data['couriers'].append({"name": i.name, "id": i.id})
 
-    data['addresses'].append(f'frewjfgojrwejfgirwjeifjiorwejfiowrrfweojfoijerwiofjoiwefjoweiofwfiojweio')
-    for i in range(10):
-        data['addresses'].append(f'adress{i}')
-    data['addresses'].append(f'frewjfgojrwejfgirwjeifjiorwejfiowrrfweojfoijerwiofjoiwefjoweiofwfiojweio')
-    for i in range(4):
-        data['couriers'].append(f'courier {i}')
+    for i in last:
+        if m == 1:
+            if i.pvz not in partner:
+                continue
+        if m == 2:
+            if i.pvz in partner:
+                continue
+        if i.pvz in adresses:
+            pass
+        adresses.append(i.pvz)
+
+    for i in adresses:
+        adress_full = DictPunkt.objects.filter(id=i).values_list('punkt_vidachi', flat=True).first()
+        data['addresses'].append({"id": i, "adress": adress_full})
+
     return render(request, 'set_pvz.html', data)
-
