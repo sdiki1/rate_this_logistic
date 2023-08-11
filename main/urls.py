@@ -14,5 +14,6 @@ urlpatterns = [
     path('try/', main.views.trry),
     path('set_delivery/', main.views.set_delivery),
     path('courier/send', main.views.send_couriers),
-    path('courier/send/pvz', main.views.set_pvz)
+    path('courier/send/pvz', main.views.set_pvz),
+    path('courier/send/set_data', main.views.set_data)
 ]
