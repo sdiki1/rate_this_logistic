@@ -224,9 +224,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             <input type="checkbox" class="custom-checkbox" id="checkbox-{{ el.id }}">
                             <label class="lol" for="checkbox-{{ el.id }}">
                             <div class="text-block">
-                                <h1 class="date-block">{{ el.name }}</h1>
-                                <h1 class="charge-block">{{ el.surname }}</h1>
-                                <h1 class="give-block">{{ el.auto_тmodel }}</h1>
+                                <h1 class="date-block">{{ el.name }} {{ el.surname }}</h1>
+                                <h1 class="give-block">{{ el.auto }}</h1>
+                                <h1 class="give-block">{{ el.auto_number }}</h1>
+                                <h1 class="give-block">{{ el.phone }}</h1>
+                                <h1 class="give-block">Штат</h1>
                             </div>
                             </label>
                         </div>
