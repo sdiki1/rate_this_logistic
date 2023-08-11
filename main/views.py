@@ -1,4 +1,4 @@
-import random, openpyxl, json
+import random, openpyxl, json, string
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
@@ -433,7 +433,7 @@ def send_couriers(request):
 
         couriers = Courier.objects.filter(is_partner_now=1).all()
         for i in couriers:
-            if f'{i.id}-idCourier' in data:
+            if f'courier-{i.id}-idCourier' in data:
                 new_shift = Couriers_shifts(
                     name=i.name,
                     start_shift=timezone.now(),
@@ -492,10 +492,34 @@ def set_pvz(request):
         for i in courier_pvz:
             pvz = i["pvz"]
             id = i["courier"]
+            if id == '' or id == None or id == 0:
+                continue
             products = LastDt.objects.filter(action__in=[4, 5, 8]).filter(pvz=pvz)
             for m in products:
                 m.who_gave = id
+                m.date_last_action = timezone.now()
                 m.save()
+                new_info = InfoDt(
+                    client_id=m.client_id,
+                    action=1,
+                    date_action=timezone.now(),
+                    person=m.id,
+                    clientid=m.clientid,
+                    phone=m.phone,
+                    barcode=m.barcode,
+                    pvz=m.pvz,
+                    code=m.code,
+                    code_qr=m.code_qr,
+                    price=m.price,
+                    task1=m.task1,
+                    date_active=m.date_active,
+                    naming=m.naming,
+                    article=m.article
+                )
+                m.save()
+                new_info.save()
+
+
 
 
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
@@ -530,5 +554,42 @@ def set_pvz(request):
     for i in adresses:
         adress_full = DictPunkt.objects.filter(id=i).values_list('punkt_vidachi', flat=True).first()
         data['addresses'].append({"id": i, "adress": adress_full})
-
     return render(request, 'set_pvz.html', data)
+
+
+def set_data(request):
+    if request.method == "POST":
+        return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+
+    def generate_random_string(length):
+        characters = string.ascii_letters + string.digits + string.punctuation
+        random_string = ''.join(random.choice(characters) for _ in range(length))
+        return random_string
+
+    data = {
+        'login': f'{request.user.username}',
+        'couriers': [],
+    }
+
+    couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
+
+    for i in couriers:
+        pas = generate_random_string(6)
+        tmp = {
+            "id": i.id,
+            "name": f"{i.name}",
+            "auto": i.auto_model,
+            "number": i.auto_number,
+            "where": i.where_courier,
+            "login": f"courier_{i.id}",
+            "phone": i.phone,
+            "password": pas,
+            "copy_daata": f"ИМЯ: {i.name},\nАВТО: {i.auto_number},\nНОМЕР АВТО: {i.auto_number}, ТЕЛЕФОН: {i.phone}, ЛОГИН: courier_{i.id}, ПАРОЛЬ: {pas}\n\n"
+        }
+        data['couriers'].append(tmp)
+
+    return render(request, "set_data.html", data)
+
+
+
+
