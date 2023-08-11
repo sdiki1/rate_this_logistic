@@ -85,7 +85,7 @@ function redirectToMain() {
                     <div class="text">
                         <h1 class="fill">Курьер</h1>
                         <div class="butt-one">
-                            <button type="button" onclick="redirectToCourier()" class="ruf">Назад</button>
+                            <button type="button" class="ruf">Назад</button>
                             <h1 class="but">Курьер</h1>
                             <h1 class="bet">/</h1>
                             <h1 class="bat">Отправить курьера</h1>
@@ -100,12 +100,13 @@ function redirectToMain() {
                         <div id="blocks-container" class="blockone">
                             <div class="opt">
                                 <div class="pvz">
-                                    <h1 class="check-text-adres">{{ el.adress }}</h1>
+                                    <h1 class="check-text-adres">{{ el }}</h1>
                                 </div>
                                 <div class="pvz-check">
-                                    <select name="{{ el.id }}" class="custom-option">
+                                    <select name="" class="custom-option">
                                         <option></option>
                                         {% for courier in couriers %}
+                                        <option>{{courier}}</option>
                                         <option value="{{ courier.id }}">{{courier.name}}</option>
                                         {% endfor %}
                                     </select>

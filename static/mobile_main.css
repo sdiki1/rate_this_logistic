@@ -365,3 +365,45 @@ input.one {
     margin-right: auto;
     margin-top: -3%;
 }
+
+.problem {
+    margin-left: 5%;
+    margin-bottom: 10%;
+}
+
+.fill-problem {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.problem-text {
+    width: 315px;
+    height: 110px;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.foto-block {
+    margin-left: 5%;
+}
+
+.foto {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.img-vopr {
+    float: right;
+    margin-top: -10.5%;
+    margin-right: 44%;
+}
+
+#myDiv {
+    display: none;
+}
