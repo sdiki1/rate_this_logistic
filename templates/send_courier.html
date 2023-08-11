@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <h1 class="text-five-new">Откуда</h1>
                         {% for el in couriers %}
                         <div class="block-new">
-                            <input type="checkbox" class="custom-checkbox" id="checkbox-{{ el.id }}">
+                            <input type="checkbox" class="custom-checkbox" name="courier-{{ el.id }}" id="checkbox-{{ el.id }}">
                             <label class="lol" for="checkbox-{{ el.id }}">
                             <div class="text-block">
                                 <h1 class="date-block">{{ el.name }} {{ el.surname }}</h1>
