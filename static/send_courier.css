@@ -331,7 +331,7 @@ input:checked + .lab:before {
     height: 50px;
     width: 1050px;
     margin-top: 1%;
-    margin-left: 4%;
+    margin-left: 3.8%;
     color: rgba(244, 244, 248, 1);
     border: 2px solid rgba(244, 244, 248, 1);
     border-radius: 10px;
@@ -600,7 +600,7 @@ input:checked + .lab:before {
 }
 
 
-label[lol]:before {
+.lol:before {
     content: " ";
     display: inline-block;
     margin-right: 100px;
@@ -615,7 +615,7 @@ label[lol]:before {
     vertical-align: middle;
 }
 
-input:checked + label[lol]:before {
+input:checked + .lol:before {
     background-color: rgba(24, 32, 38, 1);
     padding: -4px;
 }
