@@ -81,7 +81,7 @@ function redirectToMain() {
             </div>
 
             <div class="block-right">
-                <form method="POST">
+                <form method="POST">{% csrf_token %}
                     <div class="text">
                         <h1 class="fill">Курьер</h1>
                         <div class="butt-one">
@@ -92,7 +92,7 @@ function redirectToMain() {
                         </div>
                         <h1 class="fill_grad">Куда поедут эти курьеры?</h1>
                         <h2 class="text-curier">Выберите курьер, по которому маршруту он поедет</h2>
-                        <button type="button" class="rud">Сформировать</button>
+                        <button type="submit" class="rud">Сформировать</button>
                     </div>
                     <h1 class="adres">Адрес</h1>
                     <h1 class="curier">Курьер</h1>
