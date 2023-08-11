@@ -621,7 +621,7 @@ input:checked + .label:before {
     border-radius: 5px;
     height: 25px;
     width: 270px;
-    margin-left: 30%;
+    margin-left: 55%;
 }
 
 .opt {
@@ -690,7 +690,24 @@ input:checked + .label:before {
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 12%;
+    margin-left: 15%;
+}
+
+.pvz {
+    padding-left: 5%;
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    margin-left: 5px;
+    overflow: scroll;
+    width: 300px;
+    white-space: nowrap;
+    margin-top: 2%;
+}
+
+.pvz-check {
+    margin-top: -3%;
 }
 
 .check-text-adres {
@@ -698,8 +715,14 @@ input:checked + .label:before {
     color: #000;
     font-family: Montserrat, sans-serif;
     font-size: 15px;
-    white-space: nowrap;
     font-weight: normal;
     margin-left: 0;
-    overflow: hidden;
+    overflow-x: scroll;
+    width: 300px;
+    white-space: nowrap;
 }
+
+.pvz::-webkit-scrollbar {
+    display: none;
+}
+
