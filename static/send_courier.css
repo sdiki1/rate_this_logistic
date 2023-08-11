@@ -388,58 +388,43 @@ input:checked + .lab:before {
 }
 
 .text-one {
-    padding-left: 5%;
     color: #FDFDFF;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 0;
-    margin-top: 60px;
 }
 
 .text-two {
-    padding-left: 15%;
     color: #FDFDFF;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 1%;
-    margin-top: 60px;
 }
 
 .text-three {
-    padding-left: 9.8%;
     color: #FDFDFF;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 0.7%;
-    margin-top: 60px;
 }
 
 .text-four {
-    padding-left: 4%;
     color: #FDFDFF;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 1%;
-    margin-top: 60px;
 }
 
 .text-five {
-    padding-left: 7.5%;
     color: #FDFDFF;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 1.2%;
-    margin-top: 60px;
 }
 
 .block-new {
