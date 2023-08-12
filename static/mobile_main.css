@@ -430,3 +430,38 @@ input.one {
     margin-left: 50%;
     margin-top: -10%;
 }
+
+.myimg1 {
+    background: url(../static/vopr.png) 50% 50% no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    border: transparent;
+    width: 27px;
+    height: 27px;
+    float: left;
+    margin-left: 68%;
+    margin-top: -10%;
+}
+
+input.brein {
+    display: block;
+    width: 350px;
+    height: 40px;
+    background-color: #272A30;
+    border: 1px solid #272A30;
+    border-radius: 5px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    color: #5F5F60;
+    outline: none;
+    padding-left: 2%;
+}
+
+.brein::placeholder {
+    line-height: 30.48px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    color: #5F5F60;
+}
