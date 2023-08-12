@@ -1,82 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RATE-THIS</title>
-    <link rel="stylesheet" href="../static/mobile_main.css" />
-    <title>Image Popup</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .upload-container {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .upload-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .file-input {
+    display: none;
+  }
+  .image-container {
+    display: none;
+    vertical-align: middle;
+  }
+
+  .uploaded-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .show-image .image-container {
+    display: inline-block;
+  }
+
+</style>
+<title>Upload and Display Images</title>
 </head>
 <body>
-
-    <div class="container">
-            <div class="block-top">
-                <div class="curier1">
-                    <img class="back" src="../static/vector.png">
-                    <h1 class="fill-back">Назад</h1>
-                    <h1 class="fill">Роман</h1>
-                </div>
-            </div>
-            <div class="block-bottom">
-                <div class="problem">
-                    <h1 class="fill-problem">Проблема с товаром</h1>
-                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
-                    <h1 class="foto">Прикрепите фото</h1>
-                    <img src="../static/vopr.png"  id="showImageBtn" >
-                    <div id="imagePopup" class="popup">
-                    <img src="../static/one-block.png" alt="Popup Image">
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Заполните информацию</h1>
-                    <div>
-                        <img src="../static/vopr.png"  id="showImageBtn1" >
-                        <div id="imagePopup1" class="popup1">
-                        <img src="../static/two-block.png" alt="Popup Image">
-                    </div>
-                    <h1 class="inform">Бренд</h1>
-                    <input class="brein" type="text" placeholder="Введите бренд товара" />
-                    <h1 class="inform">Артикул товара</h1>
-                    <input class="brein" type="text" placeholder="Введите артикул товара"/>
-                    <h1 class="inform">Баркод товара</h1>
-                    <input class="brein" type="text" placeholder="Введите баркод товара"/>
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Кратко опишите ситуацию</h1>
-                    <h1 class="inform">Объяснение</h1>
-                    <input class="brein" type="text" />
-                </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="upload-container">
+      <label for="imageInput" class="upload-button">
+        Upload Images
+      </label>
+      <input type="file" id="imageInput" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
     </div>
-    <script>
-        const showImageBtn = document.getElementById('showImageBtn');
-        const imagePopup = document.getElementById('imagePopup');
+  </div>
+  <script>
+    function handleImageChange(input) {
+      const container = input.closest(".container");
 
-        showImageBtn.addEventListener('click', () => {
-            imagePopup.style.display = 'block';
-        });
+      for (let i = 0; i < input.files.length; i++) {
+        const file = input.files[i];
 
-        document.addEventListener('click', (event) => {
-            if (event.target !== imagePopup && event.target !== showImageBtn) {
-                imagePopup.style.display = 'none';
-            }
-        });
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "image-container";
 
-        const showImageBtn1 = document.getElementById('showImageBtn1');
-        const imagePopup1 = document.getElementById('imagePopup1');
+            const uploadedImage = document.createElement("img");
+            uploadedImage.className = "uploaded-image";
+            uploadedImage.src = e.target.result;
 
-        showImageBtn1.addEventListener('click', () => {
-            imagePopup1.style.display = 'block';
-        });
+            imageContainer.appendChild(uploadedImage);
+            container.insertBefore(imageContainer, container.querySelector(".upload-container"));
 
-        document.addEventListener('click', (event) => {
-            if (event.target !== imagePopup1 && event.target !== showImageBtn1) {
-                imagePopup1.style.display = 'none';
-            }
-        });
+            imageContainer.style.marginRight = "10px";  // Добавлено для отступа
 
-        
-    </script>
+            container.classList.add("show-image");
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    }
+  </script>
 </body>
 </html>

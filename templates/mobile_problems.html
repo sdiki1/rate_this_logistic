@@ -10,23 +10,21 @@
         <link rel="stylesheet" href="../static/mobile_main.css" />
 
     </head>
+    <script>
+        const showImageBtn = document.getElementById('showImageBtn');
+        const imagePopup = document.getElementById('imagePopup');
 
+        showImageBtn.addEventListener('click', () => {
+            imagePopup.style.display = 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (event.target !== imagePopup && event.target !== showImageBtn) {
+                imagePopup.style.display = 'none';
+            }
+        });
+    </script>
     <body>
-        <script>
-            const showImageBtn = document.getElementById('showImageBtn');
-            const imagePopup = document.getElementById('imagePopup');
-    
-            showImageBtn.addEventListener('click', () => {
-                imagePopup.style.display = 'block';
-            });
-    
-            document.addEventListener('click', (event) => {
-                if (event.target !== imagePopup && event.target !== showImageBtn) {
-                    imagePopup.style.display = 'none';
-                }
-            });
-        </script>
-        
         <div class="container">
             <div class="block-top">
                 <div class="curier1">
@@ -39,14 +37,15 @@
                 <div class="problem">
                     <h1 class="fill-problem">Проблема с товаром</h1>
                     <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
-                    <img src="../static/vopr.png"  id="showImageBtn" >
-                    <div id="imagePopup" class="popup">
-                    <img src="../static/one-block.png" alt="Popup Image">
                 </div>
-                <div>
+                <div id="imagePopup" class="popup">
+                    <img src="../static/one-block.png">
+                </div>
+                <div class="foto-block">
                     <h1 class="foto">Прикрепите фото</h1>
+                    <button id="showImageBtn" class="myimg"></button>
                 </div>
-                <div>
+                <div class="foto-block">
                     <h1 class="foto">Заполните информацию</h1>
                     <button id="showImageBtn" class="myimg1"></button>
                     <h1 class="inform">Бренд</h1>
