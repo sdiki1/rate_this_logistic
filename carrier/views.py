@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users
+from datetime import datetime
+from django.utils import timezone
 
 # Create your views here.
 def auth(request):
     if request.method != "POST":
-        if request.user.is_authenticated:
-            return HttpResponse("Вы уже авторизованы!")
+        # if request.user.is_authenticated:
+            # return HttpResponse("Вы уже авторизованы!")
         return render(request, "mobile_auth.html")
 
     User = authenticate(username=request.POST.get("username"), password=request.POST.get("password"))
@@ -16,7 +18,7 @@ def auth(request):
         return render(request, "mobile_auth.html")
 
     login(request, User)
-    return HttpResponseRedirect('')
+    return HttpResponseRedirect('/carrier/')
 
 def photo_link(article: int):
     l = article // (10 ** 5)
@@ -54,7 +56,7 @@ def photo_link(article: int):
     else:
         bask = f'basket-{g}'
 
-        photo_lin = f'https://{bask}.wb.ru/vol{l}/part{m}/{article}/images/tm/1.jpg'
+        photo_lin = f'https://{bask}.wb.ru/vol{l}/part{m}/{article}/images/big/1.jpg'
         return photo_lin
 
 
@@ -64,30 +66,37 @@ def main(request):
     # print(request.user)
     user = request.user
     shift = user.id_shift
-    print(shift)
-    products = LastDt.objects.filter(action=6, who_gave=int(shift))
+    # print(shift)
+    products = LastDt.objects.filter(action__in=[6,7,8], who_gave=int(shift))
 
     adresses = []
     for i in products:
         if i.pvz in adresses:
             continue
         adresses.append(i.pvz)
-    print(adresses)
+    # print(adresses)
     # print(products)
     data = {
         'login': f'{request.user.username}',
         'products': []
     }
-
+    today = datetime.now()
     for i in adresses:
-        products = LastDt.objects.filter(action=6, who_gave=int(shift), pvz=i)
-
+        products = LastDt.objects.filter(action__in=[6,7,8],  who_gave=int(shift), pvz=i) #date_last_action__date=today.date(),
         tmp = {
             'adress': DictPunkt.objects.filter(id=i).values_list('punkt_vidachi', flat=True).first(),
             "prods": []
         }
         for i in products:
+            status = 0
+            if i.action == 6:
+                status = 0
+            elif i.action == 7:
+                status = 1
+            elif i.action == 8:
+                status = 2
             tmp_2 = {
+                "status": status,
                 "name": i.name,
                 "photo": photo_link(int(i.article)),
                 "phone": i.phone,
@@ -99,3 +108,53 @@ def main(request):
     print(data)
     return render(request, "mobile_main.html", data)
 
+
+def product(request, data):
+    if request.method == 'POST':
+        user = request.user
+        print(request.POST)
+        if "Get_product" in request.POST:
+            print('add all data')
+            last = LastDt.objects.filter(client_id=int(data)).first()
+            new_info = InfoDt(
+                client_id=last.client_id,
+                action=7,
+                date_action=timezone.now(),
+                person=user.id,
+                clientid=last.clientid,
+                phone=last.phone,
+                barcode=last.barcode,
+                pvz=last.pvz,
+                code=last.code,
+                code_qr=last.code_qr,
+                price=last.price,
+                task1=last.task1,
+                date_active=last.date_active,
+                naming=last.naming,
+                article=last.article
+            )
+            new_info.save()
+            last.action = 7
+            last.date_last_action = timezone.now()
+            last.save()
+            return HttpResponseRedirect('/carrier')
+
+    # return HttpResponse(f'{data}')
+    last = LastDt.objects.filter(client_id=int(data)).first()
+    print(last)
+    data = {
+        'login': f'{request.user.username}',
+        'product': {
+            "name": last.name,
+            "img": photo_link(int(last.article)),
+            "phone": last.phone,
+            "naming": last.naming,
+            "status_vidacha": True,
+            "mp": "WB",
+            "barcode": last.barcode,
+            "code": last.code,
+            "code_qr": last.code_qr
+        },
+    }
+    print(data)
+    return render(request, "mobile_product.html", data)
