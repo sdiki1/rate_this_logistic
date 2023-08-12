@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
 from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users
 from django.utils import timezone
+from django.contrib.auth import logout
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
 def main(request):
@@ -622,6 +623,10 @@ def set_data(request):
 
     return render(request, "set_data.html", data)
 
+
+def logt(request):
+    logout(request)
+    return HttpResponseRedirect('')
 
 
 

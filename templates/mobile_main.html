@@ -11,65 +11,34 @@
 
     </head>
     <body>
+    <form method="POST">{% block content %}
         <div class="container">
             <div class="block-top">
                 <div class="curier">
-                    <img class="lines" src="../static/lines.png">
+                    <img class="lines" src="/static/lines.png">
                     <h1 class="fill">Курьер</h1>
                 </div>
                 <div class="search">
                     <input class="one" name="username" type="text" placeholder="Поиск" />
                 </div>
             </div>
-            
-            <div class="block-bottom">
-                <h1 class="fill-bottom">26 - ти Бакинских Комиссаров д. 4к2</h1>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
 
-                <h1 class="fill-bottom">Улица коммонавта яковлева, шоссе этузиасторв, дом19</h1>
-                <div class="box">
-                    <img class="ellipse" src="../static/ellipse-curier.png">
-                    <h1 class="inf1">Роман</h1>
-                    <h2 class="inf2">Телефон: 77777777777 Код: 66666</h2>
-                    <img class="vector" src="../static/Vector 14.png">
-                </div>
+            <div class="block-bottom">
+                {% for i in products %}
+                <h1 class="fill-bottom">{{ i.adress }}</h1>
+                    {% for m in i.prods %}
+                        <div class="box">
+                            <img class="ellipse" src="{{ m.photo }}">
+                            <h1 class="inf1">{{ m.name }}</h1>
+                            <h2 class="inf2">Телефон: {{ m.phone }} Код: {{ m.code }}</h2>
+                            <img class="vector" src="../static/Vector 14.png">
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
         </div>
+    {% endblock %}
+    </form>
     </body>
 
 </html>

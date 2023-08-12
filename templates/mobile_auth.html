@@ -14,7 +14,7 @@
     <h1 class="rate-one">RATE THIS GROUP</h1>
     <h1 class="rate-two">Добро пожаловать</h1>
     <h1 class="rate-three">Введите пожалуйста логин и пароль</h1>
-    <form method="POST">
+    <form method="POST">{% csrf_token %}
     <div style="text-align: center;">
         <input class="one" name="username" type="text" placeholder="Логин" />
         <input class="one" name="password" type="password" placeholder="Пароль" />
