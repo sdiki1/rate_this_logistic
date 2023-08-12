@@ -401,10 +401,6 @@ input.one {
     font-weight: 400;
 }
 
-.foto-block {
-    margin-left: 5%;
-}
-
 .foto {
     color: white;
     font-family: Montserrat, sans-serif;
@@ -474,4 +470,39 @@ input.brein {
     font-family: Montserrat, sans-serif;
     font-size: 16px;
     color: #5F5F60;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    height:263px;
+    width: 320px;
+}
+
+.popup1 {
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 0%;
+    height:500px;
+    width: 300px;
+}
+
+.popup img {
+    max-width: 100%;
+    max-height: 90vh;
+}
+
+#showImageBtn {
+    float: right;
+    margin-top: -10%;
+    margin-right: 45%;
+}
+
+#showImageBtn1 {
+    float: right;
+    margin-top: -10%;
+    margin-right: 26.5%;
 }
