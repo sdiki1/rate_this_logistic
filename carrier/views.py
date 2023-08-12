@@ -162,5 +162,8 @@ def product(request, data):
     return render(request, "mobile_product.html", data)
 
 def problem(request, data):
+    # print(request.method)
+    if request.method == "POST":
+        print(request.POST)
     print('data')
     return render(request, "mobile_problems.html")

@@ -9,8 +9,9 @@
     <title>Image Popup</title>
 </head>
 <body>
-
-    <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
             <div class="block-top">
                 <div class="curier1">
                     <img class="back" src="/static/vector.png">
@@ -21,32 +22,44 @@
             <div class="block-bottom">
                 <div class="problem">
                     <h1 class="fill-problem">Проблема с товаром</h1>
-                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
+                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что
+                        произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он
+                        есть, если вам его не выдают, то просто опишите информацию</h2>
                     <div class="data">
-                    <h1 class="foto">Прикрепите фото</h1>
-                    <img src="/static/vopr.png"  id="showImageBtn" >
-                    <div id="imagePopup" class="popup">
-                    <img src="/static/one-block.png" alt="Popup Image">
+                        <h1 class="foto">Прикрепите фото</h1>
+                        <img src="/static/vopr.png" id="showImageBtn">
+                        <div id="imagePopup" class="popup">
+                            <img src="/static/one-block.png" alt="Popup Image">
+                        </div>
+                        <div class="foto-block">
+                            <h1 class="foto">Заполните информацию</h1>
+                            <div>
+                                <img src=" /static/vopr.png" id="showImageBtn1">
+                                <div id="imagePopup1" class="popup1">
+                                    <img src="/static/two-block.png" alt="Popup Image">
+                                </div>
+                            </div>
+                            <h1 class="inform">Бренд</h1>
+                            <input class="brein" name="brand" type="text" placeholder="Введите бренд товара"
+                                   onkeydown="return handleEnter(event, this)">
+                            <h1 class="inform">Артикул товара</h1>
+                            <input class="brein" name="article" type="text" placeholder="Введите артикул товара"
+                                   onkeydown="return handleEnter(event, this)">
+                            <h1 class="inform">Баркод товара</h1>
+                            <input class="brein" name="barcode" type="text" placeholder="Введите баркод товара"
+                                   onkeydown="return handleEnter(event, this)">
+                        </div>
+                        <div class="foto-block">
+                            <h1 class="foto">Кратко опишите ситуацию</h1>
+                            <h1 class="inform">Объяснение</h1>
+                            <input class="brein" name="reason" type="text" onkeydown="return handleEnter(event, this)">
+                        </div>
+                        <button class="button3" name="send_data" type="submit">Отправить</button>
                     </div>
-                    <div class="foto-block">
-                    <h1 class="foto">Заполните информацию</h1>
-                    <div><img src=" /static/vopr.png"  id="showImageBtn1" ><div id="imagePopup1" class="popup1"> <img src="/static/two-block.png" alt="Popup Image"></div>
-                    </div>
-                        <h1 class="inform">Бренд</h1>
-                    <input class="brein" type="text" placeholder="Введите бренд товара" />
-                    <h1 class="inform">Артикул товара</h1>
-                    <input class="brein" type="text" placeholder="Введите артикул товара"/>
-                    <h1 class="inform">Баркод товара</h1>
-                    <input class="brein" type="text" placeholder="Введите баркод товара"/>
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Кратко опишите ситуацию</h1>
-                    <h1 class="inform">Объяснение</h1>
-                    <input class="brein" type="text" />
-                </div>
                 </div>
             </div>
-    </div>
+        </div>
+    </form>
     <script>
         const showImageBtn = document.getElementById('showImageBtn');
         const imagePopup = document.getElementById('imagePopup');
@@ -74,7 +87,22 @@
             }
         });
 
+        function handleEnter(event, input) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const inputs = input.closest('.foto-block').querySelectorAll('input');
+                const currentIndex = Array.from(inputs).indexOf(input);
+                const nextIndex = currentIndex + 1;
 
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                } else {
+                    input.blur();
+                }
+
+                return false;
+            }
+        }
     </script>
 </body>
 </html>

@@ -251,6 +251,41 @@ input.one {
     margin-left: 26%;
 }
 
+.button3 {
+    height: 42px;
+    width: 180px;
+    background-color: #95E6D6;
+    border: 2px solid #15181EFF;
+    border-radius: 5px;
+    color: #15181EFF;
+    line-height: 30.48px;
+    font-weight:700;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    padding: auto;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 26%;
+}
+.button3:hover {
+    height: 42px;
+    width: 180px;
+    background-color: #15181EFF;
+    border: 2px solid #95E6D6;
+    border-radius: 5px;
+    color: #95E6D6;
+    line-height: 30.48px;
+    font-weight:700;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    padding: auto;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 26%;
+}
+
 
 .button2:hover {
     height: 42px;
