@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup img {
+            max-width: 100%;
+            max-height: 90vh;
+        }
+    </style>
+    <title>Image Popup</title>
+</head>
+<body>
+    <button id="showImageBtn">Show Image</button>
+    <div id="imagePopup" class="popup">
+        <img src="screan.png" alt="Popup Image">
+    </div>
+    <script>
+        const showImageBtn = document.getElementById('showImageBtn');
+        const imagePopup = document.getElementById('imagePopup');
+
+        showImageBtn.addEventListener('click', () => {
+            imagePopup.style.display = 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (event.target !== imagePopup && event.target !== showImageBtn) {
+                imagePopup.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
