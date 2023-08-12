@@ -103,6 +103,16 @@ input.one {
     border: 1px solid transparent;
     border-radius: 50px;
 }
+.ellipse2 {
+    height: 56px;
+    width: 56px;
+    left: 0;
+    margin-left: -65px;
+    margin-right: 2%;
+    float: left;
+    border: 1px solid transparent;
+    z-index: 1;
+}
 
 .inf1 {
     color: white;
