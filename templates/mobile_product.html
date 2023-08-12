@@ -7,43 +7,62 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RATE-THIS</title>
-        <link rel="stylesheet" href="../static/mobile_main.css" />
+        <link rel="stylesheet" href="/static/mobile_main.css" />
 
     </head>
+    <script>
+        function redirectTOCarrier() {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + '/carrier';
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+        }
+    </script>
     <body>
+    <form method="POST">{% csrf_token %} {% block content %}
         <div class="container">
             <div class="block-top">
                 <div class="curier1">
-                    <img class="back" src="../static/vector.png">
-                    <h1 class="fill-back">Назад</h1>
-                    <h1 class="fill">Роман</h1>
+                    <img class="back" src="/static/vector.png">
+                    <h1 class="fill-back" onclick="redirectTOCarrier()">Назад</h1>
+                    <h1 class="fill">{{ product.name }}</h1>
                 </div>
             </div>
             
             <div class="block-bottom">
-                <img class="screan" src="../static/screan.png">
+                <img class="screan" src="{{ product.img }}">
                 <div>
-                    <button class="button" type="button">Получил</button>
-                    <button class="button1" type="button">Не получил</button>
+                    <button class="button"  name="Get_product" type="submit">Получил</button>
+                    <button class="button1" name="Dont_get" type="button">Не получил</button>
                 </div>
                 <button class="button2" type="button">Не определил</button>
                 <div class="inform-box">
                     <h1 class="inform">Телефон</h1>
-                    <h2 class="inform2">77777777777</h2>
+                    <h2 class="inform2">{{ product.phone }}7</h2>
                     <h1 class="inform">Наименование</h1>
-                    <h2 class="inform2">Масло для волос тела лица губ ресниц увлажнающее кокосовое</h2>
+                    <h2 class="inform2">{{ product.naming }}</h2>
                     <h1 class="inform">Статус заказа</h1>
+                    {% if product.status_vidacha %}
                     <h2 class="inform2">Готов к выдаче</h2>
                     <h1 class="inform">Номенклатура</h1>
-                    <h2 class="inform2">104736313</h2>
+                    <h2 class="inform2">{{ product.barcode }}</h2>
                     <h1 class="inform">МП</h1>
                     <h2 class="inform2">WB</h2>
                     <h1 class="inform">Код</h1>
-                    <h2 class="inform2">66 678</h2>
+                    <h2 class="inform2">{{ product.code }}</h2>
+                    {% endif %}
                 </div>
-                <img class="qr" src="../static/qr.png">
+                {% if product.status_vidacha %}
+                <img class="qr" src="{{ product.code_qr }}"  width="30" height="30">>
+                {% endif %}
             </div>
         </div>
+        {% endblock %}
+    </form>
     </body>
 
 </html>

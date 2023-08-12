@@ -10,6 +10,18 @@
         <link rel="stylesheet" href="../static/mobile_main.css" />
 
     </head>
+    <script>
+        function redirectTOPROD(path) {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + '/carrier/product/' + path;
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+        }
+    </script>
     <body>
     <form method="POST">{% block content %}
         <div class="container">
@@ -27,8 +39,17 @@
                 {% for i in products %}
                 <h1 class="fill-bottom">{{ i.adress }}</h1>
                     {% for m in i.prods %}
-                        <div class="box">
+                        <div class="box" onclick="redirectTOPROD('{{ m.redirect_data }}')">
+                            <div>
                             <img class="ellipse" src="{{ m.photo }}">
+                             {% if m.status == 1 %}
+                            <img class="ellipse2" src="/static/Vector%2019.png">
+                             {% elif m.status == 2 %}
+                                <img class="ellipse2" src="/static/X.png">
+                             {% elif m.status == 3 %}
+                                 <img class="ellipse2" src="/static/_.png">
+                             {% endif %}
+                        </div>
                             <h1 class="inf1">{{ m.name }}</h1>
                             <h2 class="inf2">Телефон: {{ m.phone }} Код: {{ m.code }}</h2>
                             <img class="vector" src="../static/Vector 14.png">

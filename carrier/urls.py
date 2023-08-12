@@ -5,5 +5,6 @@ import carrier.views
 
 urlpatterns = [
     path('', carrier.views.main),
-    path('auth', carrier.views.auth)
+    path('auth', carrier.views.auth),
+    path('product/<int:data>/', carrier.views.product, name='delivery_detail')
 ]
