@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RATE-THIS</title>
+        <link rel="stylesheet" href="../static/mobile_main.css" />
+
+    </head>
     <style>
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-        }
 
         .popup {
             display: none;
@@ -32,9 +30,25 @@
     <title>Image Popup</title>
 </head>
 <body>
-    <button id="showImageBtn">Show Image</button>
-    <div id="imagePopup" class="popup">
-        <img src="screan.png" alt="Popup Image">
+
+    <div class="container">
+            <div class="block-top">
+                <div class="curier1">
+                    <img class="back" src="../static/vector.png">
+                    <h1 class="fill-back">Назад</h1>
+                    <h1 class="fill">Роман</h1>
+                </div>
+            </div>
+            <div class="block-bottom">
+                <div class="problem">
+                    <h1 class="fill-problem">Проблема с товаром</h1>
+                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
+                    <img src="../static/vopr.png"  id="showImageBtn" >
+                    <div id="imagePopup" class="popup">
+                    <img src="../static/one-block.png" alt="Popup Image">
+                </div>
+                </div>
+            </div>
     </div>
     <script>
         const showImageBtn = document.getElementById('showImageBtn');
