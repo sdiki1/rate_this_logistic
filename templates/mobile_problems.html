@@ -11,14 +11,17 @@
 
     </head>
     <script>
-        // Получаем ссылки на изображение и div
-        const image = document.getElementById("myImage");
-        const div= document.getElementById("myDiv");
+        const showImageBtn = document.getElementById('showImageBtn');
+        const imagePopup = document.getElementById('imagePopup');
 
-        // Добавляем обработчик события для клика по изображению
-        image.addEventListener("click", function() {
-        // При клике меняем стиль отображения div на "block"
-        div.style.display = "block";
+        showImageBtn.addEventListener('click', () => {
+            imagePopup.style.display = 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (event.target !== imagePopup && event.target !== showImageBtn) {
+                imagePopup.style.display = 'none';
+            }
         });
     </script>
     <body>
@@ -35,12 +38,12 @@
                     <h1 class="fill-problem">Проблема с товаром</h1>
                     <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
                 </div>
-                <div id="myDiv">
+                <div id="imagePopup" class="popup">
                     <img src="../static/one-block.png">
                 </div>
                 <div class="foto-block">
                     <h1 class="foto">Прикрепите фото</h1>
-                    <img id="myImage" class="img-vopr" src="../static/vopr.png">
+                    <button id="showImageBtn" class="myimg"></button>
                 </div>
             </div>
         </div>
