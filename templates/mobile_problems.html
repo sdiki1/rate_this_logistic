@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RATE-THIS</title>
+        <link rel="stylesheet" href="../static/mobile_main.css" />
+
+    </head>
+    <script>
+        // Получаем ссылки на изображение и div
+        const image = document.getElementById("myImage");
+        const div= document.getElementById("myDiv");
+
+        // Добавляем обработчик события для клика по изображению
+        image.addEventListener("click", function() {
+        // При клике меняем стиль отображения div на "block"
+        div.style.display = "block";
+        });
+
+    </script>
+    <body>
+        <div class="container">
+            <div class="block-top">
+                <div class="curier1">
+                    <img class="back" src="../static/vector.png">
+                    <h1 class="fill-back">Назад</h1>
+                    <h1 class="fill">Роман</h1>
+                </div>
+            </div>
+            <div class="block-bottom">
+                <div class="problem">
+                    <h1 class="fill-problem">Проблема с товаром</h1>
+                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
+                </div>
+                <div id="myDiv">
+                    <img src="../static/one-block.png">
+                </div>
+                <div class="foto-block">
+                    <h1 class="foto">Прикрепите фото</h1>
+                    <img id="myImage" class="img-vopr" src="../static/vopr.png">
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
