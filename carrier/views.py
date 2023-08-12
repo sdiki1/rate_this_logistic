@@ -138,6 +138,8 @@ def product(request, data):
             last.date_last_action = timezone.now()
             last.save()
             return HttpResponseRedirect('/carrier')
+        if "Dont_get" in request.POST:
+            return HttpResponseRedirect(f'/carrier/product/{data}/problem')
 
     # return HttpResponse(f'{data}')
     last = LastDt.objects.filter(client_id=int(data)).first()
@@ -158,3 +160,7 @@ def product(request, data):
     }
     print(data)
     return render(request, "mobile_product.html", data)
+
+def problem(request, data):
+    print('data')
+    return render(request, "mobile_problems.html")

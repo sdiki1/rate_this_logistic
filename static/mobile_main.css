@@ -506,3 +506,8 @@ input.brein {
     margin-top: -10%;
     margin-right: 26.5%;
 }
+
+.data {
+    position: relative;
+    margin-top: 60px;
+}
