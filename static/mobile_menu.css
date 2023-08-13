@@ -1,0 +1,139 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.for {
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.block-left {
+    background-color: #21272C;
+    height: 100vh;
+    width: 75%;
+}
+
+.block-top {
+    background-color: rgba(24, 32, 38, 1);
+    min-width: 100%;
+    height: 25%;
+    position: relative;
+}
+
+.curier {
+    text-align: center;
+    margin-bottom: -3%;
+}
+
+.lines {
+    width: 22px;
+    height: 15px;
+    margin-top:1%;
+    margin-left: 3%;
+    margin-right: -10%;
+    float: left;
+}
+
+.fill {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.search {
+    background: url(../static/lupa.png) no-repeat center left;
+    background-size: 18px 17.5px;
+    background-position: 4%;
+}
+
+input.one {
+    display: block;
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-bottom: 3%;
+    width: 342px;
+    height: 30px;
+    background-color: #D9D9D91A;
+    border: 1px solid #D9D9D91A;
+    border-radius: 10px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: white;
+    outline: none;
+    padding-left: 8%;
+}
+
+.one::placeholder {
+    line-height: 30.48px;
+    font-weight: 500;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: white;
+}
+
+.login {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+h1 {
+    display: inline;
+    padding: 30px;
+    padding-left: 50px;
+}
+
+.Main {
+    width: 54px;
+    height: 54px;
+    float: left;
+    margin-top: -17px;
+    margin-left: 30px;
+}
+
+.head {
+    margin-bottom: -10%;
+    padding-top: 10%;
+    margin-left: -5%
+}
+
+.line {
+    background-color: rgba(57, 65, 69, 1);
+    height: 2px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.commands {
+    margin-top: 20px;
+}
+
+.box-img {
+    width: 38px;
+    height: 38px;
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-right: -35px;
+}
+
+.box-text {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    vertical-align: 5px;
+}
