@@ -25,9 +25,27 @@
     <body>
     <form method="POST">{% block content %}
         <div class="container">
+
+            <div id="dataContainer" class="hidden">
+                <div class="head">
+                    <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
+                    <h1 class="login">{{ login }}</h1>
+                </div>
+                <div class="commands">
+                    <div class="box1">
+                        <img class="box-img" src="../static/cargo.png">
+                        <h1 class="box-text">Курьер</h1>
+                    </div>
+                    <div class="box2">
+                        <img class="box-img" src="../static/cargo.png">
+                        <h1 class="box-text">Мне перевыдали</h1>
+                    </div>
+                </div>
+            </div>
+
             <div class="block-top">
                 <div class="curier">
-                    <img class="lines" src="/static/lines.png">
+                    <img id="showDataButton" class="lines" src="/static/lines.png">
                     <h1 class="fill">Курьер</h1>
                 </div>
                 <div class="search">
@@ -61,5 +79,21 @@
     {% endblock %}
     </form>
     </body>
+
+    <script>
+        const showDataButton = document.getElementById('showDataButton');
+        const dataContainer = document.getElementById('dataContainer');
+
+        showDataButton.addEventListener('click', () => {
+            dataContainer.classList.remove('hidden');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!dataContainer.contains(event.target) && !showDataButton.contains(event.target)) {
+                dataContainer.classList.add('hidden');
+            }
+        });
+
+    </script>
 
 </html>
