@@ -213,25 +213,25 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         <button type="button" class="addBlockButton" id="addBlockButton">+</button>
                         <h2 class="fill_grid">Штатные курьеры:</h2>
-                        <h1 class="text-one-new">ФИО</h1>
-                        <h1 class="text-two-new">Авто</h1>
-                        <h1 class="text-three-new">Госс номер</h1>
-                        <h1 class="text-four-new">Телефон</h1>
-                        <h1 class="text-five-new">Откуда</h1>
+                        <div class="block-new">
+                        <div class="column-2">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspФИО</div>
+                        <div class="column-2">Авто</div>
+                        <div class="column-2">Госс номер</div>
+                        <div class="column-2">Телефон</div>
+                            <div class="column-2">Откуда</div>
+                        </div>
+                        <div class="container">
                         {% for el in couriers %}
                         <div class="block-new">
-                            <input type="checkbox" class="custom-checkbox" name="courier-{{ el.id }}" id="checkbox-{{ el.id }}">
-                            <label class="lol" for="checkbox-{{ el.id }}">
-                            <div class="text-block">
-                                <h1 class="date-block">{{ el.name }} {{ el.surname }}</h1>
-                                <h1 class="give-block">{{ el.auto }}</h1>
-                                <h1 class="give-block">{{ el.auto_number }}</h1>
-                                <h1 class="give-block">{{ el.phone }}</h1>
-{#                                <h1 class="give-block">Штат</h1>#}
-                            </div>
-                            </label>
+                                <div class="column"><input type="checkbox" class="custom-checkbox" name="courier-{{ el.id }}" id="checkbox-{{ el.id }}">
+                            <label class="lol" for="checkbox-{{ el.id }}"></label>{{ el.name }} {{ el.surname }}</div>
+                                <div class="column">{{ el.auto }}</div>
+                                <div class="column">{{ el.auto_number }}</div>
+                                <div class="column">{{ el.phone }}</div>
+                                <div class="column">Штат</div>
                         </div>
                         {% endfor %}
+                        </div>
                         <h2 class="fill_grade"></h2>
                         <button type="submit">Продолжить!</button>
                     </div>
