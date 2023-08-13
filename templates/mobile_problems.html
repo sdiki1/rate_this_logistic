@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/mobile_main.css" />
     <title>Image Popup</title>
 </head>
-<body>
+<body>  
     <form method="POST">
         {% csrf_token %}
         <div class="container">
@@ -32,9 +32,7 @@
                             <img src="/static/one-block.png" alt="Popup Image">
                         </div>
                         <div class="upload-container">
-                            <label for="imageInput" class="upload-button">
-                              +
-                            </label>
+                            <label for="imageInput" class="upload-button">+</label>
                             <input type="file" id="imageInput" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
                         </div>
                         <div class="foto-block">
@@ -110,7 +108,7 @@
         }
         
         function handleImageChange(input) {
-            const container = input.closest(".container");
+            const container = input.closest(".data");
 
             for (let i = 0; i < input.files.length; i++) {
                 const file = input.files[i];
