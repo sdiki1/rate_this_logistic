@@ -25,16 +25,22 @@
   }
 
   .upload-button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    background-color: transparent;
+    border: 2px dashed #666666;
+    border-radius: 10px;
     cursor: pointer;
     margin-right: 10px;
+    width: 45px;
+    height: 45px;
+    color: #666666;
+    font-size: 40px;
+    text-align: center;
   }
+
   .file-input {
     display: none;
   }
+
   .image-container {
     display: none;
     vertical-align: middle;
@@ -56,7 +62,7 @@
   <div class="container">
     <div class="upload-container">
       <label for="imageInput" class="upload-button">
-        Upload Images
+        +
       </label>
       <input type="file" id="imageInput" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
     </div>
