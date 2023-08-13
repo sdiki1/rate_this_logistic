@@ -443,6 +443,7 @@ input.one {
     font-family: Montserrat, sans-serif;
     font-size: 20px;
     font-weight: 700;
+    display: inline-block;
 }
 
 .img-vopr {
@@ -535,15 +536,11 @@ input.brein {
 }
 
 #showImageBtn {
-    float: right;
-    margin-top: -10%;
-    margin-right: 45%;
+    display: inline-block;
 }
 
 #showImageBtn1 {
-    float: right;
-    margin-top: -10%;
-    margin-right: 26.5%;
+    display: inline-block;
 }
 
 .data {
@@ -564,8 +561,8 @@ input.brein {
     border-radius: 10px;
     cursor: pointer;
     margin-right: 10px;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     color: #666666;
     font-size: 40px;
     text-align: center;
@@ -587,7 +584,7 @@ input.brein {
     border-radius: 10px;
 }
 .hidden {
-            display: none;
+    display: none;
 }
 .show-image .image-container {
     display: flex;
