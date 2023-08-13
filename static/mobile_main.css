@@ -586,10 +586,24 @@ input.brein {
     border: 1px solid transparent;
     border-radius: 10px;
 }
-
+.hidden {
+            display: none;
+}
 .show-image .image-container {
     display: flex;
     float: left;
 }
 
 
+#dataContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Прозрачный фон */
+    color: white;
+    z-index: 9999; /* Выше, чем остальной контент */
+    padding: 20px;
+    box-sizing: border-box;
+}

@@ -10,38 +10,82 @@
         <link rel="stylesheet" href="../static/mobile_menu.css" />
 
     </head>
+    <script>
+        function redirectTOPROD(path) {
+
+    var currentPath = 'http://127.0.0.1:8000'
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + '/carrier/product/' + path;
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+        }
+    </script>
     <body>
-        <div class="for">
-            <div class="block-left">
-                <div class="head">
-                    <h1 class="login">oh no, cringe</h1>
-                    <img class="Main" src="../static/logo.png">
+    <form method="POST">{% block content %}
+        <div class="container">
+            <div class="block-top">
+                <div class="curier">
+                    <img class="lines" src="../static/lines.png">
+                    <h1 class="fill">Курьер</h1>
                 </div>
-                <div class="line"></div>
-    
+                <div class="search">
+                    <input class="one" name="username" type="text" placeholder="Поиск" />
+                </div>
+            </div>
+                <button id="showDataButton" type="button">Показать данные</button>
+                <div id="dataContainer" class="hidden">
+                <button id="closeDataButton">Закрыть</button>
                 <div class="commands">
                     <div class="box1">
-                        <img class="box-img" src="../static/cargo.png">
-                        <h1 class="box-text">Курьер</h1>
+                        <img class="box-img" src="../static/offer.png">
+                        <h1 class="box-text">Выдать товары</h1>
                     </div>
                     <div class="box2">
                         <img class="box-img" src="../static/cargo.png">
-                        <h1 class="box-text">Мне перевыдали</h1>
+                        <h1 class="box-text">Курьер</h1>
+                    </div>
+                    <div class="box3">
+                        <img class="box-img" src="../static/house.png">
+                        <h1 class="box-text">Склад</h1>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="block-top">
-                    <div class="curier">
-                        <img class="lines" src="/static/lines.png">
-                        <h1 class="fill">Курьер</h1>
-                    </div>
-                    <div class="search">
-                        <input class="one" name="username" type="text" placeholder="Поиск" />
-                    </div>
-                </div>
+            <div class="block-bottom">
+                <h1 class="fill-bottom">{{ i.adress }}</h1>
+                        <div class="box" onclick="redirectTOPROD('{{ m.redirect_data }}')">
+                            <div>
+                        </div>
+                            <h1 class="inf1">{{ m.name }}</h1>
+                            <h2 class="inf2">Телефон: {{ m.phone }} Код: {{ m.code }}</h2>
+                            <img class="vector" src="../static/Vector 14.png">
+                        </div>
             </div>
         </div>
+    {% endblock %}
+    </form>
     </body>
+ <script>
+        const showDataButton = document.getElementById('showDataButton');
+        const dataContainer = document.getElementById('dataContainer');
+        const closeDataButton = document.getElementById('closeDataButton');
+
+        showDataButton.addEventListener('click', () => {
+            dataContainer.classList.remove('hidden');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!dataContainer.contains(event.target) && !showDataButton.contains(event.target)) {
+                dataContainer.classList.add('hidden');
+            }
+        });
+
+        closeDataButton.addEventListener('click', () => {
+            dataContainer.classList.add('hidden');
+        });
+
+
+    </script>
 
 </html>
