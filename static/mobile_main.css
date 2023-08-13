@@ -512,8 +512,10 @@ input.brein {
     position: fixed;
     top: 20%;
     left: 50%;
-    height:263px;
+    height:220px;
     width: 320px;
+    border: 1px solid transparent;
+    border-radius: 10px;
 }
 
 .popup1 {
@@ -545,4 +547,42 @@ input.brein {
 .data {
     position: relative;
     margin-top: 60px;
+}
+
+.upload-container {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.upload-button {
+    background-color: transparent;
+    border: 2px dashed #666666;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+    color: #666666;
+    font-size: 40px;
+    text-align: center;
+}
+
+.file-input {
+    display: none;
+}
+
+.image-container {
+    display: none;
+    vertical-align: middle;
+}
+
+.uploaded-image {
+    width: 50px;
+    height: 50px;
+}
+
+.show-image .image-container {
+    display: inline-block;
 }

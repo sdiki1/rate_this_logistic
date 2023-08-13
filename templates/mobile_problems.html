@@ -1,15 +1,71 @@
 <!DOCTYPE html>
-<html>
-
-    <head>
-
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>RATE-THIS</title>
-        <link rel="stylesheet" href="../static/mobile_main.css" />
-
-    </head>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATE-THIS</title>
+    <link rel="stylesheet" href="/static/mobile_main.css" />
+    <title>Image Popup</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="block-top">
+                <div class="curier1">
+                    <img class="back" src="/static/vector.png">
+                    <h1 class="fill-back">Назад</h1>
+                    <h1 class="fill">Роман</h1>
+                </div>
+            </div>
+            <div class="block-bottom">
+                <div class="problem">
+                    <h1 class="fill-problem">Проблема с товаром</h1>
+                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что
+                        произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он
+                        есть, если вам его не выдают, то просто опишите информацию</h2>
+                    <div class="data">
+                        <h1 class="foto">Прикрепите фото</h1>
+                        <img src="/static/vopr.png" id="showImageBtn">
+                        <div id="imagePopup" class="popup">
+                            <img src="/static/one-block.png" alt="Popup Image">
+                        </div>
+                        <div class="upload-container">
+                            <label for="imageInput" class="upload-button">
+                              +
+                            </label>
+                            <input type="file" id="imageInput" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
+                        </div>
+                        <div class="foto-block">
+                            <h1 class="foto">Заполните информацию</h1>
+                            <div>
+                                <img src=" /static/vopr.png" id="showImageBtn1">
+                                <div id="imagePopup1" class="popup1">
+                                    <img src="/static/two-block.png" alt="Popup Image">
+                                </div>
+                            </div>
+                            <h1 class="inform">Бренд</h1>
+                            <input class="brein" name="brand" type="text" placeholder="Введите бренд товара"
+                                   onkeydown="return handleEnter(event, this)">
+                            <h1 class="inform">Артикул товара</h1>
+                            <input class="brein" name="article" type="text" placeholder="Введите артикул товара"
+                                   onkeydown="return handleEnter(event, this)">
+                            <h1 class="inform">Баркод товара</h1>
+                            <input class="brein" name="barcode" type="text" placeholder="Введите баркод товара"
+                                   onkeydown="return handleEnter(event, this)">
+                        </div>
+                        <div class="foto-block">
+                            <h1 class="foto">Кратко опишите ситуацию</h1>
+                            <h1 class="inform">Объяснение</h1>
+                            <input class="brein" name="reason" type="text" onkeydown="return handleEnter(event, this)">
+                        </div>
+                        <button class="button3" name="send_data" type="submit">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <script>
         const showImageBtn = document.getElementById('showImageBtn');
         const imagePopup = document.getElementById('imagePopup');
@@ -23,44 +79,64 @@
                 imagePopup.style.display = 'none';
             }
         });
+
+        const showImageBtn1 = document.getElementById('showImageBtn1');
+        const imagePopup1 = document.getElementById('imagePopup1');
+
+        showImageBtn1.addEventListener('click', () => {
+            imagePopup1.style.display = 'block';
+        });
+        document.addEventListener('click', (event) => {
+            if (event.target !== imagePopup1 && event.target !== showImageBtn1) {
+                imagePopup1.style.display = 'none';
+            }
+        });
+
+        function handleEnter(event, input) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const inputs = input.closest('.foto-block').querySelectorAll('input');
+                const currentIndex = Array.from(inputs).indexOf(input);
+                const nextIndex = currentIndex + 1;
+
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                } else {
+                    input.blur();
+                }
+
+                return false;
+            }
+        }
+        
+        function handleImageChange(input) {
+            const container = input.closest(".container");
+
+            for (let i = 0; i < input.files.length; i++) {
+                const file = input.files[i];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageContainer = document.createElement("div");
+                        imageContainer.className = "image-container";
+
+                        const uploadedImage = document.createElement("img");
+                        uploadedImage.className = "uploaded-image";
+                        uploadedImage.src = e.target.result;
+
+                        imageContainer.appendChild(uploadedImage);
+                        container.insertBefore(imageContainer, container.querySelector(".upload-container"));
+
+                        imageContainer.style.marginRight = "10px";  // Добавлено для отступа
+
+                        container.classList.add("show-image");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
     </script>
-    <body>
-        <div class="container">
-            <div class="block-top">
-                <div class="curier1">
-                    <img class="back" src="../static/vector.png">
-                    <h1 class="fill-back">Назад</h1>
-                    <h1 class="fill">Роман</h1>
-                </div>
-            </div>
-            <div class="block-bottom">
-                <div class="problem">
-                    <h1 class="fill-problem">Проблема с товаром</h1>
-                    <h2 class="problem-text">Очень жаль что вы столкнулись с какой-то проблемой опишите, пожалуйста что произошло и прикрепите фото товара и его этикетки, как правильно сделать написанно в вопросе если он есть, если вам его не выдают, то просто опишите информацию</h2>
-                </div>
-                <div id="imagePopup" class="popup">
-                    <img src="../static/one-block.png">
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Прикрепите фото</h1>
-                    <button id="showImageBtn" class="myimg"></button>
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Заполните информацию</h1>
-                    <button id="showImageBtn" class="myimg1"></button>
-                    <h1 class="inform">Бренд</h1>
-                    <input class="brein" type="text" placeholder="Введите бренд товара" />
-                    <h1 class="inform">Артикул товара</h1>
-                    <input class="brein" type="text" placeholder="Введите артикул товара"/>
-                    <h1 class="inform">Баркод товара</h1>
-                    <input class="brein" type="text" placeholder="Введите баркод товара"/>
-                </div>
-                <div class="foto-block">
-                    <h1 class="foto">Кратко опишите ситуацию</h1>
-                    <h1 class="inform">Объяснение</h1>
-                    <input class="brein" type="text" placeholder="Введите бренд товара" />
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>
+
