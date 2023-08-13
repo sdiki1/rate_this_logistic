@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RATE-THIS</title>
         <link rel="stylesheet" href="/static/main_page.css" />
-
+        <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     </head>
 {% endblock %}
 <script>
@@ -84,23 +84,57 @@ function redirectToMain() {
                 <div class="text">
                     <h1 class="fill">Курьер</h1>
                     <div class="butt-one">
-                        <button type="button" class="ruf">Назад</button>
-                        <h1 class="but">Курьер</h1>
+                        <button type="button" class="ruf" onclick="redirectToCourier()">Назад</button>
+                        <h1 class="but" onclick="redirectToCourier()" >Курьер</h1>
                         <h1 class="bet">/</h1>
                         <h1 class="bat">Отправить курьера</h1>
                     </div>
                     <h1 class="fill_grad">Данные для входа курьерам</h1>
                     <h2 class="text-curier">Разошлите данные для входа курьерам</h2>
-                    <button type="submit" class="rud">Сформировать</button>
+                    <div class="block-new-2">
+                        <div class="column-2">id</div>
+                        <div class="column-2">Имя</div>
+                        <div class="column-2">Авто</div>
+                        <div class="column-2">Номер</div>
+                        <div class="column-2">Откуда</div>
+                        <div class="column-2">Логин</div>
+                        <div class="column-2">Пароль</div>
+                        <div class="column-2">Скопировать</div>
+                    </div>
+
                     {% for i in couriers %}
-                    <div id="blocks-container" class="blockone">
-                        <h2 class="fill_gr">{{ i.id }} {{ i.name }} {{ i.auto }} {{ i.number }} {{ i.where }} {{ i.login }} {{ i.pasword }}</h2> 
+                    <div class="block-new">
+                        <div class="column">{{ i.id }}</div>
+                        <div class="column">{{ i.name }}</div>
+                        <div class="column">{{ i.auto }}</div>
+                        <div class="column">{{ i.number }}</div>
+                        <div class="column">{{ i.where }}</div>
+                        <div class="column">{{ i.login }}</div>
+                        <div class="column">{{ i.password}}</div>
+                        <div class="column">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                           <img src="/static/copy.png" id="copyImage">
+                            <div id="textToCopy" style="display: none;">{{ i.copy_data}}</div>
+                        </div>
                     </div>
                     {% endfor %}
-
                 </div>
             </div>
         </div>
     </body>
     {%  endblock %}
+
+<script>
+        var clipboard = new ClipboardJS('#copyImage', {
+            text: function(trigger) {
+                return document.getElementById('textToCopy').textContent;
+            }
+        });
+
+        {#clipboard.on('success', function(e) {#}
+        {#    alert('Текст скопирован в буфер обмена:\n' + e.text);});#}
+
+        clipboard.on('error', function(e) {
+            alert('Не удалось скопировать текст. Пожалуйста, выделите текст и нажмите Ctrl+C (Cmd+C на Mac).');
+        });
+</script>
 </html>
