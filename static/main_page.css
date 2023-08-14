@@ -161,8 +161,10 @@ button:hover {
 .button {
     margin-bottom: 45px;
 }
+
 .check {
     margin-top: 80px;
+    padding-bottom: 40px;
 }
 
 .custom-checkbox {

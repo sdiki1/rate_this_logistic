@@ -10,19 +10,19 @@ html, body {
 
 .split-container {
     width: 100%;
-    height: 100%;
     display: flex;
 }
 
 .block-left {
     background-color: rgba(24, 32, 38, 1);
-    height: 100vh;
     width: 25%;
 }
 
 .block-right {
     background-color: rgba(21, 24, 30, 1);
     width: 75%;
+    min-height: 100vh;
+    overflow: auto;
 }
 
 .login {
@@ -222,7 +222,17 @@ button:hover {
     font-size: 15px;
     width: 735px;
     font-weight: normal;
-    margin-left: 47px;
+    margin-left: 90px;
+    margin-top: 60px;
+}
+
+.status1 {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 735px;
+    font-weight: normal;
+    margin-left: 210px;
     margin-top: 60px;
 }
 
