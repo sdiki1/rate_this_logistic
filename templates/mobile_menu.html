@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RATE-THIS</title>
-        <link rel="stylesheet" href="../static/mobile_menu.css" />
+        <link rel="stylesheet" href="../static/mobile_main.css" />
 
     </head>
     <script>
@@ -27,28 +27,23 @@
         <div class="container">
             <div class="block-top">
                 <div class="curier">
-                    <img class="lines" src="../static/lines.png">
+                    <img id="showDataButton" class="lines" src="../static/lines.png">
                     <h1 class="fill">Курьер</h1>
                 </div>
                 <div class="search">
                     <input class="one" name="username" type="text" placeholder="Поиск" />
                 </div>
             </div>
-                <button id="showDataButton" type="button">Показать данные</button>
-                <div id="dataContainer" class="hidden">
+            <div id="dataContainer" class="hidden">
                 <button id="closeDataButton">Закрыть</button>
                 <div class="commands">
                     <div class="box1">
-                        <img class="box-img" src="../static/offer.png">
-                        <h1 class="box-text">Выдать товары</h1>
-                    </div>
-                    <div class="box2">
                         <img class="box-img" src="../static/cargo.png">
                         <h1 class="box-text">Курьер</h1>
                     </div>
-                    <div class="box3">
-                        <img class="box-img" src="../static/house.png">
-                        <h1 class="box-text">Склад</h1>
+                    <div class="box2">
+                        <img class="box-img" src="../static/cargo.png">
+                        <h1 class="box-text">Мне перевыдали</h1>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@
 <script>
 function redirectToCourier() {
     // Get the current URL path
-    var currentPath = 'http://127.0.0.1:8000'
+    var currentPath = window.location.origin
 
     // Append "/contest" to the current path
     var newUrl = currentPath + "/courier";
@@ -23,7 +23,7 @@ function redirectToCourier() {
 }
 function redirectToDelivery() {
     // Get the current URL path
-    var currentPath = 'http://127.0.0.1:8000'
+    var currentPath = window.location.origin
 
     // Append "/contest" to the current path
     var newUrl = currentPath + "/delivery";
@@ -33,7 +33,7 @@ function redirectToDelivery() {
 }
 function redirectToWare() {
 
-    var currentPath = 'http://127.0.0.1:8000'
+    var currentPath = window.location.origin
 
     // Append "/contest" to the current path
     var newUrl = currentPath + "/warehouse";
@@ -43,7 +43,7 @@ function redirectToWare() {
 }
 function redirectToMain() {
 
-    var currentPath = 'http://127.0.0.1:8000'
+    var currentPath = window.location.origin
 
     // Append "/contest" to the current path
     var newUrl = currentPath + "/";
