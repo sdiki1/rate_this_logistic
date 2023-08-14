@@ -798,3 +798,169 @@ td {
 .don {
     background-color: #F5FAFF;
 }
+
+
+
+
+
+
+
+
+
+
+
+.window {
+    width: 640px;
+    height: 680px;
+    background-color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    padding-top: 30px;
+    padding-left: 30px;
+    display: none;
+    position: fixed;
+    top: 15%;
+    left: 30%;
+    z-index: 9999;
+    padding: 20px;
+}
+
+
+.window-txt {
+    margin-bottom: 60px;
+}
+
+.window-txt-one {
+    margin-bottom: 40px;
+    width: 500px;
+}
+
+.window-text {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.window-text-one {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+
+
+
+
+.rec {
+    display: inline-block;
+    position: relative;
+    border: 2px solid #E2E2E2;
+    border-radius: 30px;
+    padding: 10px 50px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+  
+.rec__word {
+    color: black;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+}
+  
+.rec__border-word {
+    font-size: 15px;
+    font-family: Montserrat, sans-serif;
+    color: #E2E2E2;
+    background-color: white;
+    position: absolute;
+    padding: 5px 15px;
+    bottom: 30px;
+    right: 80px;
+}
+
+.rec__border-word-one {
+    font-size: 15px;
+    color: #E2E2E2;
+    font-family: Montserrat, sans-serif;
+    background-color: white;
+    position: absolute;
+    padding: 5px 15px;
+    bottom: 30px;
+    right: 62px;
+}
+
+
+
+
+
+
+.wind-inf {
+    width: 560px;
+    height: 170px;
+    background-color: #E2E2E2;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    padding-top: 20px;
+    padding-left: 40px;
+    margin-bottom: 50px;
+}
+
+.wind-text {
+    width: 420px;
+    text-align: left;
+}
+
+
+
+.window-block {
+    height: 52px;
+    width: 250px;
+    background-color:#95E6D6;
+    border: 1px solid #95E6D6;
+    border-radius: 15px;
+    color: black;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-right: 45px;
+
+}
+
+.window-block:hover {
+	background: rgba(0,0,0,0);
+	color: #95E6D6;
+	box-shadow: inset 0 0 0 3px #95E6D6;
+}
+
+
+.window-block-one {
+    height: 52px;
+    width: 300px;
+    background-color:#F38383;
+    border: 1px solid #F38383;
+    border-radius: 15px;
+    color: black;
+    line-height: 30.48px;
+    font-weight: 700;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-right: 30px;
+
+}
+
+.window-block-one:hover {
+	background: rgba(0,0,0,0);
+	color: #F38383;
+	box-shadow: inset 0 0 0 3px #F38383;
+}

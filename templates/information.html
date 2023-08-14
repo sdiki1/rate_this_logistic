@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Вход</title>
-        <link rel="stylesheet" href="/static/information.css" />
+        <link rel="stylesheet" href="../static/information.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
@@ -103,7 +103,7 @@
                 </div>
                 <div class="king-type">
                     <button type="button" class="type1">Взять работу</button>
-                    <button type="button" class="type2">Написать объяснение</button>
+                    <button id="toggleButton" type="button" class="type2">Написать объяснение</button>
                     <button type="button" class="type3">Получил товар</button>
                 </div>
 
@@ -263,9 +263,56 @@
                         </tbody>
                       </table>
                 </div>
+
+
+
+
+
+                <div id="myDiv" class="window">
+                    <div class="window-txt">
+                        <h2 class="window-text">Объяснительная</h2>
+                    </div>
+                    <div class="window-txt-one">
+                        <h2 class="window-text-one">Пожалуйста кратко объясните почему, курьер “проблема требующая объяснения” и итог решения и чья это вина</h2>
+                    </div>
+                    <div>
+                        <div class="rec">
+                            <h1 class="rec__word">Анастасия</h1>
+                            <span class="rec__border-word">Менеджер</span>
+                        </div>
+                        <div class="rec">
+                            <h1 class="rec__word">21387612638</h1>
+                            <span class="rec__border-word-one">ID Менеджера</span>
+                        </div>
+                    </div>
+                    <div class="wind-inf">
+                        <div class="wind-text">
+                            <h2 class="window-text-one">Товар курьеру выдали, просто его не много затеряли на пвз, вина полностью на пвз.</h2>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="window-block" type="button">Ситуация решена</button>
+                        <button class="window-block-one" type="button">Ситуация не решена</button>
+                    </div>
+                </div>
             </div>
         </div>
 
     </body>
+    <script>
+        // Получить элементы кнопки и дива
+        const toggleButton = document.getElementById('toggleButton');
+        const myDiv = document.getElementById('myDiv');
+
+        // Добавить обработчик события на кнопку
+        toggleButton.addEventListener('click', () => {
+            // Проверить текущее состояние дива и изменить его видимость
+            if (myDiv.style.display === 'none') {
+                myDiv.style.display = 'block'; // Показать див
+            } else {
+                myDiv.style.display = 'none'; // Скрыть див
+            }
+        });
+    </script>
 
 </html>
