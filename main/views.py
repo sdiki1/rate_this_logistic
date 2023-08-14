@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth import logout
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
+import pandas as pd
 def main(request):
     if request.user.is_authenticated:
         return render(request, "main.html", {'login': f'{request.user.username}'})
@@ -129,7 +130,6 @@ def set_delivery(request):
                 Last.date_last_action = timezone.now()
                 Last.action = 1
                 Last.save()
-
 
 
         Client_pvz.append([client, pvz])
@@ -270,7 +270,93 @@ def delivery_detail(request, date):
         return render(request, "delivery_detail.html", data)
     else:
         if "excel" in request.POST:
-            print('RETURN EXCEL FILE')
+
+            try:
+                formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
+            except:
+                print('ERROR')
+                return HttpResponse("error")
+
+            today = timezone.now()
+            start_of_today = datetime(today.year, today.month, today.day)
+            print(formatted_date)
+            for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
+            print(for_deliver)
+            status_dict = {
+                1: "Корзина собирается",
+                2: "Оплачен",
+                3: "Получить",
+                4: "Получен",
+                5: "Опубликовать",
+                6: "Модерация",
+                7: "Опубликован",
+                8: "Удалён",
+                9: "Отмена",
+                10: "Возврат",
+                11: "Проверить",
+                12: "Выдан курьеру",
+                21: "Не нашел в выдаче"
+            }
+            # if random.randint(0, 1):
+            #     lol = True
+            # else:
+            #     lol = False
+
+            last_obj = LastDt.objects.filter(action=1).first()
+            print(formatted_date, datetime.today().date())
+            print(last_obj)
+            if last_obj is not None and formatted_date == datetime.today().date():
+                is_active = True
+            else:
+                is_active = False
+
+            data = []
+            for i in for_deliver:
+                # client = Client.objects.filter(id=i.client_id).first()
+                if i.pvz != 0:
+                    pvz_row = DictPunkt.objects.filter(id=i.pvz).first()
+                    pvz = pvz_row.punkt_vidachi
+                else:
+                    pvz = 0
+                table_object = {
+                    "id": i.client_id,
+                    # "status": status_dict[int(client.status)],
+                    "article": i.article,
+                    "barcode": i.barcode,
+                    "clientid": i.clientid,
+                    "name": i.name,
+                    "phone": i.phone,
+                    "punkt_vidachi": pvz,
+                    "code": i.code,
+                    "date_active": i.date_active.strftime('%Y.%m.%d'),
+                    "naming": i.naming,  # naming
+                    "task1": str(i.task1),
+                    "who_give": i.who_gave,
+                    "price": i.price
+                }
+                data.append(table_object)
+
+            df = pd.DataFrame(data)
+
+            excel_writer = pd.ExcelWriter('table_data.xlsx', engine='openpyxl')
+            df.to_excel(excel_writer, sheet_name='Sheet1', index=False)
+
+            # Настройка стиля для Excel файла (необязательно)
+            workbook = excel_writer.book
+            worksheet = excel_writer.sheets['Sheet1']
+            for column_cells in worksheet.columns:
+                length = max(len(str(cell.value)) for cell in column_cells)
+                worksheet.column_dimensions[column_cells[0].column_letter].width = length
+
+            excel_writer.close()  # Закрываем ExcelWriter
+
+            # Создание HTTP Response с Excel файлом во вложении
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename="table_data.xlsx"'
+            with open('table_data.xlsx', 'rb') as excel_file:
+                response.write(excel_file.read())
+
+            return response
         if "dovidacha" in request.POST:
             print("return DOVIDACHA PAGE")
         if "end_delivery" in request.POST:
@@ -325,11 +411,16 @@ def delivery_history(request):
         date = entry['date'].strftime('%d.%m.%Y')
         n1 = entry['count_action1']
         n2 = entry['count_action2']
+        last = LastDt.objects.filter(action=1).all()
+        if last != [] and entry['date'] == timezone.datetime.today().date():
+            status = 1
+        else:
+            status = 0
         dat = {
             "date": date,
             "couriers": "В разработке",
             "get": f"{n2} из {n1}",
-            "status": random.randint(0, 1),
+            "status": status,
             "redirect_url": f"delivery/{entry['date'].strftime('%Y%m%d')}/"
         }
         data["rows"].append(dat)
@@ -343,36 +434,38 @@ def couriers_history(request):
         pass
     infoDT = InfoDt.objects.all()
 
-    daily_counts = InfoDt.objects.annotate(
-        date=TruncDate('date_action')
-    ).values('date').annotate(
-        count_action1=Count('id', filter=Q(action=1)),
-        count_action2=Count('id', filter=Q(action=3))
-    ).order_by('date')
 
     # Loop through the results
 
-
+    dates = Couriers_shifts.objects.annotate(date=TruncDate('start_shift')).values('date').distinct()
+    print(dates)
     data = {
         'login': f'{request.user.username}',
         'rows': []
     }
 
-    for entry in daily_counts:
-        date = entry['date'].strftime('%d.%m.%Y')
-        n1 = entry['count_action1']
-        n2 = entry['count_action2']
+    for entry in dates:
+        entry = entry['date']
+        shifts_on_specific_date = Couriers_shifts.objects.filter(
+            Q(start_shift__date=entry) | Q(end_shift__date=entry)
+        )
+        date = entry.strftime('%Y.%m.%d')
+        counter = 0
+        status = 0
+        for m in shifts_on_specific_date:
+            counter += 1
+            if m.end_shift is None:
+                status = 1
         dat = {
             "date": date,
-            "couriers": "В разработке",
-            "get": f"{n2} из {n1}",
-            "status": random.randint(0, 1),
-            "redirect_url": f"couriers/{entry['date'].strftime('%Y%m%d')}/"
+            "couriers": counter,
+            "status": status,
+            "redirect_url": f"couriers/{entry.strftime('%Y%m%d')}/"
         }
         data["rows"].append(dat)
     print(data)
 
-    return render(request, "History.html", data)
+    return render(request, "History_courier.html", data)
 
 
 
@@ -478,7 +571,7 @@ def set_pvz(request):
         print(data)
         couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
         adresses = []
-        last = LastDt.objects.filter(action__in=[4, 5, 8])
+        last = LastDt.objects.filter(action__in=[1, 4, 5, 8])
         partner = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
         print(partner)
         m = couriers[0].is_partner_pvz
@@ -491,7 +584,7 @@ def set_pvz(request):
                 if i.pvz in partner:
                     continue
             if i.pvz in adresses:
-                pass
+                continue
             adresses.append(i.pvz)
         courier_pvz = []
 
@@ -539,6 +632,27 @@ def set_pvz(request):
                 )
                 m.save()
                 new_info.save()
+
+        def generate_random_string(length):
+            characters = string.ascii_letters + string.digits
+            random_string = ''.join(random.choice(characters) for _ in range(length))
+            return random_string
+
+        couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
+        for i in couriers:
+            pas = generate_random_string(6)
+            i.login = f"courier_{i.id}"
+            i.password = pas
+            i.save()
+            user = Users.objects.create_user(
+                username=f"courier_{i.id}",
+                password=pas,
+                id_shift=f"i.id",
+                phone=f"{i.phone}",
+                status=2
+            )
+            user.save()
+
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
 
@@ -551,7 +665,7 @@ def set_pvz(request):
     couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
 
     adresses = []
-    last = LastDt.objects.filter(action__in=[4, 5, 8])
+    last = LastDt.objects.filter(action__in=[1, 4, 5, 8])
     partner = DictPunkt.objects.filter(partner_status=1).values_list('id', flat=True)
     print(partner)
     m = couriers[0].is_partner_pvz
@@ -584,19 +698,12 @@ def set_data(request):
     if request.method == "POST":
         return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
 
-    def generate_random_string(length):
-        characters = string.ascii_letters + string.digits
-        random_string = ''.join(random.choice(characters) for _ in range(length))
-        return random_string
-
     data = {
         'login': f'{request.user.username}',
         'couriers': [],
     }
-
     couriers = Couriers_shifts.objects.filter(end_shift__isnull=True)
     for i in couriers:
-        pas = generate_random_string(6)
         tmp = {
             "id": i.id,
             "name": f"{i.name}",
@@ -605,20 +712,9 @@ def set_data(request):
             "where": i.where_courier,
             "login": f"courier_{i.id}",
             "phone": i.phone,
-            "password": pas,
-            "copy_daata": f"ИМЯ: {i.name},\nАВТО: {i.auto_number},\nНОМЕР АВТО: {i.auto_number}, ТЕЛЕФОН: {i.phone}, ЛОГИН: courier_{i.id}, ПАРОЛЬ: {pas}\n\n"
+            "password": i.password,
+            "copy_data": f"ИМЯ: {i.name}, \nАВТО: {i.auto_number},\nНОМЕР АВТО: {i.auto_number}\n ТЕЛЕФОН: {i.phone} \n\nЛОГИН: courier_{i.id}\n ПАРОЛЬ: {i.password}\n\n"
         }
-        i.login = f"courier_{i.id}"
-        i.password = pas
-        i.save()
-        user = Users.objects.create_user(
-            username=f"courier_{i.id}",
-            password=pas,
-            id_shift=f"i.id",
-            phone=f"{i.phone}",
-            status=2
-        )
-        user.save()
         data['couriers'].append(tmp)
 
     return render(request, "set_data.html", data)
@@ -630,3 +726,5 @@ def logt(request):
 
 
 
+def courier_detail(request, date):
+    return HttpResponse(f"Я ХЗ чё сказать {date}")

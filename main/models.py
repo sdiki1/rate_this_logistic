@@ -228,3 +228,18 @@ class Couriers_shifts(models.Model):
         managed = True
         db_table = 'couriers_shifts'
 
+
+class problems(models.Model):
+    id = models.AutoField(primary_key=True)
+    shift_id = models.IntegerField(null=True)
+    client_id = models.IntegerField(null=True)
+    status_problem = models.IntegerField(null=True)
+    descriprion_problem = models.TextField(null=True)
+    barcode_problem = models.CharField(max_length=50, null=True)
+    article_problem = models.CharField(max_length=25, null=True)
+    date_problem = models.DateTimeField(null=False)
+    who_accept = models.CharField(max_length=50, null=True, help_text="Айди юзера, принявшего в работу эту проблему")
+    descriprion_solving = models.TextField(null=True)
+    date_solving = models.DateTimeField(null=True)
+    status_solving = models.IntegerField(null=True)
+    comment = models.TextField(null=True)
