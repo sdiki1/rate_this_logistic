@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Monserrat';
+    src: url('https://fonts.googleapis.com/css2?family=Montserrat');
+}
+
+
 html, body {
     margin: 0;
     padding: 0;
@@ -213,7 +219,7 @@ input:checked + label:before {
 
 .but {
     color: white;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 20px;
     width: 735px;
     font-weight: normal;
@@ -223,7 +229,7 @@ input:checked + label:before {
 
 .bet {
     color: white;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 20px;
     width: 735px;
     font-weight: normal;
@@ -232,7 +238,7 @@ input:checked + label:before {
 }
 .bat {
     color: white;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 20px;
     width: 735px;
     font-weight: normal;
@@ -390,7 +396,7 @@ input:checked + label:before {
 .text-one {
     padding-left: 5%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -401,7 +407,7 @@ input:checked + label:before {
 .text-two {
     padding-left: 15%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -412,7 +418,7 @@ input:checked + label:before {
 .text-three {
     padding-left: 9.8%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -423,7 +429,7 @@ input:checked + label:before {
 .text-four {
     padding-left: 4%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -434,7 +440,7 @@ input:checked + label:before {
 .text-five {
     padding-left: 7.5%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -456,7 +462,7 @@ input:checked + label:before {
 .text-one-new {
     padding-left: 5%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -467,7 +473,7 @@ input:checked + label:before {
 .text-two-new {
     padding-left: 15%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -478,7 +484,7 @@ input:checked + label:before {
 .text-three-new {
     padding-left: 9.8%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -489,7 +495,7 @@ input:checked + label:before {
 .text-four-new {
     padding-left: 4%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -500,7 +506,7 @@ input:checked + label:before {
 .text-five-new {
     padding-left: 7.5%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -678,7 +684,7 @@ button.rud:hover {
 .adres {
     padding-left: 4%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
@@ -688,7 +694,7 @@ button.rud:hover {
 .curier {
     padding-left: 4%;
     color: #FDFDFF;
-    font-family: Roboto, sans-serif;
+    font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
     font-weight: normal;
