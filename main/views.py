@@ -727,4 +727,30 @@ def logt(request):
 
 
 def courier_detail(request, date):
-    return HttpResponse(f"Я ХЗ чё сказать {date}")
+    try:
+        formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
+    except:
+        return HttpResponse('ERROR')
+    entry = formatted_date
+    shifts_on_specific_date = Couriers_shifts.objects.filter(
+        Q(start_shift__date=entry) | Q(end_shift__date=entry)
+    )
+    data = {
+        'login': f'{request.user.username}',
+        'list': [],
+    }
+
+    for i in shifts_on_specific_date:
+        tmp = {
+            "id": i.id,
+            "name": i.name,
+            "auto": i.auto_model,
+            "number": i.auto_number,
+            "where": i.where_courier
+        }
+        data['list'].append(tmp)
+
+    return render(request, "courier_detail.html", data)
+
+
+
