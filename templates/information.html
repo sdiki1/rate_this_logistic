@@ -91,100 +91,87 @@ function redirectToMain() {
                     <div class="button">
                         <button type="button" class="ruf">Назад</button>
                         <h1 class="but">Курьер</h1>
-                        <h1 class="bet">/</h1>
-                        <h1 class="bat">История заборов</h1>
                     </div>
+                    {% if is_end %}
+                    <h2 class="fill_grade">Курьер завершил свой маршрут</h2>
+                    {% else %}
                     <h2 class="fill_grade">Курьер на маршруте</h2>
+                    {% endif %}
                 </div>
 
-                <div class="text-up">
-                    <h1 class="fio">ФИО</h1>
-                    <h1 class="charge">Авто</h1>
-                    <h1 class="number">Госс номер</h1>
-                    <h1 class="where">Откуда</h1>
+                <div class="block-new-2">
+                    <div class="column-2">Имя</div>
+                    <div class="column-2">Авто</div>
+                    <div class="column-2">Номер авто</div>
+                    <div class="column-2">Откуда</div>
+                    <div class="column-2">Телефон</div>
+                </div>
+                <div class="block-new">
+                    <div class="column">{{ courier.name }}</div>
+                    <div class="column">{{ courier.auto }}</div>
+                    <div class="column">{{ courier.number }}</div>
+                    <div class="column">{{ courier.where }}</div>
+                    <div class="column">{{ courier.phone }}</div>
                 </div>
 
-                <div class="block">
-                    <div class="text-block">
-                        <h1 class="fio-block">Иванов Иван Иванович</h1>
-                        <h1 class="charge-block">Лада ВАЗ 2107</h1>
-                        <h1 class="number-block">с777су777</h1>
-                        <h1 class="where-block">Штат</h1>
-                    </div>
-                    <button class="status-block" type="button">Исправить</button>
+                {% for i in problem1 %}
+                <h2 class="fill_grad">Курьеру на адресе "{{ i.pvz }}" не выдали следующий товар:</h2>
+                <div class="block-new-2">
+                    <div class="column-2">id</div>
+                    <div class="column-2">Фото</div>
+                    <div class="column-2">Артикул</div>
+                    <div class="column-2">Размер</div>
+                    <div class="column-2">Дата покупки</div>
+                    <div class="column-2">Телефон</div>
+                    <div class="column-2">Имя</div>
+                    <div class="column-2">Цена</div>
+                    <div class="column-2">Таск1</div>
                 </div>
-                <h2 class="fill_grad">Курьеру на адресе “Ул Пушкина, дом Колотушкина" не выдали следующие товары:</h2>
-                <div class="text-up">
-                    <h1 class="txt-id">ID</h1>
-                    <h1 class="txt-foto">Фото</h1>
-                    <h1 class="txt-articul">Артикул</h1>
-                    <h1 class="txt-size">Размер</h1>
-                    <h1 class="txt-datebye">Дата покупки</h1>
-                    <h1 class="txt-dategive">Дата выдачи</h1>
-                    <h1 class="txt-nomer">Телефон</h1>
-                    <h1 class="txt-name">Имя</h1>
-                    <h1 class="txt-price">Цена</h1>
-                    <h1 class="txt-task">Task1</h1>
+                <div class="block-new">
+                    <div class="column">{{ i.id }}</div>
+                    <div class="column"><img src="{{ i.photo }}"></div>
+                    <div class="column">{{ i.article }}</div>
+                    <div class="column">{{ i.size }}</div>
+                    <div class="column">{{ i.date_buy }}</div>
+                    <div class="column">{{ i.phone }}</div>
+                    <div class="column">{{ i.name }}</div>
+                    <div class="column">{{ i.price }}</div>
+                    <div class="column">{{ i.task1 }}</div>
                 </div>
-                <div class="block1">
-                    <div class="text-block1">
-                        <h1 class="id-block">text</h1>
-                        <img class="foto-block" src="/home/levantio/Downloads/dat-img.png">
-                        <h1 class="articul-block">78858215</h1>
-                        <h1 class="size-block">XS</h1>
-                        <h1 class="datebye-block">2023-07-11</h1>
-                        <h1 class="dategive-block">2023-07-15</h1>
-                        <h1 class="nomer-block">89167859999</h1>
-                        <h1 class="name-block">Петр</h1>
-                        <h1 class="price-block">999</h1>
-                        <h1 class="task-block">999999999</h1>
-                    </div>
+                {% if i.is_solved %}
+                    <h2 class="fill_grade">Cитуация решена со статусом {{ i.result }}</h2>
+                {% else %}
+                    <div class="king-type">
+                    <button id="toggleButton-{{ i.id }}" name="{{ i.id }}" type="button" class="type2">Написать объяснение</button>
                 </div>
-                <div class="king-type">
-                    <button type="button" class="type1">Взять работу</button>
-                    <button id="toggleButton" type="button" class="type2">Написать объяснение</button>
-                    <button type="button" class="type3">Получил товар</button>
-                </div>
+                {% endif %}
+                {% endfor %}
+                {% for i in problem2 %}
+                    <h2 class="fill_grad">Курьер на адресе "{{ i.pvz }}" не может идентифицировать товары:</h2>
 
-                <h2 class="fill_grad">Курьеру на адресе “Ул Пушкина, дом Колотушкина" перевыдали следующие товары:</h2>
-                <div class="site-img">
-                    <img class="site-img1" src="/home/levantio/site-img1.png">
-                    <img class="site-img1" src="/home/levantio/site-img2.png">
-                </div>
+                    <div class="site-img">
+                        {% for m in i.photos %}
+                            <img class="site-img1" src="/media/problem_photos/{{ m }}" >
+                        {% endfor %}
+                     </div>
                 <h3 class="inf">Известные данные:</h3>
                 <div>
-                    <h1 class="inf1">Баркод: 12836782163712637812</h1>
-                    <h1 class="inf2">Предполагаемый артикул: 123213123</h1>
+                    <h1 class="inf1">Баркод: {{ i.barcode }}</h1>
                     <h1 class="inf3">Баркод не опознан</h1>
                 </div>
                 <div class="barcode">
-                    <h1 class="inf1">Артикул: 1276378</h1>
+                    <h1 class="inf1">Артикул: {{ i.article }}</h1>
                     <h1 class="inf3">Артикул не опознан</h1>
                 </div>
-                <div class="but-type">
-                    <button type="button" class="type-2">Написать объяснение и занести в таблицу</button>
-                    <button type="button" class="type-1">Взять работу</button>
+                {% if i.is_solved %}
+                    <h2 class="fill_grade">Cитуация решена со статусом {{ i.result }}</h2>
+                {% else %}
+                    <div class="king-type">
+                    <button id="toggleButton-{{ i.id }}" name="{{ i.id }}" type="button" class="type2">Написать объяснение</button>
                 </div>
+                {% endif %}
+                {% endfor %}
 
-                <h2 class="fill_grad">Курьер на адресе “Ул Пушкина, дом Колотушкина" не может идентифицировать товары:</h2>
-                <div class="site-img">
-                    <img class="site-img1" src="/home/levantio/site-img1.png">
-                    <img class="site-img1" src="/home/levantio/site-img2.png">
-                </div>
-                <h3 class="inf">Известные данные:</h3>
-                <div>
-                    <h1 class="inf1">Баркод: 12836782163712637812</h1>
-                    <h1 class="inf2">Предполагаемый артикул: 123213123</h1>
-                    <h1 class="inf3">Баркод не опознан</h1>
-                </div>
-                <div class="barcode">
-                    <h1 class="inf1">Артикул: 1276378</h1>
-                    <h1 class="inf3">Артикул не опознан</h1>
-                </div>
-                <div class="but-type">
-                    <button type="button" class="type-2">Написать объяснение и занести в таблицу</button>
-                    <button type="button" class="type-1">Взять работу</button>
-                </div>
                 <h1 class="table-txt">Маршрут курьера</h1>
                 <div class="prokrutka">
                     <table>
@@ -252,8 +239,9 @@ function redirectToMain() {
 
 
 
-
-                <div id="myDiv" class="window">
+                <form method="POST"> {% csrf_token %}
+                    {% for i in problem1 %}
+                <div id="myDiv-{{ i.id }}" class="window">
                     <div class="window-txt">
                         <h2 class="window-text">Объяснительная</h2>
                     </div>
@@ -262,42 +250,89 @@ function redirectToMain() {
                     </div>
                     <div>
                         <div class="rec">
-                            <h1 class="rec__word">Анастасия</h1>
+                            <h1 class="rec__word">{{ manager.name }}</h1>
                             <span class="rec__border-word">Менеджер</span>
                         </div>
                         <div class="rec">
-                            <h1 class="rec__word">21387612638</h1>
+                            <h1 class="rec__word">{{ manager.id }}</h1>
                             <span class="rec__border-word-one">ID Менеджера</span>
                         </div>
                     </div>
-                    <div class="wind-inf">
-                        <div class="wind-text">
-                            <h2 class="window-text-one">Товар курьеру выдали, просто его не много затеряли на пвз, вина полностью на пвз.</h2>
-                        </div>
-                    </div>
+                            <input name="comment" class="wind-inf">
                     <div>
-                        <button class="window-block" type="button">Ситуация решена</button>
-                        <button class="window-block-one" type="button">Ситуация не решена</button>
+                        <button class="window-block" name="DONE-{{ i.id }}" type="submit">Ситуация решена</button>
+                        <button class="window-block-one" name="ERRR-{{ i.id }}" type="submit">Ситуация не решена</button>
                     </div>
                 </div>
+                    {% endfor %}
+                    {% for i in problem2 %}
+                <div id="myDiv-{{ i.id }}" class="window">
+                    <div class="window-txt">
+                        <h2 class="window-text">Объяснительная</h2>
+                    </div>
+                    <div class="window-txt-one">
+                        <h2 class="window-text-one">Пожалуйста кратко объясните почему, курьер “проблема требующая объяснения” и итог решения и чья это вина</h2>
+                    </div>
+                    <div>
+                        <div class="rec">
+                            <h1 class="rec__word">{{ manager.name }}</h1>
+                            <span class="rec__border-word">Менеджер</span>
+                        </div>
+                        <div class="rec">
+                            <h1 class="rec__word">{{ manager.id }}</h1>
+                            <span class="rec__border-word-one">ID Менеджера</span>
+                        </div>
+                    </div>
+                            <input name="comment" class="wind-inf">
+                    <div>
+                        <button class="window-block" name="DONE-{{ i.id }}" type="submit">Ситуация решена</button>
+                        <button class="window-block-one" name="ERRR-{{ i.id }}" type="submit">Ситуация не решена</button>
+                    </div>
+                </div>
+                    {% endfor %}
+                </form>
             </div>
+
         </div>
 
     </body>
     <script>
+    console.log("lol")
+        {% for i in problem1 %}
+            try {
+                // Получить элементы кнопки и дива
+                const toggleButton{{ i.id }} = document.getElementById('toggleButton-{{ i.id }}');
+                const myDiv{{ i.id }} = document.getElementById('myDiv-{{ i.id }}');
+
+                // Добавить обработчик события на кнопку
+                toggleButton{{ i.id }}.addEventListener('click', () => {
+                    // Проверить текущее состояние дива и изменить его видимость
+                    if (myDiv{{ i.id }}.style.display === 'none') {
+                        myDiv{{ i.id }}.style.display = 'block'; // Показать див
+                    } else {
+                        myDiv{{ i.id }}.style.display = 'none'; // Скрыть див
+                    }
+                });
+            }
+            catch (e){
+                console.log(e)
+            }
+        {% endfor %}
+        {% for i in problem2 %}
         // Получить элементы кнопки и дива
-        const toggleButton = document.getElementById('toggleButton');
-        const myDiv = document.getElementById('myDiv');
+        const toggleButton{{ i.id }} = document.getElementById('toggleButton-{{ i.id }}');
+        const myDiv{{ i.id }} = document.getElementById('myDiv-{{ i.id }}');
 
         // Добавить обработчик события на кнопку
-        toggleButton.addEventListener('click', () => {
+        toggleButton{{ i.id }}.addEventListener('click', () => {
             // Проверить текущее состояние дива и изменить его видимость
-            if (myDiv.style.display === 'none') {
-                myDiv.style.display = 'block'; // Показать див
+            if (myDiv{{ i.id }}.style.display === 'none') {
+                myDiv{{ i.id }}.style.display = 'block'; // Показать див
             } else {
-                myDiv.style.display = 'none'; // Скрыть див
+                myDiv{{ i.id }}.style.display = 'none'; // Скрыть див
             }
         });
+        {% endfor %}
     </script>
 
 </html>

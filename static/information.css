@@ -90,14 +90,13 @@ h1 {
     height: 64px;
     width: 120px;
     background-color:#95E6D6;
-    border: 2px solid #95E6D6;
+    border: 1px solid #95E6D6;
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
     font-weight: bold;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
-    padding: auto;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -108,7 +107,7 @@ h1 {
 .ruf:hover {
 	background: rgba(0,0,0,0);
 	color: #95E6D6;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 .line {
@@ -174,7 +173,7 @@ h1 {
     margin-top: 15px;
     margin-left: 72px;
     color: rgba(244, 244, 248, 1);
-    border: 2px solid rgba(244, 244, 248, 1);
+    border: 1px solid rgba(244, 244, 248, 1);
     border-radius: 10px;
 }
 
@@ -229,7 +228,7 @@ h1 {
     font-size: 15px;
     width: 100px;
     font-weight: normal;
-    margin-left: -23px;
+    margin-left: -2px;
 }
 
 .charge-block {
@@ -268,11 +267,10 @@ h1 {
     height: 35px;
     width: 185px;
     float: right;
-    border: 2px solid rgba(146, 230, 214, 1);
+    border: 1px solid rgba(146, 230, 214, 1);
     border-radius: 10px;
     margin-right: 10px;
     margin-top: -27px;
-    padding: auto;
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     color: black;
@@ -283,7 +281,7 @@ h1 {
 .status-block:hover {
 	background: rgba(0,0,0,0);
 	color: black;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 .fill_grad {
@@ -548,7 +546,7 @@ h1 {
     margin-top: 15px;
     margin-left: 72px;
     color: rgba(244, 244, 248, 1);
-    border: 2px solid rgba(244, 244, 248, 1);
+    border: 1px solid rgba(244, 244, 248, 1);
     border-radius: 10px;
 }
 
@@ -561,14 +559,13 @@ h1 {
     height: 64px;
     width: 319px;
     background-color:#FF5858;
-    border: 2px solid #FF5858;
+    border: 1px solid #FF5858;
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
     font-weight: bold;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
-    padding: auto;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -580,14 +577,13 @@ h1 {
     height: 64px;
     width: 355px;
     background-color:#95E6D6;
-    border: 2px solid #95E6D6;
+    border: 1px solid #95E6D6;
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
     font-weight: bold;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
-    padding: auto;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -600,14 +596,13 @@ h1 {
     height: 64px;
     width: 355px;
     background-color:#95E6D6;
-    border: 2px solid #95E6D6;
+    border: 1px solid #95E6D6;
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
     font-weight: bold;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
-    padding: auto;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -618,19 +613,19 @@ h1 {
 .type1:hover {
 	background: rgba(0,0,0,0);
 	color: #FF5858;
-	box-shadow: inset 0 0 0 3px #FF5858;
+	box-shadow: inset 0 0 0 1px #FF5858;
 }
 
 .type2:hover {
 	background: rgba(0,0,0,0);
 	color: #95E6D6;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 .type3:hover {
 	background: rgba(0,0,0,0);
 	color: #95E6D6;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 .site-img {
@@ -641,6 +636,7 @@ h1 {
 .site-img1 {
     vertical-align: top;
     margin-right: 30px;
+    max-height: 250px;
 }
 
 .inf {
@@ -697,14 +693,13 @@ h1 {
     height: 64px;
     width: 319px;
     background-color:#FF5858;
-    border: 2px solid #FF5858;
+    border: 1px solid #FF5858;
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
     font-weight: bold;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
-    padding: auto;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -717,7 +712,7 @@ h1 {
     height: 64px;
     width: 355px;
     background-color:#95E6D6;
-    border: 2px solid #95E6D6;
+    border: 1px solid #95E6D6;
     border-radius: 20px;
     color: black;
     font-weight: bold;
@@ -734,13 +729,13 @@ h1 {
 .type-1:hover {
 	background: rgba(0,0,0,0);
 	color: #FF5858;
-	box-shadow: inset 0 0 0 3px #FF5858;
+	box-shadow: inset 0 0 0 1px #FF5858;
 }
 
 .type-2:hover {
 	background: rgba(0,0,0,0);
 	color: #95E6D6;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 .table-txt {
@@ -761,7 +756,6 @@ h1 {
     border-collapse: collapse;
     margin-top: 30px;
     margin-left: 78px;
-    scrollbar-width: 10px;
     overflow-y: scroll;
     margin-bottom: 20px;
 }
@@ -855,11 +849,13 @@ input {
 .rec {
     display: inline-block;
     position: relative;
-    border: 2px solid #E2E2E2;
+    border: 1px solid #E2E2E2;
     border-radius: 30px;
     padding: 10px 50px;
     text-align: center;
     margin-bottom: 50px;
+    width: 120px;
+    height: 20px;
 }
   
 .rec__word {
@@ -869,6 +865,7 @@ input {
     font-weight: 300;
     padding: 0;
     margin: 0;
+    width: 150px;
 }
   
 .rec__border-word {
@@ -936,7 +933,7 @@ input {
 .window-block:hover {
 	background: rgba(0,0,0,0);
 	color: #95E6D6;
-	box-shadow: inset 0 0 0 3px #95E6D6;
+	box-shadow: inset 0 0 0 1px #95E6D6;
 }
 
 
@@ -960,5 +957,54 @@ input {
 .window-block-one:hover {
 	background: rgba(0,0,0,0);
 	color: #F38383;
-	box-shadow: inset 0 0 0 3px #F38383;
+	box-shadow: inset 0 0 0 1px #F38383;
+}
+
+
+.block-new-2 {
+  background-color:rgba(21, 24, 30, 1);
+  width: 1050px;
+  margin-left: 3.8%;
+  color: rgba(244, 244, 248, 1);
+  /*border: 1px solid rgba(244, 244, 248, 1);*/
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+.column-2 {
+  color: white;
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  width: 20%;
+  font-weight: normal;
+  margin-left: -23px;
+  padding: 0 10px;
+}
+
+.block-new {
+  background-color: white;
+  width: 1050px;
+  height: 40px;
+  margin-left: 3.8%;
+  color: rgba(244, 244, 248, 1);
+  border: 1px solid rgba(244, 244, 248, 1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+
+.column {
+  color: black;
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  width: 20%;
+  font-weight: normal;
+  margin-left: -23px;
+  padding: 0 10px;
 }

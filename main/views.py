@@ -2,7 +2,7 @@ import random, openpyxl, json, string
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
-from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users
+from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users, problems
 from django.utils import timezone
 from django.contrib.auth import logout
 from django.db.models import Count, Q
@@ -758,19 +758,105 @@ def courier_detail(request, date):
 
 
 def courier_id(request, date, data):
+    shift_id = data
+    if request.method == "POST":
+        print(request.POST)
+        data = request.POST
+        problemms = problems.objects.filter(shift_id=shift_id).all()
+        for i in problemms:
+            if f"ERRR-{i.id}" in data:
+                print("ERROR", i)
+                problem = i
+                type = 2
+                break
+            if f"DONE-{i.id}" in data:
+                print("DOONE", i)
+                problem = i
+                type = 1
+                break
+
+        problem.status_solving = type
+        problem.comment = data['comment']
+        problem.save()
+
+
     try:
         formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
     except:
         print('ERROR')
         return HttpResponse("error")
-    shift_id = data
     shift = Couriers_shifts.objects.filter(id=shift_id).first()
-
-
+    if shift.end_shift is None:
+        end = False
+    else:
+        end = True
+    name = request.user.first_name
+    print(name)
+    if name is None or name == '':
+        name = 'NONE'
     data = {
         'login': f'{request.user.username}',
         'table': [],
+        "is_end": end,
+        "manager": {
+            "name": name,
+            "id": request.user.id,
+        },
+        'courier': {
+            'name': shift.name,
+            'auto': shift.auto_model,
+            'number': shift.auto_number,
+            'where': shift.where_courier,
+            'phone': shift.phone
+        },
+        'problem1': [],
+        'problem2': []
     }
+
+
+    problem = problems.objects.filter(shift_id=shift_id).all()
+
+    for i in problem:
+        client_id = i.client_id
+        product = Client.objects.filter(id=client_id).first()
+        if i.status_solving is None:
+            solve = False
+        else:
+            solve = True
+        if product.punkt_vidachi != 0:
+            pvz_row = DictPunkt.objects.filter(id=product.punkt_vidachi).first()
+            pvz = pvz_row.punkt_vidachi
+        else:
+            pvz = 0
+        solve_status = 0
+        if solve:
+            solve_status = i.status_solving
+        try:
+            arr = i.photo.split(' ')
+        except:
+            arr = []
+        tmp = {
+            "id": i.id,
+            "photo": product.img_wb,
+            "article": product.article,
+            "size": product.size,
+            "date_buy": product.date_buy.strftime("%d.%m.%Y"),
+            "phone": product.phone,
+            "name": product.name,
+            "price": product.price,
+            "task1": product.task1,
+            "pvz": pvz,
+            "is_solved": solve,
+            "result": solve_status,
+            "photos": arr,
+        }
+        type_p = i.status_problem - 1
+        if i.status_problem == 3:
+            tmp["barcode"] = i.barcode_problem
+            tmp["article"] = i.article_problem
+        data[f'problem{type_p}'].append(tmp)
+    print(data)
+
     print(shift_id)
     for_deliver = InfoDt.objects.filter(action__in=[1, 4, 5, 8], who_gave=shift_id).all()
     print()
@@ -798,7 +884,7 @@ def courier_id(request, date, data):
             "price": i.price
         }
         data['table'].append(table_object)
-    # print(data)
+
     return render(request, "information.html", data)
 
 

@@ -220,7 +220,7 @@ def product(request, data):
 def problem1(request, dat):
     if request.method == "POST":
         data = request.POST
-
+        print(request.FILES)
         def generate_random_string(length):
             characters = string.ascii_letters + string.digits
             random_string = ''.join(random.choice(characters) for _ in range(length))
@@ -278,15 +278,17 @@ def problem1(request, dat):
 def problem2(request, dat):
     if request.method == "POST":
         data = request.POST
+        print(request.FILES)
+
         def generate_random_string(length):
             characters = string.ascii_letters + string.digits
             random_string = ''.join(random.choice(characters) for _ in range(length))
             return random_string + ".png"
+
         # import shutil
         folder_path = os.path.join(settings.MEDIA_ROOT, 'problem_photos')
         # if os.path.exists(folder_path):
         #     shutil.rmtree(folder_path)
-
 
         # Создаем папку, если ее нет
         os.makedirs(folder_path, exist_ok=True)
@@ -315,14 +317,12 @@ def problem2(request, dat):
         )
         new_problem.save()
 
-
-
-        return HttpResponse(str(names))
+        # return HttpResponse(str(names))
 
     # print(request.method)
 
-    if request.method == "POST":
-        print(dat)
+    # if request.method == "POST":
+    #     print(dat)
     client = Client.objects.filter(id=int(dat)).first()
 
     data = {
