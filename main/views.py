@@ -446,9 +446,7 @@ def couriers_history(request):
 
     for entry in dates:
         entry = entry['date']
-        shifts_on_specific_date = Couriers_shifts.objects.filter(
-            Q(start_shift__date=entry) | Q(end_shift__date=entry)
-        )
+        shifts_on_specific_date = Couriers_shifts.objects.filter(Q(start_shift__date=entry))
         date = entry.strftime('%Y.%m.%d')
         counter = 0
         status = 0
@@ -596,11 +594,13 @@ def set_pvz(request):
                 "courier": data[f'{i}']
             }
             courier_pvz.append(block)
-
+        l = m
         for i in courier_pvz:
+            m = l
             pvz = i["pvz"]
             id = i["courier"]
-            if id == '' or id == None or id == 0:
+            print('pvz:', pvz, "id:", id)
+            if id == '' or id is None or id == 0:
                 continue
             if m == 1:
                 products = LastDt.objects.filter(action__in=[4, 5, 8]).filter(pvz=pvz)
@@ -609,13 +609,16 @@ def set_pvz(request):
             else:
                 products = LastDt.objects.filter(action__in=[1, 4, 5, 8]).filter(pvz=pvz)
             for m in products:
-                m.action = 6
+                if m.action in [4, 5, 8]:
+                    m.action = 6
+                else:
+                    m.action = 1
                 m.who_gave = id
                 m.date_last_action = timezone.now()
                 m.save()
                 new_info = InfoDt(
                     client_id=m.client_id,
-                    action=6,
+                    action=m.action,
                     date_action=timezone.now(),
                     person=m.id,
                     clientid=m.clientid,
@@ -628,7 +631,8 @@ def set_pvz(request):
                     task1=m.task1,
                     date_active=m.date_active,
                     naming=m.naming,
-                    article=m.article
+                    article=m.article,
+                    who_gave=id,
                 )
                 m.save()
                 new_info.save()
@@ -653,7 +657,7 @@ def set_pvz(request):
             )
             user.save()
 
-        return HttpResponse("ЛОЛ, я хз чё делать если метод == пост, потом вова мб доработает эту хуйню")
+        return HttpResponseRedirect('/courier/send/set_data')
 
 
     data = {
@@ -732,12 +736,12 @@ def courier_detail(request, date):
     except:
         return HttpResponse('ERROR')
     entry = formatted_date
-    shifts_on_specific_date = Couriers_shifts.objects.filter(
-        Q(start_shift__date=entry) | Q(end_shift__date=entry)
-    )
+    shifts_on_specific_date = Couriers_shifts.objects.filter(Q(start_shift__date=entry))
+    print(shifts_on_specific_date)
     data = {
         'login': f'{request.user.username}',
         'list': [],
+        "data": date,
     }
 
     for i in shifts_on_specific_date:
@@ -752,5 +756,49 @@ def courier_detail(request, date):
 
     return render(request, "courier_detail.html", data)
 
+
+def courier_id(request, date, data):
+    try:
+        formatted_date = datetime.strptime(str(date), '%Y%m%d').date()
+    except:
+        print('ERROR')
+        return HttpResponse("error")
+    shift_id = data
+    shift = Couriers_shifts.objects.filter(id=shift_id).first()
+
+
+    data = {
+        'login': f'{request.user.username}',
+        'table': [],
+    }
+    print(shift_id)
+    for_deliver = InfoDt.objects.filter(action__in=[1, 4, 5, 8], who_gave=shift_id).all()
+    print()
+    for i in for_deliver:
+        if i.pvz != 0:
+            pvz_row = DictPunkt.objects.filter(id=i.pvz).first()
+            pvz = pvz_row.punkt_vidachi
+        else:
+            pvz = 0
+        table_object = {
+            "id": i.client_id,
+            # "status": status_dict[int(client.status)],
+            "article": i.article,
+            "barcode": i.barcode,
+            "clientid": i.clientid,
+            "name": i.name,
+            "phone": i.phone,
+            "punkt_vidachi": pvz,
+            "code": i.code,
+            "code_qr": i.code_qr,
+            "date_active": i.date_active.strftime('%Y.%m.%d'),
+            "naming": i.naming,  # naming
+            "task1": i.task1,
+            "who_give": i.who_gave,
+            "price": i.price
+        }
+        data['table'].append(table_object)
+    # print(data)
+    return render(request, "information.html", data)
 
 

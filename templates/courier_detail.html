@@ -107,7 +107,7 @@ function redirectTO(path) {
                     </div>
 
                     {% for i in list %}
-                    <div class="block-new">
+                    <div class="block-new" onclick="redirectTO('couriers/{{ data }}/{{ i.id }}')">
                         <div class="column">{{ i.id }}</div>
                         <div class="column">{{ i.name }}</div>
                         <div class="column">{{ i.auto }}</div>

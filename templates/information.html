@@ -6,41 +6,80 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Вход</title>
-        <link rel="stylesheet" href="../static/information.css" />
+        <title>RATE-THIS</title>
+        <link rel="stylesheet" href="/static/information.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat" rel="stylesheet">
 
     </head>
+<script>
+function redirectToCourier() {
+    // Get the current URL path
+    var currentPath = window.location.origin
 
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/courier";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToDelivery() {
+    // Get the current URL path
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/delivery";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToWare() {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/warehouse";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToMain() {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+</script>
     <body>
 
         <div class="split-container">
             <div class="block-left">
                 <div class="head">
-                    <h1 class="login">ЛОГИН</h1>
-                    <h1 class="id">ID</h1>
-                    <img class="Main" src="/home/levantio/Downloads/Main.png">
+                    <h1 class="login">{{ login }}</h1>
+                    <img class="Main" onclick="redirectToMain()"  src="/static/logo.png">
                 </div>
                 <div class="line"></div>
 
                 <div class="commands">
-                    <div class="box1">
-                        <img class="box-img" src="/home/levantio/Downloads/offer.png">
+                    <div onclick="redirectToDelivery()" class="box1">
+                        <img class="box-img" src="/static/offer.png">
                         <h1 class="box-text">Выдать товары</h1>
                     </div>
-                    <div class="box2">
-                        <img class="box-img" src="/home/levantio/Downloads/cargo.png">
+                    <div onclick="redirectToCourier()" class="box2">
+                        <img class="box-img" src="/static/cargo.png">
                         <h1 class="box-text">Курьер</h1>
                     </div>
-                    <div class="box3">
-                        <img class="box-img" src="/home/levantio/Downloads/house.png">
-                        <h1 class="box-text">Склад</h1>
+                    <div onclick="redirectToWare()" class="box3">
+                        <img class="box-img" src="/static/house.png">
+                        <h1 class="box-text" >Склад</h1>
                     </div>
                 </div>
             </div>
@@ -188,78 +227,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="din">
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
+                             {% for el in table %}
+                          <tr class="scroll">
+                            <td>{{ el.id}}</td>
+                            <td>{{ el.article }}</td>
+                            <td>{{ el.barcode }}</td>
+                            <td>{{ el.clientid }}</td>
+                            <td>{{ el.name }}</td>
+                            <td>{{ el.phone }}</td>
+                            <td>{{ el.punkt_vidachi }}</td>
+                            <td>{{ el.code }}</td>
+                            <td ><img src="{{ el.code_qr }}" alt="QR Code" width="30" height="30"></td>
+                            <td>{{ el.date_active }}</td>
+                            <td>{{ el.naming }}</td>
+                            <td>{{ el.task1 }}</td>
+                            <td>{{ el.who_give }}</td>
+                            <td>{{ el.price }}</td>
                           </tr>
-                          <tr class="don">
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                          </tr>
-                          <tr class="din">
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                          </tr>
-                          <tr class="don">
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>1</td>
-                          </tr>
+                        {% endfor %}
                         </tbody>
                       </table>
                 </div>
