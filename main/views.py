@@ -647,7 +647,7 @@ def set_pvz(request):
             user = Users.objects.create_user(
                 username=f"courier_{i.id}",
                 password=pas,
-                id_shift=f"i.id",
+                id_shift=f"{i.id}",
                 phone=f"{i.phone}",
                 status=2
             )

@@ -9,14 +9,14 @@
     <title>Image Popup</title>
 </head>
 <body>  
-    <form method="POST">
+    <form method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container">
             <div class="block-top">
                 <div class="curier1">
                     <img class="back" src="/static/vector.png">
                     <h1 class="fill-back">Назад</h1>
-                    <h1 class="fill">Роман</h1>
+                    <h1 class="fill">{{ name }}</h1>
                 </div>
             </div>
             <div class="block-bottom">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="upload-container">
                             <label for="imageInput" class="upload-button">+</label>
-                            <input type="file" id="imageInput" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
+                            <input type="file" id="imageInput" name="photo1" class="file-input" accept="image/*" multiple onchange="handleImageChange(this)">
                         </div>
                         <div class="foto-block">
                             <h1 class="foto">Заполните информацию</h1>

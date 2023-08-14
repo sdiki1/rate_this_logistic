@@ -66,8 +66,8 @@ def main(request):
     # print(request.user)
     user = request.user
     shift = user.id_shift
-    # print(shift)
-    products = LastDt.objects.filter(action__in=[6,7,8], who_gave=int(shift))
+    print(shift)
+    products = LastDt.objects.filter(action__in=[1,6,7,8], who_gave=int(shift))
 
     adresses = []
     for i in products:
@@ -82,7 +82,7 @@ def main(request):
     }
     today = datetime.now()
     for i in adresses:
-        products = LastDt.objects.filter(action__in=[6,7,8],  who_gave=int(shift), pvz=i) #date_last_action__date=today.date(),
+        products = LastDt.objects.filter(action__in=[1,6,7,8],  who_gave=int(shift), pvz=i) #date_last_action__date=today.date(),
         tmp = {
             'adress': DictPunkt.objects.filter(id=i).values_list('punkt_vidachi', flat=True).first(),
             "prods": []
@@ -144,15 +144,16 @@ def product(request, data):
     # return HttpResponse(f'{data}')
     last = LastDt.objects.filter(client_id=int(data)).first()
     print(last)
+    client = Client.objects.filter(id=int(data)).first()
     data = {
         'login': f'{request.user.username}',
         'product': {
-            "name": last.name,
+            "name": client.name,
             "img": photo_link(int(last.article)),
             "phone": last.phone,
-            "naming": last.naming,
+            "naming": client.naming,
             "status_vidacha": True,
-            "mp": "WB",
+            "mp": client.mp,
             "barcode": last.barcode,
             "code": last.code,
             "code_qr": last.code_qr
@@ -161,9 +162,15 @@ def product(request, data):
     print(data)
     return render(request, "mobile_product.html", data)
 
-def problem(request, data):
+def problem(request, dat):
     # print(request.method)
     if request.method == "POST":
         print(request.POST)
-    print('data')
-    return render(request, "mobile_problems.html")
+        print(request.FILES)
+    print(dat)
+    client = Client.objects.filter(id=int(dat)).first()
+
+    data = {
+        "name": client.name,
+    }
+    return render(request, "mobile_problems.html", data)
