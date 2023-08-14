@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="/static/mobile_main.css" />
     <title>Image Popup</title>
 </head>
+<script>
+    function redirectTO(path) {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + '/' + path;
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+</script>
 <body>  
     <form method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
@@ -15,7 +27,7 @@
             <div class="block-top">
                 <div class="curier1">
                     <img class="back" src="/static/vector.png">
-                    <h1 class="fill-back">Назад</h1>
+                    <h1 class="fill-back" onclick="redirectTO('carrier/product/{{ id }}')">Назад</h1>
                     <h1 class="fill">{{ name }}</h1>
                 </div>
             </div>

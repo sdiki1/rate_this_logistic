@@ -1,7 +1,13 @@
+import os
+import random
+import string
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users
+
+from PROMORTION import settings
+from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users, problems
 from datetime import datetime
 from django.utils import timezone
 
@@ -139,12 +145,58 @@ def product(request, data):
             last.save()
             return HttpResponseRedirect('/carrier')
         if "Dont_get" in request.POST:
-            return HttpResponseRedirect(f'/carrier/product/{data}/problem')
+            return HttpResponseRedirect(f'/carrier/product/{data}/problem1')
+        if "Dont_know" in request.POST:
+            return HttpResponseRedirect(f'/carrier/product/{data}/problem2')
+        if "Check_problem" in request.POST:
+            last = LastDt.objects.filter(client_id=int(data)).first()
+            print(last)
+            client = Client.objects.filter(id=int(data)).first()
+
+            problem = problems.objects.filter(client_id=int(data)).first()
+
+            if problem is None or problem.status_solving == 1:  # 1 статус решения 1 это когда выдали также товар,мы даём доступ человеку получить товар
+                stat = 1
+            elif problem.status_solving is None or problem.status_solving == 0:
+                stat = 4
+            elif problem.status_solving > 0:
+                stat = 2
+            else:
+                stat = 1
+            data = {
+                'login': f'{request.user.username}',
+                'product': {
+                    "name": client.name,
+                    "img": photo_link(int(last.article)),
+                    "phone": last.phone,
+                    "naming": client.naming,
+                    "status_vidacha": True,
+                    "mp": client.mp,
+                    "barcode": last.barcode,
+                    "code": last.code,
+                    "code_qr": last.code_qr,
+                },
+                "status": stat,
+            }
+            # print(data)
+            return render(request, "mobile_product.html", data)
 
     # return HttpResponse(f'{data}')
     last = LastDt.objects.filter(client_id=int(data)).first()
     print(last)
     client = Client.objects.filter(id=int(data)).first()
+
+    problem = problems.objects.filter(client_id=int(data)).first()
+
+    if problem is None or problem.status_solving == 1: #1 статус решения 1 это когда выдали также товар,мы даём доступ человеку получить товар
+        stat = 1
+    elif problem.status_solving is None or problem.status_solving == 0:
+        stat = 3
+    elif problem.status_solving > 0:
+        stat = 2
+    else:
+        stat = 1
+    # stat = 4
     data = {
         'login': f'{request.user.username}',
         'product': {
@@ -156,21 +208,124 @@ def product(request, data):
             "mp": client.mp,
             "barcode": last.barcode,
             "code": last.code,
-            "code_qr": last.code_qr
+            "code_qr": last.code_qr,
         },
+        "status": stat,
     }
-    print(data)
+    # print(data)
     return render(request, "mobile_product.html", data)
 
-def problem(request, dat):
-    # print(request.method)
+
+def problem1(request, dat):
     if request.method == "POST":
-        print(request.POST)
-        print(request.FILES)
-    print(dat)
+        data = request.POST
+
+        def generate_random_string(length):
+            characters = string.ascii_letters + string.digits
+            random_string = ''.join(random.choice(characters) for _ in range(length))
+            return random_string + ".png"
+        # import shutil
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'problem_photos')
+        # if os.path.exists(folder_path):
+        #     shutil.rmtree(folder_path)
+
+
+        # Создаем папку, если ее нет
+        os.makedirs(folder_path, exist_ok=True)
+
+        # Обработка загруженных файлов
+        names = []
+        for uploaded_file in request.FILES.getlist("photo1"):
+            name = generate_random_string(20)
+            print(name)
+            names.append(name)
+            file_path = os.path.join(folder_path, name)
+            print(file_path)
+            with open(file_path, 'wb') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+
+        new_problem = problems(
+            shift_id=request.user.id_shift,
+            client_id=int(dat),
+            status_problem=3,
+            descriprion_problem=data['reason'],
+            barcode_problem=data['barcode'],
+            article_problem=data['article'],
+            date_problem=timezone.now(),
+            photo=" ".join(names)
+        )
+        new_problem.save()
+
+
+
+        return HttpResponse(str(names))
+
+    # print(request.method)
+
+    if request.method == "POST":
+        print(dat)
     client = Client.objects.filter(id=int(dat)).first()
 
     data = {
         "name": client.name,
+        "id": dat,
+    }
+    return render(request, "mobile_problems.html", data)
+
+
+def problem2(request, dat):
+    if request.method == "POST":
+        data = request.POST
+        def generate_random_string(length):
+            characters = string.ascii_letters + string.digits
+            random_string = ''.join(random.choice(characters) for _ in range(length))
+            return random_string + ".png"
+        # import shutil
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'problem_photos')
+        # if os.path.exists(folder_path):
+        #     shutil.rmtree(folder_path)
+
+
+        # Создаем папку, если ее нет
+        os.makedirs(folder_path, exist_ok=True)
+
+        # Обработка загруженных файлов
+        names = []
+        for uploaded_file in request.FILES.getlist("photo1"):
+            name = generate_random_string(20)
+            print(name)
+            names.append(name)
+            file_path = os.path.join(folder_path, name)
+            print(file_path)
+            with open(file_path, 'wb') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+
+        new_problem = problems(
+            shift_id=request.user.id_shift,
+            client_id=int(dat),
+            status_problem=2,
+            descriprion_problem=data['reason'],
+            barcode_problem=data['barcode'],
+            article_problem=data['article'],
+            date_problem=timezone.now(),
+            photo=" ".join(names)
+        )
+        new_problem.save()
+
+
+
+        return HttpResponse(str(names))
+
+    # print(request.method)
+
+    if request.method == "POST":
+        print(dat)
+    client = Client.objects.filter(id=int(dat)).first()
+
+    data = {
+        "name": client.name,
+        "id": dat,
     }
     return render(request, "mobile_problems.html", data)

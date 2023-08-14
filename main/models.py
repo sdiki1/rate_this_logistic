@@ -243,3 +243,8 @@ class problems(models.Model):
     date_solving = models.DateTimeField(null=True)
     status_solving = models.IntegerField(null=True)
     comment = models.TextField(null=True)
+    photo = models.TextField(null=True, help_text="будут названия фалов, файлы хранятся в media/problem_photos/")
+
+    class Meta:
+        managed = True
+        db_table = 'problems'

@@ -13,7 +13,7 @@
     <script>
         function redirectTOCarrier() {
 
-    var currentPath = 'http://127.0.0.1:8000'
+    var currentPath =  window.location.origin
 
     // Append "/contest" to the current path
     var newUrl = currentPath + '/carrier';
@@ -35,11 +35,30 @@
 
             <div class="block-bottom">
                 <img class="screan" src="{{ product.img }}">
+
+                {% if status == 1 %}
                 <div>
                     <button class="button"  name="Get_product" type="submit">Получил</button>
                     <button class="button1" name="Dont_get" type="submit">Не получил</button>
                 </div>
-                <button class="button2" type="button">Не определил</button>
+                <button class="button2" name="Dont_know" type="submit">Не определил</button>
+                {% elif status == 2 %}
+                <div class="check2">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение!</h2>
+                    <h2 class="inform5">Ситуация решена езжайте дальше</h2>
+                </div>
+                {% elif status == 3 %}
+                <div class="check">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение, пожалуста ожидайте никуда не уходите, мы разбираемся в ситуации, нам нужно на это 5-10 минут. Чтобы проверить статус обработки, нажмите на кнопку!</h2>
+                    <button class="button-check" name="Check_problem" type="submit">Проверить</button>
+                </div>
+                {% elif status == 4 %}
+                <div class="check1">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение, пожалуста ожидайте никуда не уходите, мы разбираемся в ситуации, нам нужно на это 5-10 минут. Чтобы проверить статус обработки, нажмите на кнопку!</h2>
+                    <h2 class="inform4">Пока в обработке, ожидайте пожалуйста</h2>
+                    <button class="button-check" name="Check_problem" type="submit">Проверить</button>
+                </div>
+                {% endif %}
                 <div class="inform-box">
                     <h1 class="inform">Телефон</h1>
                     <h2 class="inform2">{{ product.phone }}7</h2>
