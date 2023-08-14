@@ -81,29 +81,24 @@ function redirectToMain() {
                 <div class="text">
                     <h1 class="fill">История выдач</h1>
                     <div class="button">
-                        <button class="button-one" type="button">Назад</button>
+                        <button class="button-one" onclick="redirectToDelivery()" type="button">Назад</button>
                         <h1 class="but">Главная</h1>
                         <h1 class="bet">/</h1>
-                        <h1 class="bat">Выдать товары</h1>
+                        <h1 class="bat" onclick="redirectToDelivery()">Выдать товары</h1>
                         <h1 class="bet">/</h1>
                         <h1 class="bit">История выдач</h1>
-                        <h1 class="bet">/</h1>
-                        <h1 class="bot">04.07.2023</h1>
+{#                        <h1 class="bet">/</h1>#}
+{#                        <h1 class="bot">04.07.2023</h1>#}
                     </div>
+
+
                     {% if is_active %}
                     <form method="POST">{% csrf_token %}
-                    <div class="but-delivery">
-<<<<<<< HEAD
-                    <button class="button-delivery" type="button">Довыдать товары</button>
-                    <button class="button-delivery" type="button">Скачать EXCEL</button>
-                    <button class="button-delivery-two" type="button">Завершить выдачу</button>
-=======
-                        <button class="button-delivery" name="dovidacha" type="submit">Довыдать товары</button>
+{#                        <button class="button-delivery" name="dovidacha" type="submit">Довыдать товары</button>#}
                         <button class="button-delivery" name="excel" type="submit">Скачать EXCEL</button>
-                        <button class="button-delivery-two" name="end_delivery" type="submit">Завершить выдачу</button>
->>>>>>> master
-                    </div>
+                         <button class="button-delivery-two" name="end_delivery" type="submit">Завершить выдачу</button>
                     </form>
+                        <p><br></p>
                     {% else %}
                     <h2 class="fill_grade">Выдача завершена</h2>
                     {% endif %}

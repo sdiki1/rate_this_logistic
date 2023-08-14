@@ -241,6 +241,7 @@ input {
 }
 
 .button-delivery {
+    position: relative;
     height: 58px;
     width: 300px;
     background-color:#95E6D6;

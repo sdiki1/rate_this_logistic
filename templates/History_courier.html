@@ -91,15 +91,14 @@ function redirectTO(path) {
             <div class="block-right">
 
                 <div class="text">
-                    <h1 class="fill">История выдач</h1>
+                    <h1 class="fill">История выездов курьеров</h1>
                     <div class="button">
                         <button type="button" onclick="redirectTO('delivery/')">Назад</button>
                     </div>
-                    <h2 class="fill_grade">В данном разделе вы можете посмотреть историю выдач товаров!</h2>
+                    <h2 class="fill_grade">В данном разделе вы можете посмотреть историю выездов курьеров</h2>
                 </div>
                 <h1 class="date">Дата выезда</h1>
                 <h1 class="charge">Кол-во курьеров</h1>
-                <h1 class="give">Забрано</h1>
                 <h1 class="status">Статус</h1>
                 {% for el in rows %}
                 <div onclick="redirectTO('{{ el.redirect_url|escapejs }}')" class="block">
@@ -107,7 +106,6 @@ function redirectTO(path) {
                     <div class="text-block">
                         <h1 class="date-block">{{ el.date }}</h1>
                         <h1 class="charge-block">{{el.couriers}}</h1>
-                        <h1 class="give-block">{{el.get}}</h1>
                     </div>
                     {% if el.status == 1 %}
                         <div class="status-block">

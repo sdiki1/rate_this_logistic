@@ -433,16 +433,7 @@ input:checked + .lab:before {
     font-weight: normal;
 }
 
-.block-new {
-    background-color: white;
-    height: 50px;
-    width: 1100px;
-    margin-top: 1%;
-    margin-left: 4%;
-    color: rgba(244, 244, 248, 1);
-    border: 2px solid rgba(244, 244, 248, 1);
-    border-radius: 10px;
-}
+
 
 .text-one-new {
     padding-left: 5%;
@@ -593,7 +584,7 @@ input:checked + .lab:before {
 
 .lol:before {
   content: " ";
-  /*display: inline-block;*/
+  display: inline-block;
   margin-right: 10px;
   position: sticky;
   width: 20px;
@@ -617,6 +608,7 @@ input:checked + .lol:before {
 .block-new {
   background-color: white;
   width: 1050px;
+height: 50px;
   margin-left: 3.8%;
   color: rgba(244, 244, 248, 1);
   border: 2px solid rgba(244, 244, 248, 1);
@@ -627,6 +619,17 @@ input:checked + .lol:before {
   padding-left: 30px;
   margin-bottom: 15px;
 }
+
+/*.block-new {*/
+/*    background-color: white;*/
+
+/*    margin-top: 1%;*/
+/*    margin-left: 4%;*/
+/*    color: rgba(244, 244, 248, 1);*/
+/*    border: 2px solid rgba(244, 244, 248, 1);*/
+/*    border-radius: 10px;*/
+/*}*/
+
 
 .block-new-2 {
   background-color:rgba(21, 24, 30, 1);
