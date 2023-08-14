@@ -101,9 +101,10 @@ def main(request):
                 status = 1
             elif i.action == 8:
                 status = 2
+            client = Client.objects.filter(id=i.client_id).first()
             tmp_2 = {
                 "status": status,
-                "name": i.name,
+                "name": client.name,
                 "photo": photo_link(int(i.article)),
                 "phone": i.phone,
                 "code": i.code,
