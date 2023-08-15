@@ -126,7 +126,6 @@ h1 {
     height: 38px;
     margin-left: 30px;
     margin-top: 15px;
-    margin-right: -35px;
 }
 
 .box-text {
@@ -269,7 +268,7 @@ h1 {
     float: right;
     border: 1px solid rgba(146, 230, 214, 1);
     border-radius: 10px;
-    margin-right: 10px;
+    margin-left: -10px;
     margin-top: -27px;
     font-family: Montserrat, sans-serif;
     font-size: 15px;
