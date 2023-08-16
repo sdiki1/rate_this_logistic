@@ -67,7 +67,7 @@ h1 {
     color: white;
     font-family: Montserrat, sans-serif;
     font-size: 50px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .text {
@@ -94,7 +94,7 @@ h1 {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     text-decoration: none;
@@ -562,7 +562,7 @@ h1 {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     text-decoration: none;
@@ -580,7 +580,7 @@ h1 {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     text-decoration: none;
@@ -599,7 +599,7 @@ h1 {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     text-decoration: none;
@@ -643,7 +643,7 @@ h1 {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
-    font-weight: bold;
+    font-weight: normal;
     margin-left: 75px;
     margin-top: 60px;
     margin-bottom: 20px;
@@ -696,7 +696,7 @@ h1 {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     text-decoration: none;
@@ -714,7 +714,7 @@ h1 {
     border: 1px solid #95E6D6;
     border-radius: 20px;
     color: black;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 18px;
     padding-left: 30px;
@@ -770,7 +770,7 @@ th {
     border: 1px solid #98A4A6;
     border-collapse: collapse;
     color: rgba(24, 32, 38, 1);
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
 }
 

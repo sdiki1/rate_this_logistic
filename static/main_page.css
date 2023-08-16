@@ -63,7 +63,7 @@ h1 {
     color: white;
     font-family: Montserrat, sans-serif;
     font-size: 50px;
-    font-weight: bolder;
+    font-weight: normaler;
 }
 
 .text {
@@ -286,7 +286,7 @@ input:checked + label:before {
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     width: 800px;
-    font-weight: bold;
+    font-weight: normal;
     margin-left: 52px;
     margin-top: 60px;
 }
@@ -296,7 +296,7 @@ input:checked + label:before {
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     width: 800px;
-    font-weight: bold;
+    font-weight: normal;
     margin-left: 0;
 }
 

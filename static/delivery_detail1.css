@@ -60,7 +60,7 @@ h1 {
     color: white;
     font-family: Montserrat, sans-serif;
     font-size: 50px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .text {
@@ -73,7 +73,7 @@ h1 {
     font-family: Montserrat, sans-serif;
     font-size: 25px;
     width: 750px;
-    font-weight:bold;
+    font-weight:normal;
     margin-left: 52px;
     margin-top: 60px;
     margin-bottom: 50px;
@@ -209,7 +209,7 @@ th {
     border: 1px solid #98A4A6;
     border-collapse: collapse;
     color: rgba(24, 32, 38, 1);
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
 }
 
@@ -251,7 +251,7 @@ input {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 22px;
     padding: auto;
@@ -270,7 +270,7 @@ input {
     border-radius: 20px;
     color: black;
     line-height: 30.48px;
-    font-weight: bold;
+    font-weight: normal;
     font-family: Montserrat, sans-serif;
     font-size: 22px;
     padding: auto;

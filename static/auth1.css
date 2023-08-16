@@ -1,8 +1,3 @@
-@font-face {
-    font-family: 'Monserrat';
-    src: url('https://fonts.googleapis.com/css2?family=Montserrat');
-}
-
 body {
     background-color: #15181E;
 }
@@ -12,7 +7,7 @@ p {
     text-align: center;
     font-family: Montserrat, sans-serif;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 h1 {
