@@ -112,7 +112,9 @@ function redirectTO(path) {
                     <h2 class="fill_grade">Курьер завершил свой маршрут</h2>
                     {% else %}
                     <h2 class="fill_grade">Курьер на маршруте</h2>
+                        <form method="POST"> {% csrf_token %}
                     <button name="END_SHIFT" type="submit" class="type1">Завершить смену курьера</button>
+                        </form>
                     {% endif %}
                 </div>
 

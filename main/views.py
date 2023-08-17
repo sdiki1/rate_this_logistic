@@ -1,5 +1,5 @@
 import random, openpyxl, json, string
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from datetime import datetime, timedelta
 from main.models import Client, DictPunkt, InfoDt, LastDt, Courier, Couriers_shifts, Users, problems
@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
 import pandas as pd
+from django.contrib.auth.hashers import make_password
 def main(request):
     if request.user.is_authenticated:
         return render(request, "main.html", {'login': f'{request.user.username}'})
@@ -762,6 +763,24 @@ def courier_detail(request, date):
 def courier_id(request, date, data):
     shift_id = data
     if request.method == "POST":
+        if "END_SHIFT" in request.POST:
+            def generate_random_string(length):
+                characters = string.ascii_letters + string.digits
+                random_string = ''.join(random.choice(characters) for _ in range(length))
+                return random_string
+
+            shift = Couriers_shifts.objects.filter(id=shift_id).first()
+            user = Users.objects.get(username=shift.login)
+            print(shift.login)
+            new_password = generate_random_string(10)
+            hashed_password = make_password(new_password)
+            user.password = hashed_password
+            user.save()
+            shift.changed_password = new_password
+            shift.end_shift = datetime.now()
+            shift.save()
+            return redirect(request.path)
+
         print(request.POST)
         data = request.POST
         problemms = problems.objects.filter(shift_id=shift_id).all()
@@ -804,7 +823,9 @@ def courier_id(request, date, data):
             "name": name,
             "id": request.user.id,
         },
+        'date': date,
         'courier': {
+            'id': shift.id,
             'name': shift.name,
             'auto': shift.auto_model,
             'number': shift.auto_number,

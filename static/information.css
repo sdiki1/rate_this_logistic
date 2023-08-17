@@ -25,12 +25,16 @@ html, body {
     background-color: rgba(24, 32, 38, 1);
     width: 25%;
     min-width: 350px;
+    min-height: 100vh;
+    padding-top: 20px;
 }
 
 .block-right {
     background-color: rgba(21, 24, 30, 1);
     min-width: 1400px;
     width: 75vw;
+    min-height: 100vh;
+    padding-top: 20px;
 }
 
 .login {
