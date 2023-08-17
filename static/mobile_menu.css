@@ -4,8 +4,9 @@
 }
 
 html, body {
-    margin: 0;
     padding: 0;
+    margin-bottom: env(safe-area-inset-bottom); /* Учитываем безопасное пространство для iPhone X и аналогичных устройств */
+    overflow: hidden;
 }
 
 .for {
