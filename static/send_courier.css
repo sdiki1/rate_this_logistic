@@ -139,6 +139,12 @@ button:hover {
 }
 
 .commands {
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
     margin-top: 20px;
 }
 
@@ -147,7 +153,6 @@ button:hover {
     height: 38px;
     margin-left: 30px;
     margin-top: 15px;
-    margin-right: -35px;
 }
 
 .box-text {
@@ -218,6 +223,12 @@ input:checked + .lab:before {
 }
 
 .but {
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
     color: white;
     font-family: Montserrat, sans-serif;
     font-size: 20px;
@@ -329,6 +340,12 @@ input:checked + .lab:before {
 }
 
 .butt-one {
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
     margin-bottom: 4%;
 }
 
@@ -340,6 +357,13 @@ input:checked + .lab:before {
     margin-left: 3.8%;
     color: rgba(244, 244, 248, 1);
     border: 2px solid rgba(244, 244, 248, 1);
+    border-radius: 10px;
+}
+.block-2 {
+    height: 10px;
+    width: 1200px;
+    margin-top: 1%;
+    margin-left: 3.8%;
     border-radius: 10px;
 }
 
@@ -398,7 +422,7 @@ input:checked + .lab:before {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     width: 735px;
-    margin-left: 35px;
+    margin-left: -25px;
     margin-right: 165px;
     font-weight: normal;
 }

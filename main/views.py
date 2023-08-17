@@ -62,7 +62,7 @@ def set_delivery(request):
     Client_pvz = [] # у нас всё хранится типа: [[client_id, pvz]]
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
-    yesterday = timezone.now() - timedelta(days=2)
+    yesterday = timezone.now() - timedelta(days=1)
     start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
     end_of_yesterday = start_of_yesterday + timedelta(days=100)
 
@@ -508,6 +508,8 @@ def send_couriers(request):
             partner_pvz = 1
 
         for m in range(len(data.getlist('name'))):
+            if data.getlist('name')[m] == '' or data.getlist("auto")[m] == '' or data.getlist("phone")[m] == '' or data.getlist("number")[m] == '' or data.getlist("where")[m] == '':
+                continue
             name_courier = data.getlist('name')[m]
             auto_courier = data.getlist('auto')[m]
             auto_number = data.getlist('number')[m]
