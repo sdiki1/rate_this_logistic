@@ -85,12 +85,12 @@
         const dataContainer = document.getElementById('dataContainer');
 
         showDataButton.addEventListener('click', () => {
-            dataContainer.classList.remove('hidden');
+            dataContainer.style.left = '0';
         });
 
         window.addEventListener('click', (event) => {
             if (!dataContainer.contains(event.target) && !showDataButton.contains(event.target)) {
-                dataContainer.classList.add('hidden');
+                dataContainer.style.left = '-70%';
             }
         });
 
