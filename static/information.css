@@ -973,9 +973,9 @@ input {
 
 
 .block-new-2 {
+  margin-left: 100px;
   background-color:rgba(21, 24, 30, 1);
   width: 1050px;
-  margin-left: 3.8%;
   color: rgba(244, 244, 248, 1);
   /*border: 1px solid rgba(244, 244, 248, 1);*/
   border-radius: 10px;
@@ -996,10 +996,10 @@ input {
 }
 
 .block-new {
+  margin-left: 100px;
   background-color: white;
   width: 1050px;
   height: 40px;
-  margin-left: 3.8%;
   color: rgba(244, 244, 248, 1);
   border: 1px solid rgba(244, 244, 248, 1);
   border-radius: 10px;
