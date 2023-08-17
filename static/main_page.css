@@ -336,6 +336,12 @@ input:checked + label:before {
 }
 
 .butt-one {
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
     margin-bottom: 4%;
 }
 
@@ -655,6 +661,8 @@ input:checked + .label:before {
 }
 
 button.rud {
+    position: relative;
+    margin-left: -250px;
     height: 49px;
     width: 265px;
     background-color:#95E6D6;
@@ -668,10 +676,11 @@ button.rud {
     cursor: pointer;
     float: right;
     margin-top: -14%;
-    margin-left: -12.5%;
 }
 
 button.rud:hover {
+    position: relative;
+    margin-left: -250px;
     height: 49px;
     width: 265px;
     background-color: #15181EFF;
@@ -685,7 +694,7 @@ button.rud:hover {
     cursor: pointer;
     float: right;
     margin-top: -14%;
-    margin-left: -12.5%;
+
 }
 
 .adres {
