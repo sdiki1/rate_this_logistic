@@ -23,7 +23,7 @@
         }
     </script>
     <body>
-    <form method="POST">{% block content %}
+    <form method="POST">{% block content %} {% csrf_token %}
         <div class="container">
 
             <div id="dataContainer" class="hidden">
