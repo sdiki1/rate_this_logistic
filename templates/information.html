@@ -57,6 +57,16 @@ function redirectToMain() {
     // Navigate to the new URL
     window.location.href = newUrl;
 }
+function redirectTO(path) {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/" + path;
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
 </script>
     <body>
 
@@ -90,12 +100,19 @@ function redirectToMain() {
                     <h1 class="fill">История заборов</h1>
                     <div class="button">
                         <button type="button" class="ruf">Назад</button>
-                        <h1 class="but">Курьер</h1>
+                        <h1 class="but"  onclick="redirectToCourier()">Курьер</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">История заборов</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">{{ date }}</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">{{ courier.id }}</h1>
                     </div>
                     {% if is_end %}
                     <h2 class="fill_grade">Курьер завершил свой маршрут</h2>
                     {% else %}
                     <h2 class="fill_grade">Курьер на маршруте</h2>
+                    <button name="END_SHIFT" type="submit" class="type1">Завершить смену курьера</button>
                     {% endif %}
                 </div>
 
