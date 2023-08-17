@@ -284,13 +284,14 @@ button:hover {
 }
 
 .status-block {
+    position: relative;
+    left: -125px;
 background-color: rgba(229, 234, 253, 1);
     height: 22px;
     width: 120px;
     float: right;
     border: 2px solid rgba(244, 244, 248, 1);
     border-radius: 10px;
-    margin-left: -145px;
     margin-top: -22px;
     padding: auto;
 }
