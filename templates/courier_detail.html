@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Вход</title>
+        <title>RATE-THIS</title>
         <link rel="stylesheet" href="/static/main_page.css" />
 
     </head>
@@ -93,8 +93,12 @@ function redirectTO(path) {
                 <div class="text">
                     <h1 class="fill">Курьер</h1>
                     <div class="butt-one">
-                        <button type="button" class="ruf" onclick="redirectToCourier()">Назад</button>
+                        <button type="button" class="ruf" onclick="redirectTO('couriers/history')">Назад</button>
                         <h1 class="but" onclick="redirectToCourier()" >Курьер</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat" onclick="redirectTO('couriers/history')">История заборов</h1>
+                        <h1 class="bet">/</h1>
+                        <h1 class="bat">{{ data }}</h1>
                     </div>
                     <h1 class="fill_grad">Данные для o всех курьерах в этот день выезда</h1>
                     <p><br></p>

@@ -284,14 +284,15 @@ button:hover {
 }
 
 .status-block {
-    position: relative;
-    left: -100px;
-    background-color: rgba(229, 234, 253, 1);
+background-color: rgba(229, 234, 253, 1);
     height: 22px;
     width: 120px;
     float: right;
     border: 2px solid rgba(244, 244, 248, 1);
     border-radius: 10px;
+    margin-left: -145px;
+    margin-top: -22px;
+    padding: auto;
 }
 
 .status-block-text {
@@ -304,7 +305,54 @@ button:hover {
     padding-right: 0;
 }
 
+
 .status-block-1 {
+    background-color: rgba(146, 230, 214, 1);
+    height: 22px;
+    width: 120px;
+    float: right;
+    border: 2px solid rgba(146, 230, 214, 1);
+    border-radius: 10px;
+    margin-right: 145px;
+    margin-top: -22px;
+    padding: auto;
+}
+
+.status-block-text-1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: black;
+    margin-left: -35px;
+    margin-top: -5px;
+    font-weight: normal;
+    padding-right: 0;
+}
+
+
+.stat-block {
+        position:  relative;
+    left: -150px;
+background-color: rgba(229, 234, 253, 1);
+    height: 22px;
+    width: 120px;
+    float: right;
+    border: 2px solid rgba(244, 244, 248, 1);
+    border-radius: 10px;
+}
+.stat-block-text {
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: rgba(81, 117, 255, 1);
+    margin-left: -35px;
+    margin-bottom: -5px;
+    font-weight: normal;
+    padding-right: 0;
+}
+
+
+.stat-block-1 {
+    position:  relative;
+    left: -100px;
     background-color: rgba(146, 230, 214, 1);
     height: 22px;
     width: 120px;
@@ -313,7 +361,7 @@ button:hover {
     border-radius: 10px;
 }
 
-.status-block-text-1 {
+.stat-block-text-1 {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     color: black;
@@ -333,7 +381,7 @@ button:hover {
 
 .block-new {
   background-color: white;
-  width: 1050px;
+  width: 750px;
   height: 50px;
   margin-left: 3.8%;
   color: rgba(244, 244, 248, 1);
@@ -348,7 +396,7 @@ button:hover {
 
 .block-new-2 {
   background-color:rgba(21, 24, 30, 1);
-  width: 1050px;
+  width: 750px;
   margin-left: 3.8%;
   color: rgba(244, 244, 248, 1);
   /*border: 2px solid rgba(244, 244, 248, 1);*/
@@ -364,7 +412,7 @@ button:hover {
   color: black;
   font-family: Montserrat, sans-serif;
   font-size: 15px;
-  width: 20%;
+  width: 40%;
   font-weight: normal;
   margin-left: -23px;
   padding: 0 10px;
@@ -374,7 +422,7 @@ button:hover {
   color: white;
   font-family: Montserrat, sans-serif;
   font-size: 15px;
-  width: 20%;
+  width: 40%;
   font-weight: normal;
   margin-left: -23px;
   padding: 0 10px;
