@@ -63,7 +63,7 @@ def set_delivery(request):
     Client_pvz = [] # у нас всё хранится типа: [[client_id, pvz]]
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
-    yesterday = timezone.now() - timedelta(days=1)
+    yesterday = timezone.now() - timedelta(days=2)
     start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
     end_of_yesterday = start_of_yesterday + timedelta(days=100)
 
@@ -204,30 +204,9 @@ def delivery_detail(request, date):
         start_of_today = datetime(today.year, today.month, today.day)
         print(formatted_date)
         for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
-        print(for_deliver)
-        status_dict = {
-            1: "Корзина собирается",
-            2: "Оплачен",
-            3: "Получить",
-            4: "Получен",
-            5: "Опубликовать",
-            6: "Модерация",
-            7: "Опубликован",
-            8: "Удалён",
-            9: "Отмена",
-            10: "Возврат",
-            11: "Проверить",
-            12: "Выдан курьеру",
-            21: "Не нашел в выдаче"
-        }
-        # if random.randint(0, 1):
-        #     lol = True
-        # else:
-        #     lol = False
-
         last_obj = LastDt.objects.filter(action=1).first()
-        print(formatted_date, datetime.today().date())
-        print(last_obj)
+        # print(formatted_date, datetime.today().date())
+        # print(last_obj)
         if last_obj is not None and formatted_date == datetime.today().date():
             is_active = True
         else:
@@ -239,15 +218,13 @@ def delivery_detail(request, date):
             'is_active': is_active
         }
         for i in for_deliver:
-            # client = Client.objects.filter(id=i.client_id).first()
             if i.pvz != 0:
                 pvz_row = DictPunkt.objects.filter(id=i.pvz).first()
                 pvz = pvz_row.punkt_vidachi
             else:
-                pvz=0
+                pvz = 0
             table_object = {
                 "id": i.client_id,
-                # "status": status_dict[int(client.status)],
                 "article": i.article,
                 "barcode": i.barcode,
                 "clientid": i.clientid,
@@ -257,7 +234,7 @@ def delivery_detail(request, date):
                 "code": i.code,
                 "code_qr": i.code_qr,
                 "date_active": i.date_active.strftime('%Y.%m.%d'),
-                "naming": i.naming, #naming
+                "naming": i.naming,
                 "task1": i.task1,
                 "who_give": i.who_gave,
                 "price": i.price
@@ -280,32 +257,12 @@ def delivery_detail(request, date):
 
             today = timezone.now()
             start_of_today = datetime(today.year, today.month, today.day)
-            print(formatted_date)
+            # print(formatted_date)
             for_deliver = InfoDt.objects.filter(date_action__date=formatted_date, action=1)
-            print(for_deliver)
-            status_dict = {
-                1: "Корзина собирается",
-                2: "Оплачен",
-                3: "Получить",
-                4: "Получен",
-                5: "Опубликовать",
-                6: "Модерация",
-                7: "Опубликован",
-                8: "Удалён",
-                9: "Отмена",
-                10: "Возврат",
-                11: "Проверить",
-                12: "Выдан курьеру",
-                21: "Не нашел в выдаче"
-            }
-            # if random.randint(0, 1):
-            #     lol = True
-            # else:
-            #     lol = False
-
+            # print(for_deliver)
             last_obj = LastDt.objects.filter(action=1).first()
-            print(formatted_date, datetime.today().date())
-            print(last_obj)
+            # print(formatted_date, datetime.today().date())
+            # print(last_obj)
             if last_obj is not None and formatted_date == datetime.today().date():
                 is_active = True
             else:
@@ -369,7 +326,7 @@ def delivery_detail(request, date):
                 i.save()
                 new_info = InfoDt(
                     client_id=i.client_id,
-                    action=1,
+                    action=2,
                     date_action=timezone.now(),
                     person=user.id,
                     clientid=i.clientid,
@@ -411,16 +368,17 @@ def delivery_history(request):
     for entry in daily_counts:
         date = entry['date'].strftime('%d.%m.%Y')
         n1 = entry['count_action1']
-        n2 = entry['count_action2']
+        obj = InfoDt.objects.filter(action=4, date_action__date=datetime.today().date()-timedelta(days=1)).all()
+
         last = LastDt.objects.filter(action=1).all()
-        if last != [] and entry['date'] == timezone.datetime.today().date():
+        if last != [] and entry['date'] == datetime.today().date():
             status = 1
         else:
             status = 0
         dat = {
             "date": date,
             "couriers": "В разработке",
-            "get": f"{n2} из {n1}",
+            "get": f"{len(obj)} из {n1}",
             "status": status,
             "redirect_url": f"delivery/{entry['date'].strftime('%Y%m%d')}/"
         }

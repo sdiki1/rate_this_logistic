@@ -102,27 +102,31 @@ function redirectTO(path) {
 
                     <h2 class="fill_grade">В данном разделе вы можете посмотреть историю выдач товаров!</h2>
                 </div>
-                <h1 class="date">Дата выезда</h1>
-                <h1 class="charge">Кол-во курьеров</h1>
-                <h1 class="give">Забрано</h1>
-                <h1 class="status">Статус</h1>
+            <div class="block-new-2">
+
+                <div class="column-2">Дата выезда</div>
+                <div class="column-2">Выдано</div>
+                <div class="column-2">Статус</div>
+                <div class="column-2"></div>
+            </div>
                 {% for el in rows %}
-                <div onclick="redirectTO('{{ el.redirect_url|escapejs }}')" class="block">
-                    <img class="arrow" src="../static/Vector 14.png">
-                    <div class="text-block">
-                        <h1 class="date-block">{{ el.date }}</h1>
-                        <h1 class="charge-block">{{el.couriers}}</h1>
-                        <h1 class="give-block">{{el.get}}</h1>
-                    </div>
+                <div onclick="redirectTO('{{ el.redirect_url|escapejs }}')" class="block-new">
+                    <div class="column">{{ el.date }}</div>
+                    <div class="column">{{el.get}}</div>
                     {% if el.status == 1 %}
-                        <div class="status-block">
-                            <h1 class="status-block-text">В процессе</h1>
+                        <div class="column">
+                        <div class="stat-block">
+                            <h1 class="stat-block-text">В процессе</h1>
+                        </div>
                         </div>
                     {% else %}
-                        <div class="status-block-1">
-                            <h1 class="status-block-text-1">Завершена</h1>
+                        <div class="column">
+                        <div class="stat-block-1">
+                            <h1 class="stat-block-text-1">Завершена</h1>
+                        </div>
                         </div>
                     {% endif %}
+                    <div class="column" ><img class="arrow" src="../static/Vector 14.png"></div>
                 </div>
                 {% endfor %}
 
