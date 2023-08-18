@@ -608,7 +608,7 @@ input.brein {
     z-index: 9999; /* Выше, чем остальной контент */
     padding: 20px;
     box-sizing: border-box;
-    transition: left .2s linear;
+    transition: left .1s linear;
 }
 
 .box-img {

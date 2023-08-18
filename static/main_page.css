@@ -161,6 +161,7 @@ button:hover {
     font-size: 20px;
     font-weight: normal;
     vertical-align: 5px;
+    cursor: pointer;
 }
 
 .button {
@@ -781,7 +782,7 @@ button.rud:hover {
   width: 20%;
   font-weight: normal;
   margin-left: -23px;
-  padding: 0 10px;
+  padding: 0 5px;
 }
 /*#textToCopy {*/
 /*    position: absolute;*/
@@ -805,6 +806,7 @@ button.rud:hover {
   padding-left: 30px;
   margin-bottom: 15px;
 }
+
 .column-2 {
   color: white;
   font-family: Montserrat, sans-serif;
@@ -814,3 +816,23 @@ button.rud:hover {
   margin-left: -23px;
   padding: 0 10px;
 }
+
+.column-3 {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 20%;
+    font-weight: normal;
+    margin-left: 90px;
+    padding: 0 10px;
+}
+
+.column-4 {
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    width: 20%;
+    font-weight: normal;
+    margin-left: -10px;
+    padding: 0 60px;
+  }

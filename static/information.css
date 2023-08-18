@@ -146,6 +146,7 @@ h1 {
     font-size: 20px;
     font-weight: normal;
     vertical-align: 5px;
+    cursor: pointer;
 }
 
 .but {
