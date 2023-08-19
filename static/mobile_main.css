@@ -5,7 +5,7 @@
 
 html, body {
     padding: 0;
-    margin-bottom: env(safe-area-inset-bottom); /* Учитываем безопасное пространство для iPhone X и аналогичных устройств */
+    margin: 0;
     overflow: hidden;
 }
 
@@ -649,4 +649,22 @@ input.brein {
 
 .head {
     margin-bottom: 15%;
+}
+
+#outerDiv.blocked {
+    pointer-events: none;
+}
+
+#overlayDiv {
+    position: fixed;
+    top: 0;
+    left: 70%;
+    width: 30%;
+    height: 100%;
+    background-color: transparent;
+    color: transparent;
+    z-index: 5000; /* Выше, чем остальной контент */
+    padding: 20px;
+    box-sizing: border-box;
+    display: none;
 }

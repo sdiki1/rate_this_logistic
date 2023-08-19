@@ -25,7 +25,7 @@
     <body>
     <form method="POST">{% block content %} {% csrf_token %}
         <div class="container">
-
+            <div id="overlayDiv"></div>
             <div id="dataContainer" class="hidden">
                 <div class="head">
                     <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="block-bottom">
+            <div class="block-bottom" id="block-bottom">
                 {% for i in products %}
                 <h1 class="fill-bottom">{{ i.adress }}</h1>
                     {% for m in i.prods %}
@@ -83,9 +83,13 @@
     <script>
         const showDataButton = document.getElementById('showDataButton');
         const dataContainer = document.getElementById('dataContainer');
+        const outerDiv = document.getElementById('block-bottom');
+        const overlayDiv = document.getElementById('overlayDiv');
 
         showDataButton.addEventListener('click', () => {
             dataContainer.style.left = '0';
+            overlayDiv.style.display = 'block'; // Показать перекрываемый div
+            outerDiv.classList.toggle('blocked');
         });
 
         window.addEventListener('click', (event) => {
@@ -93,6 +97,12 @@
                 dataContainer.style.left = '-70%';
             }
         });
+
+
+
+
+
+
 
     </script>
 

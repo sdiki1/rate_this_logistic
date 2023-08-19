@@ -6,7 +6,7 @@
 body {
     background-color: #95E6D6;
     padding: 0;
-    margin-bottom: env(safe-area-inset-bottom); /* Учитываем безопасное пространство для iPhone X и аналогичных устройств */
+    margin: 0;
     overflow: hidden;
 }
 

@@ -5,7 +5,7 @@
 
 html, body {
     padding: 0;
-    margin-bottom: env(safe-area-inset-bottom); /* Учитываем безопасное пространство для iPhone X и аналогичных устройств */
+    margin: 0;
     overflow: hidden;
 }
 
