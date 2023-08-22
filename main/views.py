@@ -188,7 +188,7 @@ def courier(request):
 
 def warehouse(request):
     if request.user.is_authenticated:
-        return render(request, "Warehouse.html", {'login': f'{request.user.username}'})
+        return render(request, "warehouse_main.html", {'login': f'{request.user.username}'})
     else:
         return HttpResponseRedirect('/auth/')
 
@@ -369,17 +369,17 @@ def delivery_history(request):
         date = entry['date'].strftime('%d.%m.%Y')
         n1 = entry['count_action1']
         obj = InfoDt.objects.filter(action=4, date_action__date=datetime.today().date()-timedelta(days=1)).all()
-
-        last = LastDt.objects.filter(action=1).all()
-        if last != [] and entry['date'] == datetime.today().date():
-            status = 1
+        last_obj = LastDt.objects.filter(action=1).first()
+        print(last_obj)
+        if last_obj is not None and entry['date'] == datetime.today().date():
+            is_active = 1
         else:
-            status = 0
+            is_active = 0
         dat = {
             "date": date,
             "couriers": "В разработке",
             "get": f"{len(obj)} из {n1}",
-            "status": status,
+            "status": is_active,
             "redirect_url": f"delivery/{entry['date'].strftime('%Y%m%d')}/"
         }
         data["rows"].append(dat)
@@ -722,6 +722,7 @@ def courier_id(request, date, data):
     shift_id = data
     if request.method == "POST":
         if "END_SHIFT" in request.POST:
+
             def generate_random_string(length):
                 characters = string.ascii_letters + string.digits
                 random_string = ''.join(random.choice(characters) for _ in range(length))
@@ -737,6 +738,39 @@ def courier_id(request, date, data):
             shift.changed_password = new_password
             shift.end_shift = datetime.now()
             shift.save()
+            objects_of_getting = InfoDt.objects.filter(action=11, who_gave=shift_id).all()
+            for i in objects_of_getting:
+                print(i)
+                i.action = 11
+                i.date_last_action = datetime.now()
+                i.save()
+                product = Client.objects.filter(id=i.client_id).first()
+                if product.punkt_vidachi != 0:
+                    pvz_row = DictPunkt.objects.filter(id=product.punkt_vidachi).first()
+                    pvz = pvz_row.id
+                else:
+                    pvz = 0
+
+                new_info = InfoDt(
+                    client_id=i.client_id,
+                    action=11,
+                    date_action=datetime.now(),
+                    person=request.user.id,
+                    clientid=i.clientid,
+                    phone=i.phone,
+                    barcode=i.barcode,
+                    pvz=pvz,
+                    code=i.code,
+                    code_qr=i.code_qr,
+                    price=i.price,
+                    task1=i.task1,
+                    date_active=i.date_active,
+                    naming=i.naming,
+                    article=i.article,
+                    who_gave=shift_id
+                )
+                new_info.save()
+
             return redirect(request.path)
 
         print(request.POST)
@@ -746,15 +780,15 @@ def courier_id(request, date, data):
             if f"ERRR-{i.id}" in data:
                 print("ERROR", i)
                 problem = i
-                type = 2
+                problem_solving = 2
                 break
             if f"DONE-{i.id}" in data:
                 print("DOONE", i)
                 problem = i
-                type = 1
+                problem_solving = 1
                 break
 
-        problem.status_solving = type
+        problem.status_solving = problem_solving
         problem.comment = data['comment']
         problem.save()
 
@@ -868,4 +902,60 @@ def courier_id(request, date, data):
 
     return render(request, "information.html", data)
 
+
+
+def get_prod(request):
+    if request.method == "POST":
+            return HttpResponse("method not alowed")
+
+    data = {
+        'login': f'{request.user.username}',
+        'getting': [],
+    }
+
+
+    shifts =  list(LastDt.objects.values_list('who_gave', flat=True).distinct())
+
+
+
+    for i in shifts:
+        prods = InfoDt.objects.filter(who_gave=i, action=11).all()
+        problems_this_shift = problems.objects.filter(shift_id=i).all()
+        try:
+            date_get = prods[0].date_gave.day
+        except IndexError:
+            date_get = 0
+        try:
+            shift_id = prods[0].who_gave
+        except IndexError:
+            shift_id = 0
+        try:
+            date_start = prods[0].date_accept_start
+        except IndexError:
+            date_start = 0
+        try:
+            date_end = prods[0].date_accept_end
+        except IndexError:
+            date_end = 0
+        counter = len(prods)
+        errs = len(problems_this_shift)
+        if date_start != 0 and date_end != 0:
+            status = 1
+        elif date_start != 0:
+            status = 2
+        else:
+            status = 3
+        tmp = {
+            'date_get': date_get,
+            'date_start_accept': date_start,
+            'date_end_accept': date_end,
+            'shift_id': i,
+            'amount_prods': counter,
+            'amount_accept': 0,
+            'errs': errs,
+            'status': status
+        }
+        data['getting'].append(tmp)
+    print(data)
+    return render(request, 'warehouse_acceptance.html', data)
 

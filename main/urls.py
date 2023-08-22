@@ -20,7 +20,8 @@ urlpatterns = [
     path('courier/send/set_data', main.views.set_data),
     path('logout/', main.views.logt),
     path('couriers/<int:date>/', main.views.courier_detail, name='delivery_detail'),
-    path('couriers/<int:date>/<int:data>/', main.views.courier_id)
+    path('couriers/<int:date>/<int:data>/', main.views.courier_id),
+    path('warehouse/get_products/', main.views.get_prod)
 ]
 
 if settings.DEBUG:

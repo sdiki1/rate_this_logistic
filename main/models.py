@@ -98,9 +98,9 @@ class InfoDt(models.Model):
     reason_trouble = models.TextField(null=True)
     accept_admin = models.IntegerField(null=True)
     admin_comment = models.TextField(null=True)
-    brand_model_auto = models.TextField(null=True)
     who_accept = models.IntegerField(null=True)
-    date_accept = models.DateField(null=True)
+    date_accept_start = models.DateField(null=True)
+    date_accept_end = models.DateField(null=True)
     who_shipped = models.IntegerField(null=True)
     date_shipped = models.DateField(null=True)
 
@@ -188,7 +188,8 @@ class LastDt(models.Model):
     admin_comment = models.TextField(null=True)
     brand_model_auto = models.TextField(null=True)
     who_accept = models.IntegerField(null=True)
-    date_accept = models.DateField(null=True)
+    date_accept_start = models.DateField(null=True)
+    date_accept_end = models.DateField(null=True)
     who_shipped = models.IntegerField(null=True)
     date_shipped = models.DateField(null=True)
 
