@@ -11,16 +11,22 @@
 
     </head>
     <script>
-        function redirectTOPROD(path) {
+    function redirectTOPROD() {
+        const pageElement = document.querySelector(".dadada");
+        pageElement.style.transform = "translateX(0)";
+        const pageElementtwo = document.querySelector(".container");
+        pageElementtwo.style.transform = "translateX(-100%)";
+    }
+    function redirectTOCarrier() {
+        const pageElement = document.querySelector(".dadada");
+        pageElement.style.transform = "translateX(100%)";
+        const pageElementtwo = document.querySelector(".container");
+        pageElementtwo.style.transform = "translateX(0%)";
+    }
+    
 
-    var currentPath =  window.location.origin
 
-    // Append "/contest" to the current path
-    var newUrl = currentPath + '/carrier/product/' + path;
 
-    // Navigate to the new URL
-    window.location.href = newUrl;
-        }
     </script>
     <body>
     <form method="POST">{% block content %} {% csrf_token %}
@@ -57,23 +63,79 @@
                 {% for i in products %}
                 <h1 class="fill-bottom">{{ i.adress }}</h1>
                     {% for m in i.prods %}
-                        <div class="box" onclick="redirectTOPROD('{{ m.redirect_data }}')">
+                        <div class="box" onclick="redirectTOPROD()">
                             <div>
-                            <img class="ellipse" src="{{ m.photo }}">
-                             {% if m.status == 1 %}
-                            <img class="ellipse2" src="/static/Vector%2019.png">
-                             {% elif m.status == 2 %}
+                                <img class="ellipse" src="{{ m.photo }}">
+                                 {% if m.status == 1 %}
+                                <img class="ellipse2" src="/static/Vector%2019.png">
+                                {% elif m.status == 2 %}
                                 <img class="ellipse2" src="/static/X.png">
-                             {% elif m.status == 3 %}
-                                 <img class="ellipse2" src="/static/_.png">
-                             {% endif %}
-                        </div>
+                                {% elif m.status == 3 %}
+                                <img class="ellipse2" src="/static/_.png">
+                                {% endif %}
+                            </div>
                             <h1 class="inf1">{{ m.name }}</h1>
                             <h2 class="inf2">Телефон: {{ m.phone }} Код: {{ m.code }}</h2>
                             <img class="vector" src="../static/Vector 14.png">
                         </div>
                     {% endfor %}
                 {% endfor %}
+            </div>
+        </div>
+        <div class="dadada">
+            <div class="block-top">
+                <div class="curier1">
+                    <img class="back" src="/static/vector.png">
+                    <h1 class="fill-back" onclick="redirectTOCarrier()">Назад</h1>
+                    <h1 class="fill">{{ product.name }}</h1>
+                </div>
+            </div>
+
+            <div class="block-bottom">
+                <img class="screan" src="{{ product.img }}">
+
+                {% if status == 1 %}
+                <div>
+                    <button class="button"  name="Get_product" type="submit">Получил</button>
+                    <button class="button1" name="Dont_get" type="submit">Не получил</button>
+                </div>
+                <button class="button2" name="Dont_know" type="submit">Не определил</button>
+                {% elif status == 2 %}
+                <div class="check2">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение!</h2>
+                    <h2 class="inform5">Ситуация решена езжайте дальше</h2>
+                </div>
+                {% elif status == 3 %}
+                <div class="check">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение, пожалуста ожидайте никуда не уходите, мы разбираемся в ситуации, нам нужно на это 5-10 минут. Чтобы проверить статус обработки, нажмите на кнопку!</h2>
+                    <button class="button-check" name="Check_problem" type="submit">Проверить</button>
+                </div>
+                {% elif status == 4 %}
+                <div class="check1">
+                    <h2 class="inform3">Мы зафиксировали ваше обращение, пожалуста ожидайте никуда не уходите, мы разбираемся в ситуации, нам нужно на это 5-10 минут. Чтобы проверить статус обработки, нажмите на кнопку!</h2>
+                    <h2 class="inform4">Пока в обработке, ожидайте пожалуйста</h2>
+                    <button class="button-check" name="Check_problem" type="submit">Проверить</button>
+                </div>
+                {% endif %}
+                <div class="inform-box">
+                    <h1 class="inform">Телефон</h1>
+                    <h2 class="inform2">{{ product.phone }}7</h2>
+                    <h1 class="inform">Наименование</h1>
+                    <h2 class="inform2">{{ product.naming }}</h2>
+                    <h1 class="inform">Статус заказа</h1>
+                    {% if product.status_vidacha %}
+                    <h2 class="inform2">Готов к выдаче</h2>
+                    <h1 class="inform">Номенклатура</h1>
+                    <h2 class="inform2">{{ product.barcode }}</h2>
+                    <h1 class="inform">МП</h1>
+                    <h2 class="inform2">WB</h2>
+                    <h1 class="inform">Код</h1>
+                    <h2 class="inform2">{{ product.code }}</h2>
+                    {% endif %}
+                </div>
+                {% if product.status_vidacha %}
+                <img class="qr" src="{{ product.code_qr }}"  width="30" height="30">>
+                {% endif %}
             </div>
         </div>
     {% endblock %}
