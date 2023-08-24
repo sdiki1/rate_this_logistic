@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html>
+
+    <head>
+{% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RATE-THIS</title>
+        <link rel="stylesheet" href="../static/warehouse.css" />
+
+    </head>
+{% endblock %}
+<script>
+function redirectToCourier() {
+    // Get the current URL path
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/courier";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToDelivery() {
+    // Get the current URL path
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/delivery";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectToWare() {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + "/warehouse";
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+function redirectTO(path) {
+
+    var currentPath = window.location.origin
+
+    // Append "/contest" to the current path
+    var newUrl = currentPath + path;
+
+    // Navigate to the new URL
+    window.location.href = newUrl;
+}
+</script>
+    {% block content %}
+    <body>
+        <div class="split-container">
+            <div class="block-left">
+                <div class="head">
+                    <h1 class="login">{{ login }}</h1>
+{#                    <h1 class="id">ID</h1>#}
+                    <img class="Main" onclick="redirectToMain()"  src="../static/logo.png">
+                </div>
+                <div class="line"></div>
+
+                <div class="commands">
+                    <div onclick="redirectToDelivery()" class="box1">
+                        <img class="box-img" src="../static/offer.png">
+                        <h1 class="box-text">Выдать товары</h1>
+                    </div>
+                    <div onclick="redirectToCourier()" class="box2">
+                        <img class="box-img" src="../static/cargo.png">
+                        <h1 class="box-text">Курьер</h1>
+                    </div>
+                    <div onclick="redirectToWare()" class="box3">
+                        <img class="box-img" src="../static/house.png">
+                        <h1 class="box-text" >Склад</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-right">
+                <div class="text">
+                    <h1 class="fill">Склад</h1>
+                    <h2 class="fill_grade">В данном разделе можно произвести приемку товаров, отгрузку товаров, посмотреть остатки</h2>
+                </div>
+                <div class="button">
+                    <button type="button" onclick="redirectTO('/warehouse/get_products/')">Приемка</button>
+                    <button type="button">Сортировка</button>
+                    <button type="button">Отгрузка</button>
+                    <button type="button">Перемещение</button>
+                    <button type="button">Что за товар</button>
+                    <button type="button">Что в коробе?</button>
+                </div>
+                <div class="container_main_data">
+                    <div class="block-new-2">
+                    <div class="column-2">&nbspНазвание</div>
+                    <div class="column-2">Артикулов</div>
+                    <div class="column-2">Количество товаров</div>
+                    <div class="column-2">Какие клиенты</div>
+                    <div class="column-2"></div>
+                    </div>
+                    <div class="container">
+                    <div class="block-new">
+                            <div class="column">Короб 1</div>
+                            <div class="column">2</div>
+                            <div class="column">135</div>
+                            <div class="column-long">25072023, 25072023, 25072023</div>
+                            <img class="arrow" src="../static/Vector 14.png">
+                    </div>
+                    <div class="block-new">
+                            <div class="column">Короб 1</div>
+                            <div class="column">2</div>
+                            <div class="column">135</div>
+                            <div class="column-long">25072023, 25072023, 25072023</div>
+                            <img class="arrow" src="../static/Vector 14.png">
+                    </div>
+                    <div class="block-new">
+                            <div class="column">Короб 1</div>
+                            <div class="column">2</div>
+                            <div class="column">135</div>
+                            <div class="column-long">25072023, 25072023, 25072023</div>
+                            <img class="arrow" src="../static/Vector 14.png">
+                    </div>
+                    <div class="block-new">
+                            <div class="column">Короб 1</div>
+                            <div class="column">2</div>
+                            <div class="column">135</div>
+                            <div class="column-long">25072023, 25072023, 25072023</div>
+                            <img class="arrow" src="../static/Vector 14.png">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    {%  endblock %}
 </html>

@@ -52,6 +52,23 @@ function redirectTO(path) {
     // Navigate to the new URL
     window.location.href = newUrl;
 }
+const minusButton = document.querySelector('.minus');
+const plusButton = document.querySelector('.plus');
+const input = document.querySelector('.input');
+
+minusButton.addEventListener('click', () => {
+  let value = parseInt(input.value);
+  if (value > 1) {
+    value--;
+    input.value = value;
+  }
+});
+
+plusButton.addEventListener('click', () => {
+  let value = parseInt(input.value);
+  value++;
+  input.value = value;
+});
 </script>
     {% block content %}
     <body>
@@ -88,54 +105,32 @@ function redirectTO(path) {
                     <h1 class="but">Cклад</h1>
                     <h1 class="bet">/</h1>
                     <h1 class="bat">Приемка товаров</h1>
-                    <h2 class="fill_grade">В данном разделе можно произвести приемку товаров, приемка производиться на основе данных от курьера</h2>
-                    <h2 class="fill1">История и активные приемки </h2>
+                    <h2 class="fill_grade">В данном разделе можно произвести приемку товаров, приемка производиться на основе данных от курьера, нельзя проводить 2 приемки одновременно, надо сначала закончить 1 перед тем как приступить к следующей</h2>
+                    <h2 class="fill1">Приемка</h2>
                 </div>
-                <div class="container_main_data">
-                    <div class="block-new-2">
-                    <div class="column-2">Дата завоза</div>
-                    <div class="column-2">Дата время Начала приемки</div>
-                    <div class="column-2">Дата время конца приемки</div>
-                    <div class="column-2">Id курьера</div>
-                    <div class="column-2">Товаров завезено</div>
-                    <div class="column-2">Товаров принято</div>
-                    <div class="column-2">Обезлич и пр</div>
-                    <div class="column-2">Статус</div>
-                    </div>
-                    {% for i in getting %}
+                <div class="block-new-2">
+                    <div class="column-2">ЧекБокс</div>
+                    <div class="column-2">Фото</div>
+                    <div class="column-2">Артикул</div>
+                    <div class="column-2">Баркод</div>
+                    <div class="column-2">Количество</div>
+                </div>
+                {% for i in prods %}
                     <div class="container">
-                        <div class="block-new" onclick="redirectTO('warehouse/get_products/{{ i.shift_id }}')">
-                            <div class="column">{{i.date_get}}</div>
-                            <div class="column">{{i.date_start_accept}}</div>
-                            <div class="column">{{ i.date_end_accept}}</div>
-                            <div class="column">{{  i.shift_id}}</div>
-                            <div class="column">{{i.amount_prods}}</div>
-                            <div class="column">{{0}}</div>
-                            <div class="column">{{i.errs}}</div>
-                            {% if i.status == 1 %}
+                        <div class="block-new">
+                            <div class="column">ЧекБокс</div>
+                            <div class="column"><img class='to_get' src="{{ i.photo }}"></div>
+                            <div class="column">{{ i.article }}</div>
+                            <div class="column">{{ i.barcode }}</div>
                             <div class="column">
-                                <div class="stat-block-2">
-                                    <h1 class="stat-block-text-2">Не принята</h1>
-                                </div>
+                                <input type="number" class="input" value="1">
                             </div>
-                            {% elif i.status == 2%}
-                            <div class="column">
-                                <div class="stat-block">
-                                    <h1 class="stat-block-text">В процессе</h1>
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="column">
-                                <div class="stat-block-1">
-                                    <h1 class="stat-block-text-1">Завершена</h1>
-                                </div>
-                            </div>
-                            {% endif %}
-                            <img class="arrow" src="/static/Vector 14.png">
                         </div>
-                    {% endfor %}
                     </div>
-                </div>
+                {% endfor %}
+                <form method="POST"> {% csrf_token %}
+                    <button type="submit" name="END">Завершить приемку</button>
+                </form>
             </div>
         </div>
     </body>

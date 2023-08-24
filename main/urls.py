@@ -10,7 +10,7 @@ urlpatterns = [
     path('delivery/', main.views.delivery),
     path('courier/', main.views.courier),
     path('warehouse/', main.views.warehouse),
-    path('delivery/<int:date>/', main.views.delivery_detail, name='delivery_detail'),
+    path('delivery/<int:date>/', main.views.delivery_detail),
     path('delivery/history', main.views.delivery_history),
     path('couriers/history', main.views.couriers_history),
     path('try/', main.views.trry),
@@ -19,9 +19,10 @@ urlpatterns = [
     path('courier/send/pvz', main.views.set_pvz),
     path('courier/send/set_data', main.views.set_data),
     path('logout/', main.views.logt),
-    path('couriers/<int:date>/', main.views.courier_detail, name='delivery_detail'),
+    path('couriers/<int:date>/', main.views.courier_detail),
     path('couriers/<int:date>/<int:data>/', main.views.courier_id),
-    path('warehouse/get_products/', main.views.get_prod)
+    path('warehouse/get_products/', main.views.get_prod),
+    path('warehouse/get_products/<int:data>/', main.views.get_product)
 ]
 
 if settings.DEBUG:

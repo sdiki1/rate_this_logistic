@@ -332,9 +332,9 @@ background-color: rgba(229, 234, 253, 1);
 
 
 .stat-block {
-        position:  relative;
+    position:  relative;
     left: -100px;
-background-color: rgba(229, 234, 253, 1);
+    background-color: rgba(229, 234, 253, 1);
     height: 22px;
     width: 120px;
     float: right;
@@ -429,3 +429,4 @@ background-color: rgba(229, 234, 253, 1);
   margin-left: -23px;
   padding: 0 10px;
 }
+
