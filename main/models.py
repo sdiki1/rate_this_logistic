@@ -103,6 +103,7 @@ class InfoDt(models.Model):
     date_accept_end = models.DateField(null=True)
     who_shipped = models.IntegerField(null=True)
     date_shipped = models.DateField(null=True)
+    box = models.IntegerField(null=True)
 
     class Meta:
         managed = True
@@ -193,6 +194,7 @@ class LastDt(models.Model):
     is_accept_acceptes = models.BooleanField(null=True)
     who_shipped = models.IntegerField(null=True)
     date_shipped = models.DateField(null=True)
+    box = models.IntegerField(null=True)
     class Meta:
         managed = True
         db_table = 'last_dt'

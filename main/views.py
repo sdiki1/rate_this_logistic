@@ -928,7 +928,7 @@ def get_prod(request):
             if date_end is None:
                 date_end = 0
             if date_start != 0 and date_end != 0:
-                continue
+                return 3
             elif date_start != 0:
                 return 2
             else:
@@ -1033,6 +1033,38 @@ def get_product(request, data):
 
         return HttpResponse('lol')
 
+    if request.method == "POST" and "END-2.0" in request.POST:
+        prods = LastDt.objects.filter(is_accept_acceptes=False)
+        for i in prods:
+            i.is_accept_acceptes = True
+            i.save()
+            new_info = InfoDt(
+                client_id=i.client_id,
+                action=i.action,
+                date_action=timezone.now(),
+                person=request.user.id,
+                clientid=i.clientid,
+                phone=i.phone,
+                barcode=i.barcode,
+                pvz=i.pvz,
+                code=i.code,
+                code_qr=i.code_qr,
+                price=i.price,
+                task1=i.task1,
+                date_active=i.date_active,
+                naming=i.naming,
+                article=i.article,
+                who_gave=i.who_gave,
+                date_gave=i.date_gave,
+                who_accept=request.user.id,
+                date_accept_start=i.date_accept_start,
+                date_accept_end=i.date_accept_end,
+            )
+            new_info.save()
+            return HttpResponseRedirect('/warehouse/get_products/')
+
+
+
     if request.method == "POST" and "END" in request.POST:
         post_data = request.POST
         shift_id = int(data)
@@ -1087,7 +1119,7 @@ def get_product(request, data):
             if date_end is None:
                 date_end = 0
             if date_start != 0 and date_end != 0:
-                continue
+                return 3
             elif date_start != 0:
                 return 2
             else:
@@ -1195,6 +1227,23 @@ def get_product(request, data):
         return render(request, 'warehouse_get_prods_work.html', data)
 
 
+    if status == 3:
+        Getted_objects = InfoDt.objects.filter(who_gave=shift_id, action__in=[13, 14])
+        data = {
+            'login': f'{request.user.username}',
+            'courier_id': shift_id,
+            'prods': []
+        }
 
+        for i in Getted_objects:
+            tmp = {
+                'article': i.article,
+                'barcode': i.barcode,
+                'phone': i.phone,
+                'pvz': i.pvz,
+                'box': i.box,
+            }
+            data['prods'].append(tmp)
+        return render(request, 'warehouse_getting_ended.html', data)
 
     return HttpResponse(f'getting product {data}')
