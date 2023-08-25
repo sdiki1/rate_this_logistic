@@ -190,9 +190,9 @@ class LastDt(models.Model):
     who_accept = models.IntegerField(null=True)
     date_accept_start = models.DateField(null=True)
     date_accept_end = models.DateField(null=True)
+    is_accept_acceptes = models.BooleanField(null=True)
     who_shipped = models.IntegerField(null=True)
     date_shipped = models.DateField(null=True)
-
     class Meta:
         managed = True
         db_table = 'last_dt'

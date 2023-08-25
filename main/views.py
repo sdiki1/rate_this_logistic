@@ -66,7 +66,7 @@ def set_delivery(request):
     Client_pvz = [] # у нас всё хранится типа: [[client_id, pvz]]
 
     list_mp = ['WB', 'wb', 'WB', 'wB']
-    yesterday =  - timedelta(days=2)
+    yesterday = timezone.now() - timedelta(days=2)
     start_of_yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
     end_of_yesterday = start_of_yesterday + timedelta(days=100)
 
@@ -1031,9 +1031,44 @@ def get_product(request, data):
 
             new_info.save()
 
-        return HttpResponse('Приемка началась)')
+        return HttpResponse('lol')
 
-
+    if request.method == "POST" and "END" in request.POST:
+        post_data = request.POST
+        shift_id = int(data)
+        prods = LastDt.objects.filter(who_gave=shift_id, action=12)
+        articles = []
+        for i in prods:
+            if i.article in articles:
+                continue
+            articles.append(i.article)
+        for i in articles:
+            print(post_data[f'amount-{i}'])
+        for i in articles:
+            if f'prod-{i}' in post_data:
+                amount = post_data[f'amount-{i}']
+                prods = LastDt.objects.filter(who_gave=shift_id, action=12, article=i)
+                for l in prods:
+                    l.action = 12
+                    l.date_accept_end = timezone.now()
+                    l.is_accept_acceptes = False
+                    l.save()
+                for l in range(int(amount)):
+                    try:
+                        prods[l].action = 13
+                        prods[l].save()
+                    except:
+                        ...
+                prods2 = LastDt.objects.filter(who_gave=shift_id, action=12, article=i)
+                for l in prods:
+                    l.action = 14
+                    l.save()
+                data = {
+                    "login": request.user.username,
+                    "id": request.user.id,
+                    "name": request.user.first_name
+                }
+                return render(request, 'warehouse_end_gettind.html', data)
 
 
     def find_status(id):

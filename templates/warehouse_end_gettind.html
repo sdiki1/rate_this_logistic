@@ -69,6 +69,9 @@ plusButton.addEventListener('click', () => {
   value++;
   input.value = value;
 });
+
+
+
 </script>
     {% block content %}
     <body>
@@ -99,39 +102,22 @@ plusButton.addEventListener('click', () => {
 
 
             <div class="block-right">
+                <form method="POST"> {% csrf_token %}
                 <div class="text">
                     <h1 class="fill">Склад<br></h1>
-                    <button class="back_but" onclick="redirectToWare()">Назад</button>
+                    <button class="back_but" onclick="history.back()">Назад</button>
                     <h1 class="but">Cклад</h1>
                     <h1 class="bet">/</h1>
-                    <h1 class="bat">Приемка товаров</h1>
-                    <h2 class="fill_grade">В данном разделе можно произвести приемку товаров, приемка производиться на основе данных от курьера, нельзя проводить 2 приемки одновременно, надо сначала закончить 1 перед тем как приступить к следующей</h2>
-                    <h2 class="fill1">Приемка</h2>
+                    <h1 class="bat">Окончание приемка</h1>
+                    <h2 class="fill_grade">Я провел(а) приемку полностью в трезвом и здравом рассудке, в трезвом состоянии и полной осознаности действий, все товары посчитаны и приняты мной полностью корректно и верно. Вся дальнейшая ответственность на расхождении товаров на мне. В случае не схождения, по моей вине готов(а) компенсировать! Курьер был свидетелем</h2>
+                    <h2 class="fill1">
+                        <input type="checkbox" class="custom-checkbox" name="prod-{{ i.article }}" id="checkbox-{{ i.article }}">
+                        <label class="lab" for="checkbox-{{ i.article }}"></label>
+                        Приемку провел(а) &emsp;&emsp;&emsp;&emsp;   кладовщик {{ name }}&emsp;&emsp;&emsp;&emsp; ID  {{ id }}</h2>
                 </div>
-                <div class="block-new-2">
-                    <div class="column-2">ЧекБокс</div>
-                    <div class="column-2">Фото</div>
-                    <div class="column-2">Артикул</div>
-                    <div class="column-2">Баркод</div>
-                    <div class="column-2">Количество</div>
-                </div>
-                <form method="POST"> {% csrf_token %}
-                {% for i in prods %}
-                    <div class="container">
-                        <div class="block-new">
-                            <div class="column"><input type="checkbox" class="custom-checkbox" name="prod-{{ i.article }}" id="checkbox-{{ i.article }}">
-                            <label class="lol" for="checkbox-{{ i.article }}"></label>
-                            </div>
-                            <div class="column"><img class='to_get' src="{{ i.photo }}"></div>
-                            <div class="column">{{ i.article }}</div>
-                            <div class="column">{{ i.barcode }}</div>
-                            <div class="column">
-                                <input type="number" name="amount-{{ i.article }}" class="input" value="1">
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                    <button type="submit" name="END" class="end">Завершить приемку</button>
+
+                    <button type="button" name="REVIEW" class="end2" onclick="history.back()">Перепроверить данные</button>
+                    <button type="submit" name="END-2.0" class="end">Завершить приемку</button>
                 </form>
             </div>
         </div>

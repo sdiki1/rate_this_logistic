@@ -457,3 +457,79 @@ button:hover {
   display: flex;
   align-items: center;
 }
+
+.end {
+    width: 400px;
+    height: 10px;
+    padding-bottom: 50px;
+}
+.end2 {
+    background-color: #FF6F6F;
+    text-color:#000;
+    width: 400px;
+    height: 10px;
+    padding-bottom: 50px;
+}
+
+.check {
+    margin-top: 80px;
+}
+
+.custom-checkbox {
+    display: none;
+}
+
+.check-box {
+    position: fixed;
+    top: 20px;
+}
+
+
+.lol:before {
+  content: " ";
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  position: sticky;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid rgba(21, 24, 30, 1);
+  border-radius: 10px;
+  vertical-align: middle;
+}
+
+input:checked + .lol:before {
+  background-color: rgba(24, 32, 38, 1);
+  padding: -4px;
+}
+
+
+.lab {
+    color: #FFFF;
+    cursor: default;
+    font-family: Montserrat, sans-serif;
+    font-weight: normal;
+    font-size: 25px;
+    padding-bottom: 100px;
+    vertical-align: middle;
+    margin-left: 0px;
+}
+
+.lab:before {
+    content: " ";
+    display: inline-block;
+    margin-right: 15px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: rgba(21, 24, 30, 1);
+    border: 4px solid white;
+    border-radius: 13px;
+    vertical-align: middle;
+}
+
+input:checked + .lab:before {
+    background-color: #95E6D6;
+    padding: -4px;
+}
