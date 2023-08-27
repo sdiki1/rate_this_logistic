@@ -911,7 +911,6 @@ def get_prod(request):
 
 
     shifts =  list(LastDt.objects.values_list('who_gave', flat=True).distinct())
-
     def find_status(id):
         prods = LastDt.objects.filter(who_gave=id).all()
         for i in prods:
@@ -958,6 +957,13 @@ def get_prod(request):
                 continue
             return date_end
         return '-'
+    def find_getted(id):
+        prods = InfoDt.objects.filter(who_gave=id, action=13)
+        return len(prods)
+
+    def find_err(id):
+        prods = InfoDt.objects.filter(who_gave=id, action=14)
+        return len(prods)
 
     for i in shifts:
         prods = InfoDt.objects.filter(who_gave=i, action=11).all()
@@ -989,9 +995,9 @@ def get_prod(request):
             'date_end_accept': find_end(i),
             'shift_id': i,
             'amount_prods': counter,
-            'amount_accept': 0,
-            'errs': errs,
-            'status': find_status(i)
+            'amount_accept': find_getted(i),
+            'errs': find_err(i),
+            'status': find_status(i),
         }
         data['getting'].append(tmp)
     return render(request, 'warehouse_acceptance.html', data)
@@ -1031,7 +1037,7 @@ def get_product(request, data):
 
             new_info.save()
 
-        return HttpResponse('lol')
+        return HttpResponseRedirect(f'/warehouse/get_products/{data}')
 
     if request.method == "POST" and "END-2.0" in request.POST:
         prods = LastDt.objects.filter(is_accept_acceptes=False)
@@ -1061,12 +1067,13 @@ def get_product(request, data):
                 date_accept_end=i.date_accept_end,
             )
             new_info.save()
-            return HttpResponseRedirect('/warehouse/get_products/')
+        return HttpResponseRedirect('/warehouse/get_products/')
 
 
 
     if request.method == "POST" and "END" in request.POST:
         post_data = request.POST
+        print(post_data)
         shift_id = int(data)
         prods = LastDt.objects.filter(who_gave=shift_id, action=12)
         articles = []
@@ -1074,11 +1081,11 @@ def get_product(request, data):
             if i.article in articles:
                 continue
             articles.append(i.article)
-        for i in articles:
-            print(post_data[f'amount-{i}'])
+        print(articles)
         for i in articles:
             if f'prod-{i}' in post_data:
                 amount = post_data[f'amount-{i}']
+                print(i, amount)
                 prods = LastDt.objects.filter(who_gave=shift_id, action=12, article=i)
                 for l in prods:
                     l.action = 12
@@ -1092,15 +1099,16 @@ def get_product(request, data):
                     except:
                         ...
                 prods2 = LastDt.objects.filter(who_gave=shift_id, action=12, article=i)
-                for l in prods:
+                for l in prods2:
                     l.action = 14
+                    l.date_accept_end = timezone.now()
                     l.save()
                 data = {
                     "login": request.user.username,
                     "id": request.user.id,
                     "name": request.user.first_name
                 }
-                return render(request, 'warehouse_end_gettind.html', data)
+        return render(request, 'warehouse_end_gettind.html', data)
 
 
     def find_status(id):
@@ -1123,18 +1131,18 @@ def get_product(request, data):
             elif date_start != 0:
                 return 2
             else:
-                continue
-        return 1
+                return 1
 
 
     status = find_status(int(data))
     shift_id = int(data)
+    print(status)
 
     if status == 1:
 
         shifts = Couriers_shifts.objects.all()
         is_active = False
-        now_ready = True
+        now_ready = False
         for i in shifts:
             print(find_status(i.id))
             if find_status(i.id) == 2 and i.id != int(data):
@@ -1160,7 +1168,6 @@ def get_product(request, data):
                 'courier_id': courier_id,
             }
             return render(request,'warehouse_acceptance_is_working.html', data)
-
         else:
             return render(request, 'warehouse_start_getting.html', data)
 
@@ -1234,16 +1241,101 @@ def get_product(request, data):
             'courier_id': shift_id,
             'prods': []
         }
+        def photo_link(article: int):
+            l = article // (10 ** 5)
+            m = article // (10 ** 3)
+            # print(l, m)
+
+            g = 0
+            if l <= 143:
+                g = 1
+            elif l <= 287:
+                g = 2
+            elif l <= 431:
+                g = 3
+            elif l <= 719:
+                g = 4
+            elif l <= 1007:
+                g = 5
+            elif l <= 1061:
+                g = 6
+            elif l <= 1115:
+                g = 7
+            elif l <= 1169:
+                g = 8
+            elif l <= 1313:
+                g = 9
+            elif l <= 1601:
+                g = 10
+            elif l <= 1655:
+                g = 11
+            else:
+                g = 12
+
+            if g < 10:
+                bask = f'basket-0{g}'
+            else:
+                bask = f'basket-{g}'
+
+                photo_lin = f'https://{bask}.wb.ru/vol{l}/part{m}/{article}/images/big/1.jpg'
+                return photo_lin
 
         for i in Getted_objects:
+            if i.action == 13:
+                stat = 1
+            else:
+                stat = 2
             tmp = {
                 'article': i.article,
+                'photo': photo_link(int(i.article)),
                 'barcode': i.barcode,
                 'phone': i.phone,
                 'pvz': i.pvz,
                 'box': i.box,
+                'status': stat
             }
             data['prods'].append(tmp)
         return render(request, 'warehouse_getting_ended.html', data)
 
     return HttpResponse(f'getting product {data}')
+
+
+
+def warehouse_sort(request):
+    not_sorted_prods = LastDt.objects.filter(box__isnull=True).all()
+
+    data = {
+        'login': request.user.username,
+        'table': []
+    }
+
+    for i in not_sorted_prods:
+        if i.pvz != 0:
+            pvz_row = DictPunkt.objects.filter(id=i.pvz).first()
+            pvz = pvz_row.punkt_vidachi
+        else:
+            pvz = 0
+        table_object = {
+            "id": i.client_id,
+            "article": i.article,
+            "barcode": i.barcode,
+            "clientid": i.clientid,
+            "name": i.name,
+            "phone": i.phone,
+            "punkt_vidachi": pvz,
+            "code": i.code,
+            "code_qr": i.code_qr,
+            "date_active": i.date_active.strftime('%Y.%m.%d'),
+            "naming": i.naming,
+            "task1": i.task1,
+            "who_give": i.who_gave,
+            "price": i.price
+        }
+        data['table'].append(table_object)
+
+    return render(request, 'warehouse_sort.html', data)
+
+
+def warehouse_sorting(request):
+    return render('')
+

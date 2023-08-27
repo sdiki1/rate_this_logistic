@@ -22,7 +22,9 @@ urlpatterns = [
     path('couriers/<int:date>/', main.views.courier_detail),
     path('couriers/<int:date>/<int:data>/', main.views.courier_id),
     path('warehouse/get_products/', main.views.get_prod),
-    path('warehouse/get_products/<int:data>/', main.views.get_product)
+    path('warehouse/get_products/<int:data>/', main.views.get_product),
+    path('warehouse/sort/', main.views.warehouse_sort),
+    path('warehouse/sort/sorting/', main.views.warehouse_sorting)
 ]
 
 if settings.DEBUG:
